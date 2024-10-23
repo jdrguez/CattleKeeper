@@ -1,5 +1,7 @@
 # Proyecto: Diseño de Interfaz de Usuario para Aplicación de Control de Inventario Ganadero
 
+## Hecho por Nichole y José Domingo
+
 ## Descripción de la Aplicación Web
 
 La aplicación web propuesta se centra en la **gestión de inventario ganadero**, permitiendo a los usuarios controlar y monitorear todos los aspectos relacionados con sus animales. A través de esta plataforma, los usuarios podrán **registrar, visualizar y actualizar** información relevante sobre cada animal, como su estado de salud, alimentación, producción y otros datos importantes para su manejo eficiente.
