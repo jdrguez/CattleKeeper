@@ -53,7 +53,7 @@ El mockup será creado en **Figma** para mantener la consistencia visual en toda
 
 
 -**Registro del Usuario**, con una estetica similar al login presentamos nuestro registro:
-
+![RegisterFigma](img/registerFigma.png)
 
 ## Prototipo Interactivo
 
