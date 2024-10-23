@@ -23,7 +23,7 @@ Se creará un esquema básico que mostrará la estructura de la interfaz de usua
 
 
 
-El wireframe será simple, centrándose en la disposición de los elementos. Se utilizará **Balsamiq** para su creación.
+El wireframe será simple, centrándose en la disposición de los elementos. Se utilizó **Balsamiq** para su creación.
 
 ## Mockup
 
@@ -35,6 +35,25 @@ El mockup representará la apariencia visual de la pantalla principal de la apli
 - **Imágenes representativas** de animales y gráficos que resumen los datos del inventario de forma visual.
 
 El mockup será creado en **Figma** para mantener la consistencia visual en todas las plataformas.
+
+- **Login del Usuario**, manteniendo los principios expuestos anteriormente, presentamos nuestro login:
+![LoginFigma](img/loginFigma.png)
+
+
+-**Pantalla principal**, visualización más precisa de la interpretación del balsamiq:
+##### Versión de escritorio:
+![MainFigma](img/mainFigma.png)
+##### Versión de móvil (iPhone 16):
+![MainIphone](img/mainIphone.png)
+##### Versión en tablet (iPad):
+![MainIpad](img/mainIpad.png)
+
+#### Destacar la integración y ejecución de la pantalla de stats en el proyecto:
+![MainStats](img/mainStats.png)
+
+
+-**Registro del Usuario**, con una estetica similar al login presentamos nuestro registro:
+
 
 ## Prototipo Interactivo
 
