@@ -1,0 +1,8 @@
+Collecting django-cors-headers
+  Downloading django_cors_headers-4.6.0-py3-none-any.whl.metadata (16 kB)
+Requirement already satisfied: asgiref>=3.6 in ./.venv/lib/python3.12/site-packages (from django-cors-headers) (3.8.1)
+Requirement already satisfied: django>=4.2 in ./.venv/lib/python3.12/site-packages (from django-cors-headers) (5.1.6)
+Requirement already satisfied: sqlparse>=0.3.1 in ./.venv/lib/python3.12/site-packages (from django>=4.2->django-cors-headers) (0.5.3)
+Downloading django_cors_headers-4.6.0-py3-none-any.whl (12 kB)
+Installing collected packages: django-cors-headers
+Successfully installed django-cors-headers-4.6.0
