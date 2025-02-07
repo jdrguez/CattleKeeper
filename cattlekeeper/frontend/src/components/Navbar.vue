@@ -27,7 +27,7 @@ import { RouterLink} from 'vue-router'
   </symbol>
 </svg>
 
-<div class="px-3 py-2 border-bottom" style="background-color: #DCF2E6; color: black !important;">
+<div class="px-3 py-2 border-bottom" id="container-nav">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         <RouterLink to="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
@@ -67,8 +67,19 @@ import { RouterLink} from 'vue-router'
 </template>
 
 <style>
-  .nav-link{
+
+  #container-nav{
+    background-color: #015730;
     color: black !important;
+  }
+
+  .nav-link{
+    color: white !important;
+  }
+
+  .nav-link:hover{
+    text-decoration: underline;
+    text-decoration-color: #FF8800;
   }
 
   .logo{

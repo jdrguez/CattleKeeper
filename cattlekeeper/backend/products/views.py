@@ -3,4 +3,4 @@ from django.http import JsonResponse
 # Create your views here.
 
 def get_all_products(request):
-    return JsonResponse({'producto':'arroz'})
+    return JsonResponse([{'id': 1, 'name': 'arroz'},{'id':2, 'name':'chocolate'}], safe=False)
