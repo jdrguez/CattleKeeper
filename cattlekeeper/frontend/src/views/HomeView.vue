@@ -70,91 +70,56 @@
 
   <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-body-tertiary">
     <div class="col-md-6 p-lg-5 mx-auto my-5">
-      <h1 class="display-3 fw-bold">Designed for engineers</h1>
-      <h3 class="fw-normal text-muted mb-3">Build anything you want with Aperture</h3>
+      <h1 class="display-3 fw-bold">Descubre nuestra app</h1>
+      <h3 class="fw-normal text-muted mb-3">lleva el control de tu granja al siguiente nivel.</h3>
       <div class="d-flex gap-3 justify-content-center lead fw-normal">
         <a class="icon-link" href="#">
-          Learn more
-          <svg class="bi"><use xlink:href="#chevron-right"/></svg>
-        </a>
-        <a class="icon-link" href="#">
-          Buy
+          Download
           <svg class="bi"><use xlink:href="#chevron-right"/></svg>
         </a>
       </div>
     </div>
-    <div class="product-device shadow-sm d-none d-md-block"></div>
-    <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+    <div class="product-device shadow-sm d-none d-md-block" style="background-color: #012615;">
+    </div>
+    <div class="product-device product-device-2 shadow-sm d-none d-md-block" style="background-color: #01261570;"></div>
   </div>
 
   <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
-    <div class="text-bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+    <div class="me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden text-white" style="background-color: #012615;">
       <div class="my-3 py-3">
-        <h2 class="display-5">Another headline</h2>
-        <p class="lead">And an even wittier subheading.</p>
+        <h2 class="display-5">Gestión Eficiente de Inventario</h2>
+        <p class="lead">Mantén un control total de tu ganado. Registra y organiza tu inventario de manera sencilla y rápida</p>
       </div>
-      <div class="bg-body-tertiary shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
+      <div class="bg-body-tertiary shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="../assets/img/cap4.png" style="width: 100%; height: 300px; border-radius: 21px 21px 0 0; z-index: 1;"></div>
     </div>
     <div class="bg-body-tertiary me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
       <div class="my-3 p-3">
-        <h2 class="display-5">Another headline</h2>
-        <p class="lead">And an even wittier subheading.</p>
+        <h2 class="display-5">Mapa Interactivo de tu Granja</h2>
+        <p class="lead">Crea un mapa personalizado de tu granja. Localiza tus corrales, pasturas y recursos de manera intuitiva</p>
       </div>
-      <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
+      <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="../assets/img/cap2.png" style="width: 100%; height: 300px; border-radius: 21px 21px 0 0; z-index: 1;"></div>
     </div>
   </div>
 
   <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
     <div class="bg-body-tertiary me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
       <div class="my-3 p-3">
-        <h2 class="display-5">Manten a tus patos felices</h2>
-        <p class="lead">Alimentalos, controlalos y disfrutalos</p>
+        <h2 class="display-5">Registro de Animales Simplificado</h2>
+        <p class="lead">Agrega y gestiona tus animales fácilmente. Lleva un seguimiento de su salud, alimentación y reproducción.</p>
       </div>
       
-      <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="../assets/img/6389141.jpg" style="width: 100%; height: 300px; border-radius: 21px 21px 0 0; z-index: 1;"></div>
+      <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="../assets/img/cap5.png" style="width: 100%; height: 300px; border-radius: 21px 21px 0 0; z-index: 1;"></div>
     </div>
-    <div class="text-bg-primary me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+    <div class="me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden text-white" style="background-color: #012615;">
       <div class="my-3 py-3">
-        <h2 class="display-5">Another headline</h2>
-        <p class="lead">And an even wittier subheading.</p>
+        <h2 class="display-5">Gráficas y Estadísticas en Tiempo Real</h2>
+        <p class="lead">Visualiza el rendimiento de tu granja con gráficas y estadísticas que te ayudarán a tomar decisiones informadas.</p>
       </div>
-      <div class="bg-body-tertiary shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
+      <div class="bg-body-tertiary shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="../assets/img/cap3.png" style="width: 100%; height: 300px; border-radius: 21px 21px 0 0; z-index: 1;"></div>
     </div>
   </div>
 
-  <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
-    <div class="bg-body-tertiary me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-      <div class="my-3 p-3">
-        <h2 class="display-5">Another headline</h2>
-        <p class="lead">And an even wittier subheading.</p>
-      </div>
-      <div class="bg-body shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
-    </div>
-    <div class="bg-body-tertiary me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-      <div class="my-3 py-3">
-        <h2 class="display-5">Another headline</h2>
-        <p class="lead">And an even wittier subheading.</p>
-      </div>
-      <div class="bg-body shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
-    </div>
-  </div>
-
-  <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
-    <div class="bg-body-tertiary me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-      <div class="my-3 p-3">
-        <h2 class="display-5">Another headline</h2>
-        <p class="lead">And an even wittier subheading.</p>
-      </div>
-      <div class="bg-body shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
-    </div>
-    <div class="bg-body-tertiary me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-      <div class="my-3 py-3">
-        <h2 class="display-5">Another headline</h2>
-        <p class="lead">And an even wittier subheading.</p>
-      </div>
-      <div class="bg-body shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
-    </div>
-  </div>
+  
 </template>
 
 

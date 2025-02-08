@@ -1,38 +1,65 @@
 <template>
-  <div class="container mt-4">
+<div class="container mt-4">
     <h1 class="text-center">Products</h1>
     <div class="row">
-      <div v-for="product in products" :key="product.id" class="col-md-4 mb-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">{{ product.name }}</h5>
-            <button @click="addToCart(product)" class="btn btn-primary">Añadir al carrito</button>
-          </div>
+        <div v-for="product in products" :key="product.id" class="col-md-3 mb-4">
+            <div class="card">
+                <img :src="product.image" class="card-img-top" alt="Imagen de {{ product.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">Precio: {{ product.price }} €</p>
+                    <button @click="addToCart(product)" class="btn btn-primary me-2">
+                      <i class="bi bi-cart2"></i>
+                    </button>
+                    <button @click="wishlistStore.addItem(product)" class="btn btn-primary">
+                        <i class="bi bi-heart-fill"></i>
+                    </button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
+</div>
     <h2 class="mt-4">Carrito ({{ cartTotal }})</h2>
     <div v-if="cartItems.length">
-      <ul class="list-group">
-        <li v-for="item in cartItems" :key="item.id" class="list-group-item">
-          {{ item.name }} - Cantidad: {{ item.quantity }}
+      <ul class="list-group mb-4">
+        <li v-for="item in cartItems" :key="item.id" class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <strong>{{ item.name }}</strong> - items: {{ item.quantity }}
+            </div>
+            <span class="badge bg-primary rounded-pill">{{ cartStore.get_price(item) }} €</span>
         </li>
-      </ul>
-    </div>
+    </ul>
+    <h4 class="text-end">Total: {{ cartPrice }} €</h4>
+    <button @click="placeOrder" class="btn btn-success">Realizar Pedido</button>
+</div>
     <div v-else>
       <p>Your cart is empty.</p>
     </div>
-  </div>
+  
 </template>
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 import { useCartStore } from '../stores/cartStore';
+import { useOrderStore } from '../stores/orderStore';
+import { useWishlistStore } from '../stores/wishlistStore';
 
 const cartStore = useCartStore();
+const orderStore = useOrderStore();
+const wishlistStore = useWishlistStore();
+
+
+function placeOrder() {
+  const totalPrice = cartStore.getTotalPrice();
+  orderStore.addOrder(cartStore.items, parseFloat(totalPrice));
+
+    cartStore.items = [];}
+
 interface Product {
   id: number;
   name: string;
+  price: number;
+  image: string;
 }
 
 const products = ref<Product[]>([]);
@@ -48,7 +75,7 @@ onMounted(() => {
     return respuesta.json();
   })
   .then(datos => {
-    datos.forEach((element: {id : number, name : string}) => {
+    datos.forEach((element: {id : number, name : string, price: number, image: string}) => {
       products.value.push(element)
     });
   })
@@ -57,13 +84,20 @@ onMounted(() => {
   });
 });
 
-const addToCart = (product: { id: number; name: string }) => {
-  cartStore.addItem({ id: product.id, name: product.name, quantity: 1 });
+const addToCart = (product: { id: number; name: string; price:number;}) => {
+  cartStore.addItem({ id: product.id, name: product.name, quantity: 1, price: product.price });
 };
-
 const cartItems = computed(() => cartStore.items);
 const cartTotal = computed(() => cartStore.getTotalItems());
+const cartPrice = computed(() => cartStore.getTotalPrice());
+
 </script>
 
 <style scoped>
+.card-img-top {
+    width: 100px; 
+    height: 100px;
+    object-fit: cover; 
+    margin: 0 auto; 
+}
 </style>

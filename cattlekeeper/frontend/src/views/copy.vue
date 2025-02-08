@@ -9,37 +9,36 @@
                         <div class="box me-4 my-1 bg-light">
                             <i class="bi bi-box-seam"></i>
                             <div class="d-flex align-items-center mt-2">
-                                <div class="tag">Orders</div>
-                                <div class="ms-auto number">{{total}}</div>
+                                <div class="tag">Orders placed</div>
+                                <div class="ms-auto number">10</div>
                             </div>
                         </div>
                         <div class="box me-4 my-1 bg-light">
                             <i class="bi bi-cart3"></i>
                             <div class="d-flex align-items-center mt-2">
                                 <div class="tag">Items in Cart</div>
-                                <div class="ms-auto number">{{totalCart }}</div>
+                                <div class="ms-auto number">10</div>
                             </div>
                         </div>
                         <div class="box me-4 my-1 bg-light">
                             <i class="bi bi-balloon-heart"></i>
                             <div class="d-flex align-items-center mt-2">
                                 <div class="tag">Wishlist</div>
-                                <div class="ms-auto number">{{totalWishtList}}</div>
+                                <div class="ms-auto number">10</div>
                             </div>
                         </div>
                     </div>
                     <div class="text-uppercase">My recent orders</div>
-                    <li v-for="order in orders" :key="order.id" class="order-item">
                     <div class="order my-3 bg-light">
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="d-flex flex-column justify-content-between order-summary">
                                     <div class="d-flex align-items-center">
-                                        <p class="text-uppercase">Order #{{order.id}}</p>
+                                        <div class="text-uppercase">Order #fur10001</div>
                                         <div class="blue-label ms-auto text-uppercase">paid</div>
                                     </div>
-                                    <div class="fs-8">Total: {{ order.totalPrice }}€</div>
-                                    <div class="fs-8">{{formatDate(order.createdAt)}}</div>
+                                    <div class="fs-8">Products #03</div>
+                                    <div class="fs-8">22 August, 2020 | 12:05 PM</div>
                                     <div class="rating d-flex align-items-center pt-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
                                         <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a10 10 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733q.086.18.138.363c.077.27.113.567.113.856s-.036.586-.113.856c-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.2 3.2 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.8 4.8 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
@@ -81,30 +80,60 @@
                             </div>
                         </div>
                     </div>
-                </li>
+                    <div class="order my-3 bg-light">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="d-flex flex-column justify-content-between order-summary">
+                                    <div class="d-flex align-items-center">
+                                        <div class="text-uppercase">Order #fur10001</div>
+                                        <div class="green-label ms-auto text-uppercase">cod</div>
+                                    </div>
+                                    <div class="fs-8">Products #03</div>
+                                    <div class="fs-8">22 August, 2020 | 12:05 PM</div>
+                                    <div class="rating d-flex align-items-center pt-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                                        <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a10 10 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733q.086.18.138.363c.077.27.113.567.113.856s-.036.586-.113.856c-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.2 3.2 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.8 4.8 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                                        </svg><span class="px-2">Rating:</span>
+                                        <span class="fas fa-star"></span>
+                                        <span class="fas fa-star"></span>
+                                        <span class="fas fa-star"></span>
+                                        <span class="fas fa-star"></span>
+                                        <span class="far fa-star"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="d-sm-flex align-items-sm-start justify-content-sm-between">
+                                    <div class="status">Status : Delivered</div>
+                                    <div class="btn btn-primary">Order info</div>
+                                </div>
+                                <div class="progressbar-track">
+                                    <ul class="progressbar">
+                                        <li id="step-1" class="text-muted green">
+                                            <span class="fas fa-gift"></span>
+                                        </li>
+                                        <li id="step-2" class="text-muted">
+                                            <span class="fas fa-check"></span>
+                                        </li>
+                                        <li id="step-3" class="text-muted">
+                                            <span class="fas fa-box"></span>
+                                        </li>
+                                        <li id="step-4" class="text-muted">
+                                            <span class="fas fa-truck"></span>
+                                        </li>
+                                        <li id="step-5" class="text-muted">
+                                            <span class="fas fa-box-open"></span>
+                                        </li>
+                                    </ul>
+                                    <div id="tracker"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 </template>
 
-<script setup lang="ts">
-import { ref, computed } from 'vue';
-import { useOrderStore } from '../stores/orderStore';
-import { useWishlistStore } from '../stores/wishlistStore';
-import { useCartStore } from '../stores/cartStore';
-
-const orderStore = useOrderStore();
-const wishlistStore = useWishlistStore();
-
-const orders = computed(() => orderStore.getOrders());
-const total = computed(()=> orderStore.getTotalOrders())
-const totalWishtList = computed(() => wishlistStore.get_total())
-const totalCart = computed(() => useCartStore().getTotalItems())
-
-const formatDate = (date: Date) => {
-  const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-  return new Date(date).toLocaleString('en-US', options);
-};
-</script>
 
 <style>
 #main-content {
@@ -194,18 +223,18 @@ const formatDate = (date: Date) => {
 }
 
 .order .btn.btn-primary {
-    background-color: transparent; 
-    color: #225696; 
-    border: 2px solid #225696; 
-    border-radius: 5px; 
-    padding: 10px 20px; 
-    font-weight: bold; 
-    transition: background-color 0.3s, color 0.3s; 
+    background-color: transparent; /* Fondo transparente */
+    color: #225696; /* Texto azul */
+    border: 2px solid #225696; /* Borde azul */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 10px 20px; /* Espaciado interno */
+    font-weight: bold; /* Texto en negrita */
+    transition: background-color 0.3s, color 0.3s; /* Transición suave */
 }
 
 .order .btn.btn-primary:hover {
-    background-color: #225696; 
-    color: #fff; 
+    background-color: #225696; /* Fondo azul al pasar el mouse */
+    color: #fff; /* Texto blanco al pasar el mouse */
 }
 
 .order .progressbar-track {
@@ -273,6 +302,9 @@ const formatDate = (date: Date) => {
     left: -10px;
 }
 
+
+
+/* Backgrounds */
 .bg-purple {
     background-color: #55009b;
 }
@@ -285,6 +317,7 @@ const formatDate = (date: Date) => {
     color: #007965 !important;
 }
 
+/* Media Queries */
 @media(max-width: 1199.5px) {
     nav ul li {
         padding: 0 10px;
