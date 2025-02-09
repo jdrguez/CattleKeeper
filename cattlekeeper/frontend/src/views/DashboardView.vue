@@ -221,7 +221,7 @@ import { useI18n } from 'vue-i18n';
         </div>
       </div>
 
-      <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+      <img src="../assets/img/grafica.jpg" alt="" width="1000" height="450">
 
       <h2>{{t('dash.d14')}}</h2>
       <div class="table-responsive small">
