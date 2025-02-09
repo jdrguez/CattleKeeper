@@ -1,6 +1,6 @@
 <template>
 <div class="container mt-4">
-    <h1 class="text-center">Products</h1>
+    <h1 class="text-center">{{ t('products') }}</h1>
     <div class="row">
         <div v-for="product in products" :key="product.id" class="col-md-3 mb-4">
             <div class="card">
@@ -11,7 +11,7 @@
                     <button @click="addToCart(product)" class="btn btn-primary me-2">
                       <i class="bi bi-cart2"></i>
                     </button>
-                    <button @click="wishlistStore.addItem(product)" class="btn btn-primary">
+                    <button @click="addWish(product)" class="btn btn-primary">
                         <i class="bi bi-heart-fill"></i>
                     </button>
                 </div>
@@ -19,7 +19,7 @@
         </div>
     </div>
 </div>
-    <h2 class="mt-4">Carrito ({{ cartTotal }})</h2>
+    <h2 class="mt-4">{{ t('cart')}} ({{ cartTotal }})</h2>
     <div v-if="cartItems.length">
       <ul class="list-group mb-4">
         <li v-for="item in cartItems" :key="item.id" class="list-group-item d-flex justify-content-between align-items-center">
@@ -30,20 +30,22 @@
         </li>
     </ul>
     <h4 class="text-end">Total: {{ cartPrice }} €</h4>
-    <button @click="placeOrder" class="btn btn-success">Realizar Pedido</button>
+    <button @click="placeOrder" class="btn btn-success">{{t('checkout')}}</button>
 </div>
     <div v-else>
-      <p>Your cart is empty.</p>
+      <p>{{t('empty_cart')}}</p>
     </div>
   
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
+import { defineComponent, ref, computed, onMounted } from 'vue';
 import { useCartStore } from '../stores/cartStore';
 import { useOrderStore } from '../stores/orderStore';
 import { useWishlistStore } from '../stores/wishlistStore';
+import { useI18n } from 'vue-i18n';
 
+const { t } = useI18n();
 const cartStore = useCartStore();
 const orderStore = useOrderStore();
 const wishlistStore = useWishlistStore();
@@ -52,8 +54,9 @@ const wishlistStore = useWishlistStore();
 function placeOrder() {
   const totalPrice = cartStore.getTotalPrice();
   orderStore.addOrder(cartStore.items, parseFloat(totalPrice));
-
+  alert('¡purchase added successfully!');
     cartStore.items = [];}
+
 
 interface Product {
   id: number;
@@ -87,9 +90,16 @@ onMounted(() => {
 const addToCart = (product: { id: number; name: string; price:number;}) => {
   cartStore.addItem({ id: product.id, name: product.name, quantity: 1, price: product.price });
 };
+
+const addWish = (product: { id: number; name: string; price:number;}) => {
+  wishlistStore.addItem(product);
+  alert('Added to your wishlist');
+};
+
 const cartItems = computed(() => cartStore.items);
 const cartTotal = computed(() => cartStore.getTotalItems());
 const cartPrice = computed(() => cartStore.getTotalPrice());
+
 
 </script>
 

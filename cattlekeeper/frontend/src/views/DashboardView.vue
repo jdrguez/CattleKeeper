@@ -1,3 +1,11 @@
+<script setup lang="ts">
+import { RouterLink} from 'vue-router';
+import { useI18n } from 'vue-i18n';
+
+    const { t } = useI18n();
+
+</script>
+
 <template>
   <div class="dashboard">
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -116,43 +124,43 @@
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="#">
                 <svg class="bi"><use xlink:href="#house-fill"/></svg>
-                Dashboard
+                {{t('dashboard')}}
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
+              <RouterLink to="/products" class="nav-link text-white">
                 <svg class="bi"><use xlink:href="#file-earmark"/></svg>
-                Orders
-              </a>
+                {{t('orders')}}
+              </RouterLink>
             </li>
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
+              <RouterLink to="/products" class="nav-link text-white">
                 <svg class="bi"><use xlink:href="#cart"/></svg>
-                Products
-              </a>
+                {{t('products')}}
+            </RouterLink>
             </li>
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="#">
                 <svg class="bi"><use xlink:href="#people"/></svg>
-                Customers
+                {{t('dash.d2')}}
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="#">
                 <svg class="bi"><use xlink:href="#graph-up"/></svg>
-                Reports
+                {{t('dash.d3')}}
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="#">
                 <svg class="bi"><use xlink:href="#puzzle"/></svg>
-                Integrations
+                {{t('dash.d4')}}
               </a>
             </li>
           </ul>
 
           <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
-            <span>Saved reports</span>
+            <span>{{t('dash.d5')}}</span>
             <a class="link-secondary" href="#" aria-label="Add a new report">
               <svg class="bi"><use xlink:href="#plus-circle"/></svg>
             </a>
@@ -161,25 +169,19 @@
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="#">
                 <svg class="bi"><use xlink:href="#file-earmark-text"/></svg>
-                Current month
+                {{t('dash.d6')}}
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="#">
                 <svg class="bi"><use xlink:href="#file-earmark-text"/></svg>
-                Last quarter
+                {{t('dash.d7')}}
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="#">
                 <svg class="bi"><use xlink:href="#file-earmark-text"/></svg>
-                Social engagement
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
-                <svg class="bi"><use xlink:href="#file-earmark-text"/></svg>
-                Year-end sale
+                {{t('dash.d8')}}
               </a>
             </li>
           </ul>
@@ -190,13 +192,13 @@
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="#">
                 <svg class="bi"><use xlink:href="#gear-wide-connected"/></svg>
-                Settings
+                {{t('dash.d9')}}
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="#">
                 <svg class="bi"><use xlink:href="#door-closed"/></svg>
-                Sign out
+                {{t('dash.d10')}}
               </a>
             </li>
           </ul>
@@ -206,148 +208,106 @@
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Dashboard</h1>
+        <h1 class="h2">{{t('dashboard')}}</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group me-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">{{t('dash.d11')}}</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">{{t('dash.d12')}}</button>
           </div>
           <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1">
             <svg class="bi"><use xlink:href="#calendar3"/></svg>
-            This week
+            {{t('dash.d13')}}
           </button>
         </div>
       </div>
 
       <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
 
-      <h2>Section title</h2>
+      <h2>{{t('dash.d14')}}</h2>
       <div class="table-responsive small">
         <table class="table table-striped table-sm">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Header</th>
-              <th scope="col">Header</th>
-              <th scope="col">Header</th>
-              <th scope="col">Header</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1,001</td>
-              <td>random</td>
-              <td>data</td>
-              <td>placeholder</td>
-              <td>text</td>
-            </tr>
-            <tr>
-              <td>1,002</td>
-              <td>placeholder</td>
-              <td>irrelevant</td>
-              <td>visual</td>
-              <td>layout</td>
-            </tr>
-            <tr>
-              <td>1,003</td>
-              <td>data</td>
-              <td>rich</td>
-              <td>dashboard</td>
-              <td>tabular</td>
-            </tr>
-            <tr>
-              <td>1,003</td>
-              <td>information</td>
-              <td>placeholder</td>
-              <td>illustrative</td>
-              <td>data</td>
-            </tr>
-            <tr>
-              <td>1,004</td>
-              <td>text</td>
-              <td>random</td>
-              <td>layout</td>
-              <td>dashboard</td>
-            </tr>
-            <tr>
-              <td>1,005</td>
-              <td>dashboard</td>
-              <td>irrelevant</td>
-              <td>text</td>
-              <td>placeholder</td>
-            </tr>
-            <tr>
-              <td>1,006</td>
-              <td>dashboard</td>
-              <td>illustrative</td>
-              <td>rich</td>
-              <td>data</td>
-            </tr>
-            <tr>
-              <td>1,007</td>
-              <td>placeholder</td>
-              <td>tabular</td>
-              <td>information</td>
-              <td>irrelevant</td>
-            </tr>
-            <tr>
-              <td>1,008</td>
-              <td>random</td>
-              <td>data</td>
-              <td>placeholder</td>
-              <td>text</td>
-            </tr>
-            <tr>
-              <td>1,009</td>
-              <td>placeholder</td>
-              <td>irrelevant</td>
-              <td>visual</td>
-              <td>layout</td>
-            </tr>
-            <tr>
-              <td>1,010</td>
-              <td>data</td>
-              <td>rich</td>
-              <td>dashboard</td>
-              <td>tabular</td>
-            </tr>
-            <tr>
-              <td>1,011</td>
-              <td>information</td>
-              <td>placeholder</td>
-              <td>illustrative</td>
-              <td>data</td>
-            </tr>
-            <tr>
-              <td>1,012</td>
-              <td>text</td>
-              <td>placeholder</td>
-              <td>layout</td>
-              <td>dashboard</td>
-            </tr>
-            <tr>
-              <td>1,013</td>
-              <td>dashboard</td>
-              <td>irrelevant</td>
-              <td>text</td>
-              <td>visual</td>
-            </tr>
-            <tr>
-              <td>1,014</td>
-              <td>dashboard</td>
-              <td>illustrative</td>
-              <td>rich</td>
-              <td>data</td>
-            </tr>
-            <tr>
-              <td>1,015</td>
-              <td>random</td>
-              <td>tabular</td>
-              <td>information</td>
-              <td>text</td>
-            </tr>
-          </tbody>
-        </table>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">{{ t('breed') }}</th>
+            <th scope="col">{{ t('quantity') }}</th>
+            <th scope="col">{{ t('production') }}</th>
+            <th scope="col">{{ t('location') }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>{{ t('farms.farmA') }}</td>
+            <td>150</td>
+            <td>30</td>
+            <td>{{ t('farms.farmA') }}</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>{{ t('farms.farmB') }}</td>
+            <td>80</td>
+            <td>25</td>
+            <td>{{ t('farms.farmB') }}</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>{{ t('farms.farmC') }}</td>
+            <td>200</td>
+            <td>N/A</td>
+            <td>{{ t('farms.farmC') }}</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>{{ t('farms.farmD') }}</td>
+            <td>120</td>
+            <td>N/A</td>
+            <td>{{ t('farms.farmD') }}</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>{{ t('farms.farmE') }}</td>
+            <td>90</td>
+            <td>20</td>
+            <td>{{ t('farms.farmE') }}</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>{{ t('farms.farmF') }}</td>
+            <td>110</td>
+            <td>N/A</td>
+            <td>{{ t('farms.farmF') }}</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>{{ t('farms.farmG') }}</td>
+            <td>75</td>
+            <td>N/A</td>
+            <td>{{ t('farms.farmG') }}</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>{{ t('farms.farmH') }}</td>
+            <td>60</td>
+            <td>22</td>
+            <td>{{ t('farms.farmH') }}</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>{{ t('farms.farmI') }}</td>
+            <td>50</td>
+            <td>18</td>
+            <td>{{ t('farms.farmI') }}</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>{{ t('farms.farmJ') }}</td>
+            <td>40</td>
+            <td>N/A</td>
+            <td>{{ t('farms.farmJ') }}</td>
+          </tr>
+        </tbody>
+      </table>
       </div>
     </main>
   </div>
@@ -355,12 +315,10 @@
 </div>
 </template>
 
-<style scoped>
-.dashboard {
-  padding: 20px;
-}
-</style>
 <style>
+      .dashboard {
+        padding: 20px;
+      }
       .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;

@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { errorMessages } from 'vue/compiler-sfc';
 
 export const useOrderStore = defineStore('order', {
   state: () => ({
@@ -27,6 +28,13 @@ export const useOrderStore = defineStore('order', {
     },
     getTotalOrders(){
         return this.orders.length
+    },
+    get_order(id:number | any) {
+      for (const order of this.orders){
+        if (order.id == id){
+          return order
+        }
+      }
     }
   },
 });

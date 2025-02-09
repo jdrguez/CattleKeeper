@@ -2,41 +2,43 @@
     <div class="col-lg-9 my-lg-0 my-1">
                 <div id="main-content" class="bg-white border">
                     <div class="d-flex flex-column">
-                        <div class="h5">Hello Jhon,</div>
-                        <div>Logged in as: someone@gmail.com</div>
+                        <div class="h5">{{t('hello')}} Jhon,</div>
+                        <div>{{t('logged')}}: someone@gmail.com</div>
                     </div>
                     <div class="d-flex my-4 flex-wrap">
                         <div class="box me-4 my-1 bg-light">
                             <i class="bi bi-box-seam"></i>
                             <div class="d-flex align-items-center mt-2">
-                                <div class="tag">Orders</div>
+                                <div class="tag">{{t('orders')}}</div>
                                 <div class="ms-auto number">{{total}}</div>
                             </div>
                         </div>
                         <div class="box me-4 my-1 bg-light">
                             <i class="bi bi-cart3"></i>
                             <div class="d-flex align-items-center mt-2">
-                                <div class="tag">Items in Cart</div>
+                                <div class="tag">{{t('items')}}</div>
                                 <div class="ms-auto number">{{totalCart }}</div>
                             </div>
                         </div>
                         <div class="box me-4 my-1 bg-light">
                             <i class="bi bi-balloon-heart"></i>
                             <div class="d-flex align-items-center mt-2">
-                                <div class="tag">Wishlist</div>
+                                <RouterLink to="/wishlist" class="nav-link text-secondary">
+                                <div class="tag">{{t('wishlist')}}</div>
+                            </RouterLink>
                                 <div class="ms-auto number">{{totalWishtList}}</div>
                             </div>
                         </div>
                     </div>
-                    <div class="text-uppercase">My recent orders</div>
+                    <div class="text-uppercase">{{t('my_orders')}}</div>
                     <li v-for="order in orders" :key="order.id" class="order-item">
                     <div class="order my-3 bg-light">
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="d-flex flex-column justify-content-between order-summary">
                                     <div class="d-flex align-items-center">
-                                        <p class="text-uppercase">Order #{{order.id}}</p>
-                                        <div class="blue-label ms-auto text-uppercase">paid</div>
+                                        <p class="text-uppercase">{{t('order')}} #{{order.id}}</p>
+                                        <div class="blue-label ms-auto text-uppercase">{{t('proccesing')}}</div>
                                     </div>
                                     <div class="fs-8">Total: {{ order.totalPrice }}€</div>
                                     <div class="fs-8">{{formatDate(order.createdAt)}}</div>
@@ -55,8 +57,10 @@
                             </div>
                             <div class="col-lg-8">
                                 <div class="d-sm-flex align-items-sm-start justify-content-sm-between">
-                                    <div class="status">Status : Delivered</div>
-                                    <div class="btn btn-primary">Order info</div>
+                                    <div class="status">Status : {{t('pending')}}</div>
+                                    <router-link :to="{ name: 'order', params: { id: order.id } }">
+                                        <div class="btn btn-primary">Order info</div>
+                                   </router-link>
                                 </div>
                                 <div class="progressbar-track">
                                     <ul class="progressbar">
@@ -88,10 +92,13 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+import { RouterLink} from 'vue-router'
 import { useOrderStore } from '../stores/orderStore';
 import { useWishlistStore } from '../stores/wishlistStore';
 import { useCartStore } from '../stores/cartStore';
+import { useI18n } from 'vue-i18n';
 
+const { t } = useI18n();
 const orderStore = useOrderStore();
 const wishlistStore = useWishlistStore();
 

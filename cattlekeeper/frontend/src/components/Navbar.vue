@@ -1,5 +1,12 @@
 <script setup lang="ts">
 import { RouterLink} from 'vue-router'
+import { useI18n } from 'vue-i18n';
+
+const { t, locale } = useI18n();
+
+const changeLanguage = () => {
+  locale.value = locale.value === 'en' ? 'es' : 'en';
+};
 </script>
 
 <template>
@@ -38,26 +45,30 @@ import { RouterLink} from 'vue-router'
           <li>
             <RouterLink to="/" class="nav-link text-secondary">
               <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#home"></use></svg>
-              Home
+              {{ t('home') }}
             </RouterLink>
           </li>
           <li>
             <RouterLink to="/dashboard" class="nav-link text-white">
               <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#speedometer2"></use></svg>
-              Dashboard
+              {{ t('dashboard') }}
             </RouterLink>
           </li>
           <li>
             <RouterLink to="/products" class="nav-link text-white">
               <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#cart"></use></svg>
-              Products
+              {{ t('products') }}
             </RouterLink>
           </li>
           <li>
             <RouterLink to="/account" class="nav-link text-white">
               <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#people-circle"></use></svg>
-              Account
+              {{ t('account') }}
             </RouterLink>
+          </li>
+          <li>
+            <p></p>
+            <button @click="changeLanguage" style="background: none; border: none;">{{ t('change') }}</button>
           </li>
         </ul>
       </div>
@@ -89,3 +100,4 @@ import { RouterLink} from 'vue-router'
 
 
 </style>
+
