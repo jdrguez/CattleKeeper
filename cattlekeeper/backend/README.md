@@ -1,36 +1,41 @@
 # Backend Cattlekeeper
 
-cattlekeeper/             # Proyecto raíz
+```
+cattlekeeper/                  # Proyecto raíz
 ├── manage.py
-├── cattlekeeper/         # Configuración del proyecto (settings, urls)
+├── cattlekeeper/             # Configuración del proyecto (settings, urls)
 │
-├── accounts/             # Usuarios y autenticación
-├── products/             # Productos a la venta
-├── orders/               # Pedidos y pagos
-├── farm/                 # Granja del usuario
-│   ├── models.py         # Animales, producción, salud, etc.
-|           ├── animals/        <- Gestión de animales (altas, bajas, razas, historial)
-│           ├── health/         <- Historial sanitario, vacunas, visitas veterinarias
-│           ├── production/     <- Producción (leche, carne, huevos, etc.)
-│           ├── expenses/       <- Costos, gastos, inversiones
-└── stats/                # Reportes y dashboards
+├── accounts/                 # Usuarios y autenticación
+├── products/                 # Productos a la venta
+├── orders/                   # Pedidos y pagos
+├── farm/                     # Granja del usuario
+│   ├── models.py             # Animales, producción, salud, etc.
+│   ├── animals/              # Gestión de animales (altas, bajas, razas, historial)
+│   ├── health/               # Historial sanitario, vacunas, visitas veterinarias
+│   ├── production/           # Producción (leche, carne, huevos, etc.)
+│   ├── expenses/             # Costos, gastos, inversiones
+│
+└── stats/                    # Reportes y dashboards
+```
 
-1. accounts/
+### Descripción
+
+#### 1. accounts/
 Modelos: User personalizado si necesitas más campos (como nombre granja, etc.)
 Vistas: login, logout, registro (django.contrib.auth.views + formularios propios)
 URLs: /login/, /register/, /logout/, /profile/
 
-2. products/
+#### 2. products/
 Modelos: Producto, Categoría
 Vistas: Listado de productos (usado luego por Vue), detalles
 URLs: /products/, /products/<id>/
 
-3. orders/
+#### 3. orders/
 Modelos: Orden, OrdenItem, Pago
 Vistas: Agregar al carrito, ver carrito, confirmar compra
 URLs: /cart/, /checkout/
 
-4. farm/ (con submódulos o apps internas si crece mucho)
+#### 4. farm/ (con submódulos o apps internas si crece mucho)
 Modelos:
 Animal: especie, raza, fecha de nacimiento, peso
 HealthRecord: fecha, diagnóstico, tratamiento, animal relacionado
@@ -38,7 +43,7 @@ Production: litros de leche, kg de carne, etc.
 Expense: categoría, monto, fecha
 URLs: /farm/animals/, /farm/production/, etc.
 
-5. stats/
+#### 5. stats/
 Vistas que agregan contexto con filtros por usuario
 Generan datos para los futuros gráficos de Vue
 Rutas como /stats/overview/, /stats/expenses/
