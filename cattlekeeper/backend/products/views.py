@@ -1,14 +1,53 @@
 from django.http import JsonResponse
+from .models import Product, Review
+from .serializers import ProductSerializer, ReviewSerializer
+from shared.decorators import method_required, check_json_body, required_fields
+from .helpers import product_exist, review_exist
+from django.views.decorators.csrf import csrf_exempt
 
-def get_all_products(request):
-    products = [
-        {'id': 1, 'name': 'Alimento para ganado', 'price': 25.99, 'image': 'https://static.vecteezy.com/system/resources/thumbnails/049/045/108/small_2x/hay-bale-pixel-art-for-your-needs-vector.jpg'},
-        {'id': 2, 'name': 'Suplementos vitamínicos', 'price': 15.50, 'image': 'https://static.vecteezy.com/system/resources/previews/023/873/447/non_2x/health-vitamin-bottle-game-pixel-art-illustration-vector.jpg'},
-        {'id': 3, 'name': 'Vacuna contra aftosa', 'price': 12.00, 'image': 'https://as1.ftcdn.net/jpg/04/37/33/04/1000_F_437330478_DWqifW7UcrLLKIVrSEhWVlBex5JhvFJy.jpg'},
-        {'id': 4, 'name': 'Bebedero automático', 'price': 45.75, 'image': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTutoqkzuSo_EM2mkD6r9tZ5k7zo2JUu1W-jA&s'},
-        {'id': 5, 'name': 'Esquila eléctrica', 'price': 80.00, 'image': 'https://img.freepik.com/psd-premium/pixel-art-sierra-mango-amarillo_901483-17.jpg'},
-        {'id': 6, 'name': 'Sales minerales', 'price': 18.90, 'image': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYDUFR3koMz-OYH8TK9mTWBWidsLf_RQNaMw&s'},
-        {'id': 7, 'name': 'Medicamento antiparasitario', 'price': 22.50, 'image': 'https://www.shutterstock.com/image-vector/medicine-pill-bottle-container-child-260nw-2029148558.jpg'},
-        {'id': 8, 'name': 'Cercado eléctrico', 'price': 120.00, 'image': 'https://static.vecteezy.com/system/resources/previews/022/284/738/non_2x/wooden-fence-in-pixel-art-style-vector.jpg'},
-    ]
-    return JsonResponse(products, safe=False)
+@csrf_exempt
+@method_required('get')
+def product_list(request):
+    products = Product.objects.all()
+    products_json = ProductSerializer(products, request=request)
+    return products_json.json_response()
+
+@csrf_exempt
+@method_required('get')
+@product_exist
+def product_detail(request, product_slug):
+    product_json = ProductSerializer(request.product, request=request)
+    return product_json.json_response()
+
+@csrf_exempt
+@method_required('get')
+@product_exist
+def review_list(request, product_slug):
+    reviews = request.product.product_reviews.all()
+    review_json = ReviewSerializer(reviews, request=request)
+    return review_json.json_response()
+
+
+@method_required('get')
+@review_exist
+def review_detail(request, review_pk):
+    review_json = ReviewSerializer(request.review, request=request)
+    return review_json.json_response()
+
+@csrf_exempt
+@method_required('post')
+@check_json_body
+@required_fields('rating', 'comment')
+@product_exist
+def add_review(request, product_slug):
+    user = request.user
+    rating = int(request.json_body['rating'])
+    if rating < 1 or rating > 5:
+        return JsonResponse({'error': 'Rating is out of range'}, status=400)
+    review = Review.objects.create(
+        product=request.product,
+        author=user,
+        rating=rating,
+        comment=request.json_body['comment'],
+    )
+    return JsonResponse({'id': review.pk})

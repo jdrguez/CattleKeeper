@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'orders.apps.OrdersConfig',
     'farm.apps.FarmConfig',
     'stats.apps.StatsConfig',
+    'colorfield',
 ]
 
 MIDDLEWARE = [
