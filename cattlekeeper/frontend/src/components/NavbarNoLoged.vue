@@ -56,45 +56,27 @@ const changeLanguage = () => {
           <img class="logo" src="../assets/img/logo.webp" alt="">
         </RouterLink>
 
-       
-        
-        
-        <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
 
-
+        <ul    class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
           <li>
-            <RouterLink to="/" class="nav-link text-secondary">
+          <RouterLink to="/" class="nav-link text-secondary">
               <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#home"></use></svg>
               {{ t('home') }}
             </RouterLink>
           </li>
-        
           <li>
-            <RouterLink to="/dashboard" class="nav-link text-white">
-              <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#speedometer2"></use></svg>
-              {{ t('dashboard') }}
-            </RouterLink>
+          <RouterLink  to="/login" class="nav-link text-white">
+                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#people-circle"></use></svg>
+                {{ t('login') }}
+              </RouterLink>
           </li>
           <li>
-            <RouterLink   to="/products" class="nav-link text-white">
-              <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#cart"></use></svg>
-              {{ t('products') }}
-            </RouterLink>
-          </li>
-          <li>
-            <RouterLink  to="/account" class="nav-link text-white">
-              <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#people-circle"></use></svg>
-              {{ t('account') }}
-            </RouterLink>
-            
-          </li>
-      
-          <li>
-
             <p></p>
             <button @click="changeLanguage" style="background: none; border: none;">{{ t('change') }}</button>
-          </li>
+        </li> 
         </ul>
+
+
       </div>
     </div>
   </div>

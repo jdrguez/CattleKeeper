@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from accounts.serializers import UserSerializer
 import json
 from shared.decorators import method_required, check_json_body, required_fields
-
+from .models import Token
 @csrf_exempt
 @method_required('post')
 @check_json_body
@@ -33,7 +33,11 @@ def login_user(request):
 
         if user is not None:
             login(request, user)
-            return JsonResponse({'message': 'Login successful.'})
+            token, _ = Token.objects.get_or_create(user=user)
+            response = JsonResponse({'message': 'Login successful.'})
+            response.headers['authorization'] = str(token.key)
+            print(response.headers)
+            return response
         else:
             return JsonResponse({'error': 'Invalid credentials.'}, status=401) 
 

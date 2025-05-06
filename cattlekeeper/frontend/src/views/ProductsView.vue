@@ -4,7 +4,7 @@
     <div class="row">
         <div v-for="product in products" :key="product.id" class="col-md-3 mb-4">
             <div class="card">
-                <img :src="product.image" class="card-img-top" alt="Imagen de {{ product.name }}">
+                <img :src="getFullImageUrl(product.image)" class="card-img-top" alt="Imagen de {{ product.name }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
                     <p class="card-text">Precio: {{ product.price }} €</p>
@@ -13,7 +13,7 @@
                     </button>
                     <button @click="addWish(product)" class="btn btn-primary">
                         <i class="bi bi-heart-fill"></i>
-                    </button>
+                    </button> 
                 </div>
             </div>
         </div>
@@ -44,11 +44,23 @@ import { useCartStore } from '../stores/cartStore';
 import { useOrderStore } from '../stores/orderStore';
 import { useWishlistStore } from '../stores/wishlistStore';
 import { useI18n } from 'vue-i18n';
+import api from '@/api/axios.ts'
 
 const { t } = useI18n();
 const cartStore = useCartStore();
 const orderStore = useOrderStore();
 const wishlistStore = useWishlistStore();
+
+const backendUrl = 'http://127.0.0.1:8000'  
+
+const getFullImageUrl = (path:any) => {
+  return backendUrl + path
+}
+
+
+
+
+
 
 
 function placeOrder() {
@@ -67,25 +79,19 @@ interface Product {
 
 const products = ref<Product[]>([]);
 
-onMounted(() => {
-  fetch('http://127.0.0.1:8000/api/products', {
-    method: 'GET',
-  })
-  .then(respuesta => {
-    if (!respuesta.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return respuesta.json();
-  })
-  .then(datos => {
-    datos.forEach((element: {id : number, name : string, price: number, image: string}) => {
+
+api.get('/api/products/')
+  .then(response => {
+    const datos = response.data
+    datos.forEach((element: { id: number, name: string, price: number, image: string }) => {
       products.value.push(element)
-    });
+    })
   })
   .catch(error => {
-    console.error('There was a problem with the fetch operation:', error);
-  });
-});
+    console.error('Hubo un error al obtener los productos:', error)
+
+  })
+
 
 const addToCart = (product: { id: number; name: string; price:number;}) => {
   cartStore.addItem({ id: product.id, name: product.name, quantity: 1, price: product.price });

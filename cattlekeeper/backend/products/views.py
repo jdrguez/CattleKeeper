@@ -1,12 +1,13 @@
 from django.http import JsonResponse
 from .models import Product, Review
 from .serializers import ProductSerializer, ReviewSerializer, CategorySerializer
-from shared.decorators import method_required, check_json_body, required_fields
+from shared.decorators import method_required, check_json_body, required_fields, valid_token
 from .helpers import product_exist, review_exist
 from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 @method_required('get')
+@valid_token
 def product_list(request):
     category_slug = request.GET.get('category')
     products = Product.objects.all()
