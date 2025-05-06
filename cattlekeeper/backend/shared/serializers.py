@@ -1,7 +1,7 @@
 import json
 from abc import ABC
 from typing import Iterable
-
+from django.db.models import Model
 from django.http import HttpRequest, JsonResponse
 
 
@@ -29,10 +29,10 @@ class BaseSerializer(ABC):
         return {f: v for f, v in serialized.items() if not self.fields or f in self.fields}
 
     def serialize(self) -> dict | list[dict]:
-        if not isinstance(self.to_serialize, Iterable):
+        if isinstance(self.to_serialize, Model) or not isinstance(self.to_serialize, Iterable) or isinstance(self.to_serialize, (str, bytes)):
             return self.__serialize_instance(self.to_serialize)
         return [self.__serialize_instance(instance) for instance in self.to_serialize]
-
+    
     def to_json(self) -> str:
         return json.dumps(self.serialize())
 

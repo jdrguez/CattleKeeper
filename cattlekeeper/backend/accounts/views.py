@@ -17,6 +17,7 @@ def signup_user(request):
             email=data['email'],
             password=data['password']
         )
+        Token.objects.create(user=user)
         serializer = UserSerializer(user, request=request)
         return serializer.json_response()
 

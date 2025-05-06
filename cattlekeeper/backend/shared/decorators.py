@@ -1,7 +1,7 @@
 import json
 import re
 from json.decoder import JSONDecodeError
-
+from orders.models import Order
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.http import JsonResponse
@@ -65,7 +65,7 @@ def check_json_body(func):
 
     return wrapper
 
-'''
+
 def user_owner(func):
     def wrapper(request, *args, **kwargs):
         order = Order.objects.get(pk=kwargs['order_pk'])
@@ -75,7 +75,7 @@ def user_owner(func):
         return JsonResponse({'error': 'User is not the owner of requested order'}, status=403)
 
     return wrapper
-'''
+
 
 def required_fields(*fields):
     def decorator(func):

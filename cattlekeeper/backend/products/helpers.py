@@ -6,7 +6,7 @@ from .models import Product, Review, ProductCategory
 def product_exist(func):
     def wrapper(request, *args, **kwargs):
         try:
-            product = Product.objects.get(slug=kwargs['product_slug'])
+            product = Product.objects.get(slug=kwargs['product-slug'])
             request.product = product
             return func(request,*args, **kwargs)
         except Product.DoesNotExist:
