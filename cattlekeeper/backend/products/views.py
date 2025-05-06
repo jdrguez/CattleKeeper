@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from .models import Product, Review
-from .serializers import ProductSerializer, ReviewSerializer
+from .serializers import ProductSerializer, ReviewSerializer, CategorySerializer
 from shared.decorators import method_required, check_json_body, required_fields
 from .helpers import product_exist, review_exist
 from django.views.decorators.csrf import csrf_exempt
@@ -8,9 +8,14 @@ from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 @method_required('get')
 def product_list(request):
+    category_slug = request.GET.get('category')
     products = Product.objects.all()
+    if category_slug:
+        products = products.filter(category__slug=category_slug)
+
     products_json = ProductSerializer(products, request=request)
     return products_json.json_response()
+
 
 @csrf_exempt
 @method_required('get')
@@ -18,6 +23,7 @@ def product_list(request):
 def product_detail(request, product_slug):
     product_json = ProductSerializer(request.product, request=request)
     return product_json.json_response()
+
 
 @csrf_exempt
 @method_required('get')

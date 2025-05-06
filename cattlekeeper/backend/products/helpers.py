@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 
-from .models import Product, Review
+from .models import Product, Review, ProductCategory
 
 
 def product_exist(func):
@@ -13,6 +13,7 @@ def product_exist(func):
             return JsonResponse({'error': 'Product not found'}, status=404)
 
     return wrapper
+
 
 def review_exist(func):
     def wrapper(request, *args, **kwargs):
