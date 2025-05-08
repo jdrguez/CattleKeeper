@@ -9,10 +9,12 @@ import WishlistView from '@/views/WishlistView.vue'
 import LoginView from '@/views/LoginView.vue'
 import LogoutView from '@/views/LogoutView.vue'
 import SignupView from '@/views/SignupView.vue'
-
-
-
-
+import BatchList from '@/views/BatchList.vue'
+import BatchDetail from '@/views/BatchDetail.vue'
+import BatchCreate from '@/views/BatchCreate.vue'
+import BatchUpdate from '@/views/BatchUpdate.vue'
+import AnimalDelete from '@/views/AnimalDelete.vue'
+import BatchDelete from '@/views/BatchDelete.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -74,6 +76,57 @@ const router = createRouter({
       component: WishlistView,
       meta: { requiresAuth: true }
       },
+      {
+        path: '/batches',
+        name: 'batch-list',
+        component: BatchList,
+      },
+      {
+        path: '/batch/:batch_slug',
+        name: 'BatchDetail',
+        component: BatchDetail
+      },
+      {
+        path: '/batch/create',
+        name: 'BatchCreate',
+        component: BatchCreate
+      },
+      {
+        path: '/batch/:batch_slug/update',
+        name: 'BatchUpdate',
+        component: BatchUpdate
+      }, 
+      {
+        path: '/batches/:batch_slug/animals',
+        name: 'BatchAnimalList',
+        component: () => import('@/views/BatchAnimalList.vue')
+      },
+      {
+        path: '/batches/:batch_slug/animals/:animal_slug',
+        name: 'AnimalDetail',
+        component: () => import('@/views/AnimalDetail.vue')
+      },      
+      {
+        path: '/batches/:batch_slug/animals/create',
+        name: 'AnimalCreate',
+        component: () => import('@/views/AnimalCreate.vue')
+      },
+      {
+        path: '/batch/:batch_slug/animals/:animal_slug/update',
+        name: 'AnimalUpdate',
+        component: () => import('@/views/AnimalUpdate.vue')
+      },
+      {
+        path: '/farm/batch/:batch_slug/animals/:animal_slug/delete',
+        name: 'AnimalDelete',
+        component: AnimalDelete
+      },
+      {
+        path: '/batch/:batch_slug/delete',  
+        name: 'batch-delete',  
+        component: BatchDelete,  
+        props: true 
+      }
   ],
 })
 

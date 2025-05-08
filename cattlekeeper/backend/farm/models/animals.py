@@ -31,8 +31,9 @@ class AnimalBatch(models.Model):
         if not self.name:
             species_letter = self.get_species_display()[0].upper() 
             sex_letter = self.get_sex_display()[0].upper()         
-            last_id = AnimalBatch.objects.count() + 1
-            self.name = f"{species_letter}-{sex_letter}{last_id:03d}" 
+            last_batch = AnimalBatch.objects.order_by('-id').first()
+            next_id = last_batch.id + 1 if last_batch else 1
+            self.name = f"{species_letter}-{sex_letter}{next_id:03d}" 
         if not self.slug:
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
@@ -65,8 +66,9 @@ class Animal(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.identifier:
-            count = Animal.objects.filter(batch=self.batch).count() + 1
-            self.identifier = f"{self.batch.name}-{count:03d}"
+            last_animal = Animal.objects.filter(batch=self.batch).order_by('-id').first()
+            next_id = last_animal.id + 1 if last_animal else 1
+            self.identifier = f"{self.batch.name}-{next_id:03d}"
         if not self.slug:
             self.slug = slugify(self.identifier)
         if not self.sex:

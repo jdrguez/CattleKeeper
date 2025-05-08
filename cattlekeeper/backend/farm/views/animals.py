@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from shared.decorators import method_required, valid_token, required_fields
+from shared.decorators import method_required, valid_token, required_fields, authenticated_user
 from django.views.decorators.csrf import csrf_exempt
 from ..models.animals import AnimalBatch, Animal
 from ..serializers.animals import AnimalBatchSerializer, AnimalSerializer
@@ -23,6 +23,7 @@ def batch_detail(request, batch_slug):
 @csrf_exempt
 @method_required('post')
 @required_fields('species', 'purchase_date', 'quantity')
+@authenticated_user
 def batch_create(request):
     data = json.loads(request.body)
     batch = AnimalBatch.objects.create(
@@ -123,3 +124,11 @@ def animal_delete(request, batch_slug, animal_slug):
     animal.delete()
     request.batch.update_quantity()
     return JsonResponse({'message': 'Animal deleted'})
+
+@csrf_exempt
+@method_required('delete')
+@batch_exist
+def batch_delete(request, batch_slug):
+    batch = request.batch
+    batch.delete()
+    return JsonResponse({'message': 'Batch deleted'})

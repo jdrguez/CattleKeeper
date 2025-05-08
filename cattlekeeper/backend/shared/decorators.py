@@ -89,3 +89,20 @@ def required_fields(*fields):
         return wrapper
 
     return decorator
+
+def authenticated_user(func):
+    def wrapper(request, *args, **kwargs):
+        auth = request.headers.get('Authorization', '')
+        regexp = r'Bearer (?P<token>[0-9a-f\-]{36})'
+        match = re.fullmatch(regexp, auth)
+        if not match:
+            return JsonResponse({'error': 'Invalid or missing authentication token'}, status=400)
+
+        token = match['token']
+        try:
+            request.user = User.objects.get(token__key=token)
+        except User.DoesNotExist:
+            return JsonResponse({'error': 'Unregistered authentication token'}, status=401)
+
+        return func(request, *args, **kwargs)
+    return wrapper
