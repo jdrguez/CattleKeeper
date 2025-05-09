@@ -1,0 +1,35 @@
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render, redirect
+from django.http import JsonResponse
+from shared.decorators import method_required, valid_token, required_fields, authenticated_user
+from ..serializers.health import HealthEventSerializer
+from ..models import HealthEvent
+from ..helpers import animal_exist, event_exist
+from ..forms.health import HealthEventForm
+import json
+
+@csrf_exempt
+@method_required('get')
+@animal_exist
+def health_events(request, batch_slug, animal_slug):
+    animal = request.animal
+    health_events = HealthEvent.objects.filter(animal = animal)
+    serializer = HealthEventSerializer(health_events, request=request)
+    return serializer.json_response()
+
+@csrf_exempt
+@method_required('post')
+@animal_exist
+def health_event_create(request, batch_slug, animal_slug):
+    animal = request.animal
+    data = json.loads(request.body)
+    event = HealthEvent.objects.create(
+        animal=animal,
+        date=data['date'],
+        event_type=data['event_type'],
+        description=data['description']
+    )
+    event.save()
+    health_events = HealthEvent.objects.filter(animal=animal)
+    serializer = HealthEventSerializer(health_events, request=request)
+    return serializer.json_response()

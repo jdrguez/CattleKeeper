@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import AnimalBatch, Animal
+from .models import HealthEvent
 
 @admin.register(AnimalBatch)
 class AnimalBatchAdmin(admin.ModelAdmin):
@@ -13,3 +14,10 @@ class AnimalAdmin(admin.ModelAdmin):
     search_fields = ('identifier',)
     list_filter = ('sex', 'health_status', 'created_at')
     prepopulated_fields = {'slug': ['identifier']}
+
+@admin.register(HealthEvent)
+class HealthEventAdmin(admin.ModelAdmin):
+    list_display = ('animal', 'date', 'event_type', 'description')
+    list_filter = ('event_type', 'date')
+    search_fields = ('animal__identifier',)
+    ordering = ('-date',)

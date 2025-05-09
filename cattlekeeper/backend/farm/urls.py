@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import animals
+from .views import animals, health
 
 app_name = 'farm'
 
@@ -14,4 +14,6 @@ urlpatterns = [
     path('batch/<slug:batch_slug>/animals/<slug:animal_slug>/', animals.animal_detail, name='animal-detail'),
     path('batch/<slug:batch_slug>/animals/<slug:animal_slug>/update/', animals.animal_update, name='animal-update'),
     path('batch/<slug:batch_slug>/animals/<slug:animal_slug>/delete/', animals.animal_delete, name='animal-delete'),
+    path('batch/<slug:batch_slug>/animals/<slug:animal_slug>/health/', health.health_events, name='animal-health'),
+    path('batch/<slug:batch_slug>/animals/<slug:animal_slug>/health/create/', health.health_event_create, name='health-create'),
 ]
