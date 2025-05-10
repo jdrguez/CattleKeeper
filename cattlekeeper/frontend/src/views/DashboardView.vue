@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RouterLink} from 'vue-router';
 import { useI18n } from 'vue-i18n';
+import Chart from '@/components/dashboard/Chart.vue';
 
     const { t } = useI18n();
 
@@ -221,7 +222,12 @@ import { useI18n } from 'vue-i18n';
         </div>
       </div>
 
-      <img src="../assets/img/grafica.jpg" alt="" width="1000" height="450">
+      
+      <div style="min-width: 300px; min-height: 300px; border: 1px solid red">
+          <Chart />
+      </div>
+
+      
 
       <h2>{{t('dash.d14')}}</h2>
       <div class="table-responsive small">

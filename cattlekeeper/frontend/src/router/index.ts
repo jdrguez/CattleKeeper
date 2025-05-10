@@ -15,6 +15,7 @@ import BatchCreate from '@/views/BatchCreate.vue'
 import BatchUpdate from '@/views/BatchUpdate.vue'
 import AnimalDelete from '@/views/AnimalDelete.vue'
 import BatchDelete from '@/views/BatchDelete.vue'
+import NotFound from '@/views/NotFound.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,6 +25,7 @@ const router = createRouter({
       name: 'home',
       component: HomeView,
     },
+    { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
     {
       path: '/login',
       name: 'Login',

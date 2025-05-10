@@ -24,6 +24,7 @@ const messages = {
     products: 'Products',
     account: 'Account',
     login: 'Login',
+    logout:'Logout',
     home_text:{
         home1: 'Discover our app',
         home2: 'Take your farm control to the next level',
@@ -93,6 +94,7 @@ const messages = {
     products: 'Productos',
     account: 'Cuenta',
     login: 'Login',
+    logout: 'Salir',
     home_text:{
         home1: 'Descubre nuestra app',
         home2: 'lleva el control de tu granja al siguiente nivel',

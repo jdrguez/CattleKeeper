@@ -1,16 +1,15 @@
-<script setup>
-import { inject } from 'vue'
+<script setup lang="ts">
 import { useRouter } from 'vue-router'
+import { inject } from 'vue'
 
 const router = useRouter()
-
+const auth = inject<{ isLoggedIn: boolean }>('auth')!
 
 const logout = async () => {
-  localStorage.removeItem('token')  
-  auth.isLoggedIn = false; 
-
-  await router.push('/dashboard')
-  window.location.reload()
+  localStorage.removeItem('token')
+  auth.isLoggedIn = false
+  
+  await router.push('/login')
 }
 </script>
 
