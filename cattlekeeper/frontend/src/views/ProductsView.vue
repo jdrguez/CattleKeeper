@@ -57,12 +57,6 @@ const getFullImageUrl = (path:any) => {
   return backendUrl + path
 }
 
-
-
-
-
-
-
 function placeOrder() {
   const totalPrice = cartStore.getTotalPrice();
   orderStore.addOrder(cartStore.items, parseFloat(totalPrice));
