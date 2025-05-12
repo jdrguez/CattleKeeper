@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import AnimalBatch, Animal, HealthEvent, Production
+from .models import AnimalBatch, Animal, HealthEvent, Production, Expense
 
 @admin.register(AnimalBatch)
 class AnimalBatchAdmin(admin.ModelAdmin):
@@ -28,3 +28,10 @@ class ProductionAdmin(admin.ModelAdmin):
     search_fields = ('batch__slug', 'notes')
     date_hierarchy = 'date'
     ordering = ['-date']
+
+@admin.register(Expense)
+class ExpenseAdmin(admin.ModelAdmin):
+    list_display = ('batch', 'category', 'amount', 'date')
+    list_filter = ('category', 'date', 'batch')
+    search_fields = ('description',)
+    date_hierarchy = 'date'

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import animals, health, production
+from .views import animals, health, production, expenses
 
 app_name = 'farm'
 
@@ -22,4 +22,9 @@ urlpatterns = [
     path('batch/<slug:batch_slug>/production/create/', production.production_create ,name='production-create'),
     path('batch/<slug:batch_slug>/production/<int:production_pk>/update/', production.update_production, name='update-production'),
     path('batch/<slug:batch_slug>/production/<int:production_pk>/delete/', production.delete_production, name='delete-production'),
+    path('expenses/', expenses.all_expenses, name='all-expenses'),
+    path('expenses/summary/', expenses.expense_summary, name='expense-summary'),
+    path('expenses/create/', expenses.expense_create, name='expense-create'),
+    path('expenses/<int:expense_pk>/update/', expenses.expense_update, name='expense-update'),
+    path('expenses/<int:expense_pk>/delete/', expenses.expense_delete, name='expense-delete'),
 ]
