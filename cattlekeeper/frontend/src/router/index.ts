@@ -128,7 +128,13 @@ const router = createRouter({
         name: 'batch-delete',  
         component: BatchDelete,  
         props: true 
-      }
+      },
+      {
+      path: '/batches/:batch_slug/animals/:animal_slug/health/create',
+      name: 'HealthEventCreate',
+      component: () => import('@/views/HealthEventCreate.vue')
+    }
+
   ],
 })
 

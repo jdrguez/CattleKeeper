@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import AnimalBatch, Animal
-from .models import HealthEvent
+from .models import AnimalBatch, Animal, HealthEvent, Production
 
 @admin.register(AnimalBatch)
 class AnimalBatchAdmin(admin.ModelAdmin):
@@ -21,3 +20,11 @@ class HealthEventAdmin(admin.ModelAdmin):
     list_filter = ('event_type', 'date')
     search_fields = ('animal__identifier',)
     ordering = ('-date',)
+
+@admin.register(Production)
+class ProductionAdmin(admin.ModelAdmin):
+    list_display = ('batch', 'production_type', 'quantity', 'unit', 'date')
+    list_filter = ('production_type', 'unit', 'date')
+    search_fields = ('batch__slug', 'notes')
+    date_hierarchy = 'date'
+    ordering = ['-date']

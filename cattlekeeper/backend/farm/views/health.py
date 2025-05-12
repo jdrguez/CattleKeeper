@@ -5,7 +5,6 @@ from shared.decorators import method_required, valid_token, required_fields, aut
 from ..serializers.health import HealthEventSerializer
 from ..models import HealthEvent
 from ..helpers import animal_exist, event_exist
-from ..forms.health import HealthEventForm
 import json
 
 @csrf_exempt
@@ -33,3 +32,30 @@ def health_event_create(request, batch_slug, animal_slug):
     health_events = HealthEvent.objects.filter(animal=animal)
     serializer = HealthEventSerializer(health_events, request=request)
     return serializer.json_response()
+
+@csrf_exempt
+@method_required('post')
+@event_exist
+def health_event_update(request, batch_slug, animal_slug, event_pk):
+    event = request.event
+    try:
+        data = json.loads(request.body)
+    except json.JSONDecodeError:
+        return JsonResponse({'error': 'Invalid JSON'}, status=400)
+
+    for field in ['date', 'event_type', 'description']:
+        if field in data:
+            setattr(event, field, data[field])
+
+    event.save()
+    return JsonResponse({'message': 'Health event updated'})
+
+
+@csrf_exempt
+@method_required('post')
+@event_exist
+def health_event_delete(request, batch_slug, animal_slug, event_pk):
+    event = request.event
+    animal = event.animal
+    event.delete()
+    return JsonResponse({'message': 'Health event deleted'})

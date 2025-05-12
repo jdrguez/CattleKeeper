@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import animals, health
+from .views import animals, health, production
 
 app_name = 'farm'
 
@@ -15,5 +15,11 @@ urlpatterns = [
     path('batch/<slug:batch_slug>/animals/<slug:animal_slug>/update/', animals.animal_update, name='animal-update'),
     path('batch/<slug:batch_slug>/animals/<slug:animal_slug>/delete/', animals.animal_delete, name='animal-delete'),
     path('batch/<slug:batch_slug>/animals/<slug:animal_slug>/health/', health.health_events, name='animal-health'),
-    path('batch/<slug:batch_slug>/animals/<slug:animal_slug>/health/create/', health.health_event_create, name='health-create'),
+    path('batch/<slug:batch_slug>/animals/<slug:animal_slug>/health/create/', health.health_event_create, name='event-create'),
+    path('batch/<slug:batch_slug>/animals/<slug:animal_slug>/health/<int:event_pk>/update/', health.health_event_update, name='event-update'),
+    path('batch/<slug:batch_slug>/animals/<slug:animal_slug>/health/<int:event_pk>/delete/', health.health_event_delete, name='event-delete'),
+    path('batch/<slug:batch_slug>/production/', production.production_list, name='production-list'),
+    path('batch/<slug:batch_slug>/production/create/', production.production_create ,name='production-create'),
+    path('batch/<slug:batch_slug>/production/<int:production_pk>/update/', production.update_production, name='update-production'),
+    path('batch/<slug:batch_slug>/production/<int:production_pk>/delete/', production.delete_production, name='delete-production'),
 ]
