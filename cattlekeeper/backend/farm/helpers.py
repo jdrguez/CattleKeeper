@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from .models import AnimalBatch, Animal, HealthEvent, Production, Expense
+from .models import AnimalBatch, Animal, HealthEvent, Production, Expense, Income
 
 def batch_exist(func):
     def wrapper(request, *args, **kwargs):
@@ -49,4 +49,14 @@ def expense_exist(func):
             return func(request, *args, **kwargs)
         except Expense.DoesNotExist:
             return JsonResponse({'error': 'Expense not found'}, status=404)
+    return wrapper
+
+def income_exist(func):
+    def wrapper(request, *args, **kwargs):
+        try:
+            income = Income.objects.get(pk=kwargs['income_pk'])
+            request.income = income
+            return func(request, *args, **kwargs)
+        except Income.DoesNotExist:
+            return JsonResponse({'error': 'Income not found'}, status=404)
     return wrapper

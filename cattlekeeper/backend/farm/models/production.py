@@ -1,5 +1,7 @@
 from django.db import models
 from .animals import AnimalBatch
+from django.core.validators import MinValueValidator
+from decimal import Decimal
 
 class Production(models.Model):
     class ProductionType(models.TextChoices):
@@ -15,7 +17,11 @@ class Production(models.Model):
 
     batch = models.ForeignKey(AnimalBatch, on_delete=models.CASCADE, related_name='productions')
     production_type = models.CharField(max_length=10, choices=ProductionType.choices)
-    quantity = models.DecimalField(max_digits=10, decimal_places=2)
+    quantity = models.DecimalField(
+        max_digits=10, 
+        decimal_places=2,
+        validators=[MinValueValidator(Decimal('0.00'))]
+        )
     unit = models.CharField(max_length=2, choices=Unit.choices)
     date = models.DateField()
     notes = models.TextField(blank=True, null=True)
