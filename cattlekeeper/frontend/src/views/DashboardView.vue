@@ -2,8 +2,10 @@
 import { RouterLink} from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import Chart from '@/components/dashboard/Chart.vue';
-
-    const { t } = useI18n();
+import production from '@/components/dashboard/ProductionChart.vue';
+import expenses from '@/components/dashboard/ExpensesChart.vue'
+import incomerBatch from '@/components/dashboard/IncomesBatchChart.vue'
+const { t } = useI18n();
 
 </script>
 
@@ -225,6 +227,17 @@ import Chart from '@/components/dashboard/Chart.vue';
       
       <div style="min-width: 300px; min-height: 300px; border: 1px solid red">
           <Chart />
+      </div>
+      <div style="display: flex; gap: 16px">
+    <div style="flex: 1; min-width: 300px; min-height: 300px; border: 1px solid red">
+      <production />
+    </div>
+    <div style="flex: 1; min-width: 300px; min-height: 300px; border: 1px solid red">
+      <expenses />
+    </div>
+  </div>
+      <div style="min-width: 300px; min-height: 300px; border: 1px solid red">
+          <incomerBatch />
       </div>
 
       

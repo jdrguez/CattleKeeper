@@ -22,6 +22,10 @@ const goToUpdate = () => {
   const batchSlug = route.params.batch_slug;
   router.push({ name: 'BatchUpdate', params: { batch_slug: batchSlug } });
 };
+const goToProductions = (slug) => {
+  router.push({ name: 'ProductionList', params: { batch_slug: slug } });
+};
+
 </script>
 
 <template>
@@ -45,6 +49,8 @@ const goToUpdate = () => {
     <router-link :to="`/batch/${batch.slug}/delete`">
       <button>Eliminar Lote</button>
     </router-link>
+    <button @click="goToProductions(batch.slug)">Ver producciones</button>
+
 
 
     </div>

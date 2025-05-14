@@ -16,6 +16,10 @@ import BatchUpdate from '@/views/BatchUpdate.vue'
 import AnimalDelete from '@/views/AnimalDelete.vue'
 import BatchDelete from '@/views/BatchDelete.vue'
 import NotFound from '@/views/NotFound.vue'
+import Expenses from '@/views/Expenses.vue';
+import ExpenseCreate from '@/views/ExpenseCreate.vue';
+import ExpenseUpdate from '@/views/ExpenseUpdate.vue';
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -133,7 +137,52 @@ const router = createRouter({
       path: '/batches/:batch_slug/animals/:animal_slug/health/create',
       name: 'HealthEventCreate',
       component: () => import('@/views/HealthEventCreate.vue')
-    }
+    },
+    {
+      path: '/batch/:batch_slug/productions',
+      name: 'ProductionList',
+      component: () => import('@/views/ProductionList.vue')
+    },
+    {
+      path: '/batch/:batch_slug/production/create',
+      name: 'ProductionCreate',
+      component: () => import('@/views/ProductionCreate.vue'),
+    },
+    {
+      path: '/batch/:batch_slug/production/:production_pk/edit',
+      name: 'ProductionEdit',
+      component: () => import('@/views/ProductionEdit.vue'),
+    },
+    {
+      path: '/finances/expenses',
+      name: 'expenses',
+      component: Expenses,
+    },
+    {
+      path: '/finances/expenses/create',
+      name: 'expense-create',
+      component: ExpenseCreate,
+    },
+    {
+    path: '/finances/expenses/:expense_pk/update',
+    name: 'expense-update',
+    component: ExpenseUpdate, 
+  },
+  {
+  path: '/finances/incomes',
+  name: 'incomes',
+  component: () => import('@/views/Incomes.vue')
+},
+{
+  path: '/finances/incomes/create',
+  name: 'create-income',
+  component: () => import('@/views/CreateIncome.vue')
+},
+{
+  path: '/finances/incomes/:id/edit',
+  name: 'edit-income',
+  component: () => import('@/views/EditIncome.vue')
+},
 
   ],
 })
