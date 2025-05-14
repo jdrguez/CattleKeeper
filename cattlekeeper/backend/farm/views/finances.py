@@ -48,7 +48,7 @@ def expense_create(request):
         date=date,
         currency=currency
     )
-    return JsonResponse({'message': 'Expense created successfully', 'id': expense.id}, status=201)
+    return JsonResponse({'message': 'Expense created successfully', 'id': expense.id}, status=200)
 
 @csrf_exempt
 @method_required('post')
@@ -71,7 +71,7 @@ def expense_update(request, expense_pk):
 def expense_delete(request, expense_pk):
     expense = request.expense
     expense.delete()
-    return JsonResponse({'message': 'Expense deleted successfully'}, status=204)
+    return JsonResponse({'message': 'Expense deleted successfully'}, status=200)
 
 @csrf_exempt
 @method_required('get')
@@ -79,23 +79,16 @@ def all_incomes(request):
     incomes = Income.objects.all().order_by('-date')
     category = request.GET.get('category')
     batch = request.GET.get('batch')
-    
-    # Filtrar por categoría si se proporciona
     if category:
         incomes = incomes.filter(category=category)
-    
-    # Filtrar por lote si se proporciona
     if batch:
         incomes = incomes.filter(batch__slug=batch)
-    
-    # Usamos el serializer para convertir los datos en JSON
     serializer = IncomeSerializer(incomes, request=request)
     return serializer.json_response()
 
 @csrf_exempt
 @method_required('get')
 def income_summary(request):
-    # Resumen por categoría con el total de la cantidad por categoría
     summary = Income.objects.values('category').annotate(total=Sum('amount'))
     return JsonResponse({'summary': list(summary)})
 
@@ -110,8 +103,6 @@ def income_create(request):
     amount = data.get('amount')
     currency = data.get('currency', '€')
     date = data.get('date')
-    
-    # Crear el nuevo Income
     income = Income.objects.create(
         category=category,
         batch=batch,
@@ -120,9 +111,7 @@ def income_create(request):
         currency=currency,
         date=date
     )
-    
-    # Devolver una respuesta con el id del nuevo Income
-    return JsonResponse({'message': 'Income created successfully', 'id': income.id}, status=201)
+    return JsonResponse({'message': 'Income created successfully', 'id': income.id}, status=200)
 
 @csrf_exempt
 @method_required('post')
@@ -130,17 +119,12 @@ def income_create(request):
 def income_update(request, income_pk):
     income = request.income
     data = json.loads(request.body)
-    
-    # Actualizar los valores del Income con los datos del request
     income.category = data.get('category', income.category)
     income.description = data.get('description', income.description)
     income.amount = data.get('amount', income.amount)
     income.currency = data.get('currency', income.currency)
     income.date = data.get('date', income.date)
-    income.batch = AnimalBatch.objects.get(slug=data.get('batch', income.batch.slug))  # Actualizar lote si es necesario
-    
     income.save()
-    
     return JsonResponse({'message': 'Income updated successfully', 'id': income.pk})
 
 @csrf_exempt
@@ -149,4 +133,4 @@ def income_update(request, income_pk):
 def income_delete(request, income_pk):
     income = request.income
     income.delete()
-    return JsonResponse({'message': 'Income deleted successfully'}, status=204)
+    return JsonResponse({'message': 'Income deleted successfully'}, status=200)

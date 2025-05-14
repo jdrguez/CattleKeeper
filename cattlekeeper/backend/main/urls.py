@@ -32,5 +32,5 @@ urlpatterns = [
     path('api/accounts/', include('accounts.urls')),
     path('api/orders/', include('orders.urls')),
     path('api/farm/', include('farm.urls')),
-    path('api/animals/', include('stats.urls')),
+    path('api/stats/', include('stats.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
