@@ -2,6 +2,7 @@ from django.db import models
 from .animals import AnimalBatch
 from django.core.validators import MinValueValidator
 from decimal import Decimal
+from django.conf import settings
 
 class Currency(models.TextChoices):
         EUROS = '€', 'Euros'
@@ -44,6 +45,11 @@ class Expense(models.Model):
          )
     date = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='expenses'
+    )
     
     def __str__(self):
         return f"{self.get_category_display()} - {self.amount} ({self.date})"
@@ -75,6 +81,11 @@ class Income(models.Model):
          )
     date = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='incomes'
+    )
 
     def __str__(self):
         return f"{self.category} - {self.amount} {self.currency}"

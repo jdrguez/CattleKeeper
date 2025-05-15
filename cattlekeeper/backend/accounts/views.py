@@ -5,7 +5,8 @@ from django.contrib.auth.models import User
 from accounts.serializers import UserSerializer
 import json
 from shared.decorators import method_required, check_json_body, required_fields
-from .models import Token
+from .models import Token, Profile
+
 @csrf_exempt
 @method_required('post')
 @check_json_body
@@ -18,6 +19,7 @@ def signup_user(request):
             password=data['password']
         )
         Token.objects.create(user=user)
+        Profile.objects.create(user=user)
         serializer = UserSerializer(user, request=request)
         return serializer.json_response()
 
