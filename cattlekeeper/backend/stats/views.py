@@ -5,6 +5,10 @@ from shared.decorators import method_required, valid_token, required_fields, aut
 from farm.models import Income, Expense, Production, AnimalBatch
 from django.db.models import Sum
 from django.utils import timezone
+from django.template.loader import render_to_string
+from weasyprint import HTML
+from django.http import HttpResponse
+from io import BytesIO
 
 @csrf_exempt
 @method_required('get')
@@ -56,12 +60,66 @@ def net_income_per_batch(request):
 
     return JsonResponse({'batches': data})
 
+def farm_report_pdf(request):
+    year = request.GET.get('year')
+    month = request.GET.get('month')
 
-def animals(request):
-    data = [
-        ['animals', '2020', '2021', '2022', '2023', '2024', '2025'],
-        ['Cows', 10, 13, 14 , 10, 15, 29],
-        ['Pigs', 1, 3, 4 , 10, 15, 18],
-        ['Sheeps', 25, 30, 14 , 50, 45, 100],
-    ]
-    return JsonResponse(data, safe=False)
+    if not year or not month:
+        now = timezone.now()
+        year = now.year
+        month = now.month
+    else:
+        year = int(year)
+        month = int(month)
+
+    incomes = Income.objects.filter(date__year=year, date__month=month).aggregate(total=Sum('amount'))['total'] or 0
+    expenses = Expense.objects.filter(date__year=year, date__month=month).aggregate(total=Sum('amount'))['total'] or 0
+    monthly_summary = [{
+        'month': month,
+        'income': float(incomes),
+        'expense': float(expenses),
+        'net': float(incomes - expenses)
+    }]
+
+    production_summary = list(
+        Production.objects.filter(date__year=year, date__month=month)
+        .values('production_type')
+        .annotate(total=Sum('quantity'))
+        .order_by('-total')
+    )
+
+    category_summary = list(
+        Expense.objects.filter(date__year=year, date__month=month)
+        .values('category')
+        .annotate(total=Sum('amount'))
+        .order_by('-total')
+    )
+
+    batches_data = []
+    for batch in AnimalBatch.objects.all():
+        income = batch.incomes.filter(date__year=year, date__month=month).aggregate(total=Sum('amount'))['total'] or 0
+        expense = batch.expenses.filter(date__year=year, date__month=month).aggregate(total=Sum('amount'))['total'] or 0
+        net = income - expense
+        batches_data.append({
+            'batch': batch.name,
+            'income': float(income),
+            'expense': float(expense),
+            'net': float(net)
+        })
+
+    html_string = render_to_string('farm_report.html', {
+        'year': year,
+        'month': month,
+        'monthly_summary': monthly_summary,
+        'production_summary': production_summary,
+        'category_summary': category_summary,
+        'batches': batches_data,
+    })
+
+    html = HTML(string=html_string)
+    pdf_file = BytesIO()
+    html.write_pdf(target=pdf_file)
+
+    response = HttpResponse(pdf_file.getvalue(), content_type='application/pdf')
+    response['Content-Disposition'] = f'inline; filename="farm_report_{year}_{month}.pdf"'
+    return response
