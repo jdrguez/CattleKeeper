@@ -57,9 +57,8 @@ const router = createRouter({
     { path: '/login', name: 'Login', component: LoginView },
     { path: '/signup', name: 'signup', component: SignupView },
     { path: '/logout', name: 'logout', component: LogoutView, meta: { requiresAuth: true } },
-    { path: '/account', name: 'account', component: AccountView, meta: { requiresAuth: true } },
-    { path: '/perfil', component: UserProfile},
-    { path: '/perfil/editar',component: EditUserProfile},
+    { path: '/account', name: 'account', component: UserProfile, meta: { requiresAuth: true } },
+    { path: '/account/edit',component: EditUserProfile, meta: {requiresAuth: true }},
 
     // Generales
     { path: '/about', name: 'about', component: AboutView, meta: { requiresAuth: true } },

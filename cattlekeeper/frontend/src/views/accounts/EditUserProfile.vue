@@ -43,7 +43,7 @@
   
   const cargarDatos = async () => {
     try {
-      const { data } = await api.get('/api/accounts/admin/')
+      const { data } = await api.get('/api/accounts/me/')
       form.value.first_name = data.first_name
       form.value.last_name = data.last_name
       form.value.email = data.email

@@ -4,15 +4,10 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User
 from accounts.serializers import UserSerializer
 import json
-<<<<<<< HEAD
 from shared.decorators import method_required, check_json_body, required_fields, valid_token
-from .models import Token
+from .models import Token, Profile
 from .forms import EditProfileForm
 
-=======
-from shared.decorators import method_required, check_json_body, required_fields
-from .models import Token, Profile
->>>>>>> 37bf2ceac1903d94faca4f187456e2fefb82c4e5
 
 @csrf_exempt
 @method_required('post')
@@ -60,37 +55,34 @@ def logout_user(request):
 
 @method_required("GET")
 @valid_token
-def user_detail(request, username):
-    try:
-        actual_user = User.objects.get(username=username)
-        profile = actual_user.profile
-        data = {
-            "username": actual_user.username,
-            "email": actual_user.email,
-            "first_name": actual_user.first_name,
-            "last_name": actual_user.last_name,
-            "profile": {
-                "bio": profile.bio,
-                "avatar": profile.avatar.url if profile.avatar else None,
-            }
+def user_detail(request):
+    user = User.objects.get(token__key=request.token)
+    profile = user.profile
+    data = {
+        "username": user.username,
+        "email": user.email,
+        "first_name": user.first_name,
+        "last_name": user.last_name,
+        "profile": {
+            "bio": profile.bio,
+            "avatar": profile.avatar.url if profile.avatar else None,
         }
-        return JsonResponse(data, status=200)
-    except User.DoesNotExist:
-        return JsonResponse({'error': 'User not found'}, status=404)
-
+    }
+    return JsonResponse(data)
 
 @csrf_exempt  
 @method_required("POST")
 @valid_token
 def edit_profile(request):
-    profile = request.user.profile
+    user = User.objects.get(token__key=request.token)
+    profile = user.profile
 
     if request.method == 'POST':
         if request.content_type == 'application/json':
             data = json.loads(request.body)
             form = EditProfileForm(data, instance=profile)
         else:
-            form = EditProfileForm(request.POST, request.FILES, instance=profile)
+            form = EditProfileForm(request.POST, request.FILES, instance=profile, user=user)
 
         if form.is_valid():
             form.save()
@@ -100,10 +92,10 @@ def edit_profile(request):
 
     else:
         data = {
-            "username": request.user.username,
-            "email": request.user.email,
-            "first_name": request.user.first_name,
-            "last_name": request.user.last_name,
+            "username": user.username,
+            "email": user.email,
+            "first_name": user.first_name,
+            "last_name": user.last_name,
             "profile": {
                 "bio": profile.bio,
                 "avatar": profile.avatar.url if profile.avatar else None,
