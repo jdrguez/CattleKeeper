@@ -60,3 +60,23 @@ def income_exist(func):
         except Income.DoesNotExist:
             return JsonResponse({'error': 'Income not found'}, status=404)
     return wrapper
+
+def user_owner_expense(func):
+    def wrapper(request, *args, **kwargs):
+        expense = Expense.objects.get(pk=kwargs['expense_pk'])
+        user = request.user
+        if expense.user == user:
+            return func(request, *args, **kwargs)
+        return JsonResponse({'error': 'User is not the owner of expense'}, status=403)
+
+    return wrapper
+
+def user_owner_income(func):
+    def wrapper(request, *args, **kwargs):
+        income = Income.objects.get(pk=kwargs['income_pk'])
+        user = request.user
+        if income.user == user:
+            return func(request, *args, **kwargs)
+        return JsonResponse({'error': 'User is not the owner of income'}, status=403)
+
+    return wrapper

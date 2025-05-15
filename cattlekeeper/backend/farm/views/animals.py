@@ -62,7 +62,6 @@ def batch_update(request, batch_slug):
     batch.species = data.get('species', batch.species)
     batch.purchase_date = data.get('purchase_date', batch.purchase_date)
     batch.sex = data.get('sex', batch.sex)
-    batch.quantity = data.get('quantity', batch.quantity)
     batch.origin = data.get('origin', batch.origin)
     batch.notes = data.get('notes', batch.notes)
 

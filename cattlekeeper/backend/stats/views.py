@@ -12,14 +12,15 @@ from io import BytesIO
 
 @csrf_exempt
 @method_required('get')
+@authenticated_user
 def monthly_income_expense_summary(request):
-    year = request.GET.get('year')
-    if not year:
-        year = timezone.now().year
+    user = request.user
+    year = request.GET.get('year') or timezone.now().year
+
     summary = []
     for month in range(1, 13):
-        incomes = Income.objects.filter(date__year=year, date__month=month).aggregate(total=Sum('amount'))['total'] or 0
-        expenses = Expense.objects.filter(date__year=year, date__month=month).aggregate(total=Sum('amount'))['total'] or 0
+        incomes = Income.objects.filter(user=user, date__year=year, date__month=month).aggregate(total=Sum('amount'))['total'] or 0
+        expenses = Expense.objects.filter(user=user, date__year=year, date__month=month).aggregate(total=Sum('amount'))['total'] or 0
         summary.append({
             'month': month,
             'income': float(incomes),
@@ -29,27 +30,35 @@ def monthly_income_expense_summary(request):
 
     return JsonResponse({'year': year, 'monthly_summary': summary})
 
-@csrf_exempt
-@method_required('get')
-def production_by_type(request):
-    summary = Production.objects.values('production_type').annotate(total=Sum('quantity')).order_by('-total')
-    return JsonResponse({'production_summary': list(summary)})
 
 @csrf_exempt
 @method_required('get')
+@authenticated_user
+def production_by_type(request):
+    user = request.user
+    summary = Production.objects.filter(user=user).values('production_type').annotate(total=Sum('quantity')).order_by('-total')
+    return JsonResponse({'production_summary': list(summary)})
+
+
+@csrf_exempt
+@method_required('get')
+@authenticated_user
 def expenses_by_category(request):
-    summary = Expense.objects.values('category').annotate(total=Sum('amount')).order_by('-total')
+    user = request.user
+    summary = Expense.objects.filter(user=user).values('category').annotate(total=Sum('amount')).order_by('-total')
     return JsonResponse({'category_summary': list(summary)})
 
 
 @csrf_exempt
 @method_required('get')
+@authenticated_user
 def net_income_per_batch(request):
-    batches = AnimalBatch.objects.all()
+    user = request.user
+    batches = AnimalBatch.objects.filter(owner=user)
     data = []
     for batch in batches:
-        income = batch.incomes.aggregate(total=Sum('amount'))['total'] or 0
-        expense = batch.expenses.aggregate(total=Sum('amount'))['total'] or 0
+        income = batch.incomes.filter(user=user).aggregate(total=Sum('amount'))['total'] or 0
+        expense = batch.expenses.filter(user=user).aggregate(total=Sum('amount'))['total'] or 0
         net = income - expense
         data.append({
             'batch': batch.name,
@@ -60,7 +69,12 @@ def net_income_per_batch(request):
 
     return JsonResponse({'batches': data})
 
+
+@csrf_exempt
+@method_required('get')
+@authenticated_user
 def farm_report_pdf(request):
+    user = request.user
     year = request.GET.get('year')
     month = request.GET.get('month')
 
@@ -72,8 +86,8 @@ def farm_report_pdf(request):
         year = int(year)
         month = int(month)
 
-    incomes = Income.objects.filter(date__year=year, date__month=month).aggregate(total=Sum('amount'))['total'] or 0
-    expenses = Expense.objects.filter(date__year=year, date__month=month).aggregate(total=Sum('amount'))['total'] or 0
+    incomes = Income.objects.filter(user=user, date__year=year, date__month=month).aggregate(total=Sum('amount'))['total'] or 0
+    expenses = Expense.objects.filter(user=user, date__year=year, date__month=month).aggregate(total=Sum('amount'))['total'] or 0
     monthly_summary = [{
         'month': month,
         'income': float(incomes),
@@ -82,23 +96,23 @@ def farm_report_pdf(request):
     }]
 
     production_summary = list(
-        Production.objects.filter(date__year=year, date__month=month)
+        Production.objects.filter(user=user, date__year=year, date__month=month)
         .values('production_type')
         .annotate(total=Sum('quantity'))
         .order_by('-total')
     )
 
     category_summary = list(
-        Expense.objects.filter(date__year=year, date__month=month)
+        Expense.objects.filter(user=user, date__year=year, date__month=month)
         .values('category')
         .annotate(total=Sum('amount'))
         .order_by('-total')
     )
 
     batches_data = []
-    for batch in AnimalBatch.objects.all():
-        income = batch.incomes.filter(date__year=year, date__month=month).aggregate(total=Sum('amount'))['total'] or 0
-        expense = batch.expenses.filter(date__year=year, date__month=month).aggregate(total=Sum('amount'))['total'] or 0
+    for batch in AnimalBatch.objects.filter(owner=user):
+        income = batch.incomes.filter(user=user, date__year=year, date__month=month).aggregate(total=Sum('amount'))['total'] or 0
+        expense = batch.expenses.filter(user=user, date__year=year, date__month=month).aggregate(total=Sum('amount'))['total'] or 0
         net = income - expense
         batches_data.append({
             'batch': batch.name,

@@ -4,12 +4,14 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from shared.decorators import method_required, user_owner, authenticated_user
 from ..serializers.production import ProductionSerializer
-from ..helpers import animal_exist, event_exist, batch_exist, production_exist
+from ..helpers import batch_exist, production_exist
 import json
 
 @csrf_exempt
 @method_required('get')
 @batch_exist
+@authenticated_user
+@user_owner
 def production_list(request, batch_slug):
     productions = Production.objects.filter(batch=request.batch)
     serializer = ProductionSerializer(productions, request=request)
@@ -41,6 +43,8 @@ def production_create(request, batch_slug):
 @method_required('post')
 @batch_exist
 @production_exist
+@authenticated_user
+@user_owner
 def update_production(request, batch_slug, production_pk):
     data = json.loads(request.body)
     production = request.production
@@ -58,6 +62,8 @@ def update_production(request, batch_slug, production_pk):
 @method_required('post')
 @batch_exist
 @production_exist
+@authenticated_user
+@user_owner
 def delete_production(request, batch_slug, production_pk):
     production = request.production
     production.delete()

@@ -7,13 +7,13 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import * as echarts from 'echarts'
-import axios from 'axios'
+import api from '@/api/axios'
 
 const chartContainer = ref(null)
 
 const loadData = async () => {
   try {
-    const res = await axios.get('http://localhost:8000/api/stats/batch-net-income/')
+    const res = await api.get('/api/stats/batch-net-income/')
     const data = res.data.batches
 
     const batches = data.map(d => d.batch)
