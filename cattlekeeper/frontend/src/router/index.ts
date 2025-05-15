@@ -7,6 +7,7 @@ import DashboardView from '../views/DashboardView.vue'
 import NotFound from '@/views/NotFound.vue'
 import OrderDetail from '@/views/OrderDetail.vue'
 import WishlistView from '@/views/WishlistView.vue'
+import ProductsView from '@/views/ProductsView.vue'
 
 // Cuentas
 import LoginView from '@/views/accounts/LoginView.vue'
@@ -32,7 +33,6 @@ import AnimalDelete from '@/views/farm/animals/AnimalDelete.vue'
 import HealthEventCreate from '@/views/farm/health/HealthEventCreate.vue'
 
 // Producción
-import ProductsView from '@/views/farm/production/ProductsView.vue'
 import ProductionList from '@/views/farm/production/ProductionList.vue'
 import ProductionCreate from '@/views/farm/production/ProductionCreate.vue'
 import ProductionEdit from '@/views/farm/production/ProductionEdit.vue'

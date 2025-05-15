@@ -97,8 +97,6 @@ def animal_create(request, batch_slug):
         sex=batch.sex
     )
     animal.save()
-    batch.update_quantity()
-
     return JsonResponse({'message': 'Animal created', 'identifier': animal.identifier}, status=201)
 
 @csrf_exempt
@@ -122,7 +120,6 @@ def animal_update(request, batch_slug, animal_slug):
 def animal_delete(request, batch_slug, animal_slug):
     animal = request.animal
     animal.delete()
-    request.batch.update_quantity()
     return JsonResponse({'message': 'Animal deleted'})
 
 @csrf_exempt

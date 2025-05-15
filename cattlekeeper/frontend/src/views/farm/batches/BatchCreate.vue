@@ -42,48 +42,99 @@ const createBatch = async () => {
 </script>
 
 <template>
-  <div>
-    <h2>Crear nuevo lote</h2>
-    <form @submit.prevent="createBatch">
-      <div>
-        <label>Especie:</label>
-        <select v-model="form.species" required>
-          <option v-for="option in speciesOptions" :key="option.value" :value="option.value">
-            {{ option.label }}
-          </option>
-        </select>
+  <div class="container mt-5">
+    <div class="card shadow-sm">
+      <div class="card-header bg-success text-white">
+        <h2 class="mb-0">Crear nuevo lote</h2>
       </div>
+      <div class="card-body">
+        <form @submit.prevent="createBatch">
+          <div class="row g-3">
 
-      <div>
-        <label>Fecha de compra:</label>
-        <input type="date" v-model="form.purchase_date" required />
+            <div class="col-md-6">
+              <label class="form-label">Especie <span class="text-danger">*</span></label>
+              <select v-model="form.species" class="form-select" required>
+                <option value="" disabled>Seleccionar especie...</option>
+                <option
+                  v-for="option in speciesOptions"
+                  :key="option.value"
+                  :value="option.value"
+                >
+                  {{ option.label }}
+                </option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Fecha de compra <span class="text-danger">*</span></label>
+              <input
+                type="date"
+                v-model="form.purchase_date"
+                class="form-control"
+                required
+              />
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label">Cantidad <span class="text-danger">*</span></label>
+              <input
+                type="number"
+                v-model="form.quantity"
+                class="form-control"
+                min="1"
+                required
+              />
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label">Sexo</label>
+              <select v-model="form.sex" class="form-select">
+                <option
+                  v-for="option in sexOptions"
+                  :key="option.value"
+                  :value="option.value"
+                >
+                  {{ option.label }}
+                </option>
+              </select>
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label">Origen</label>
+              <input
+                type="text"
+                v-model="form.origin"
+                class="form-control"
+                placeholder="Opcional"
+              />
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Notas</label>
+              <textarea
+                v-model="form.notes"
+                class="form-control"
+                rows="4"
+                placeholder="Agregar detalles adicionales..."
+              ></textarea>
+            </div>
+
+          </div>
+
+          <div class="mt-4 text-end">
+            <button
+              type="button"
+              class="btn btn-secondary me-2"
+              @click="$router.back()"
+            >
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-success">
+              Crear Lote
+            </button>
+          </div>
+        </form>
       </div>
-
-      <div>
-        <label>Cantidad:</label>
-        <input type="number" v-model="form.quantity" required />
-      </div>
-
-      <div>
-        <label>Sexo:</label>
-        <select v-model="form.sex">
-          <option v-for="option in sexOptions" :key="option.value" :value="option.value">
-            {{ option.label }}
-          </option>
-        </select>
-      </div>
-
-      <div>
-        <label>Origen:</label>
-        <input type="text" v-model="form.origin" />
-      </div>
-
-      <div>
-        <label>Notas:</label>
-        <textarea v-model="form.notes" rows="3" />
-      </div>
-
-      <button type="submit">Crear Lote</button>
-    </form>
+    </div>
   </div>
 </template>
