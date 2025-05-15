@@ -2,11 +2,13 @@
   <div class="px-3 py-2 border-bottom" id="container-nav">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-
-        <RouterLink to="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
-          <img class="logo" src="../assets/img/logo.webp" alt="">
-        </RouterLink>
-
+          
+          <RouterLink
+            :to="isLoggedIn ? '/dashboard' : '/'"
+            class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+            <img class="logo" src="../assets/img/logo.webp" alt="Logo" />
+          </RouterLink>
+        
         <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
 
           <li v-if="!isLoggedIn">
@@ -47,6 +49,7 @@
 
           <li v-if="isLoggedIn" class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">
+              <i class="bi bi-flower3 d-block mx-auto mb-1"></i>
               {{ t('farm') }}
             </a>
             <ul class="dropdown-menu">

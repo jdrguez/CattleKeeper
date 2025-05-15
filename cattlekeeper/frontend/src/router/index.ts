@@ -14,6 +14,8 @@ import LoginView from '@/views/accounts/LoginView.vue'
 import LogoutView from '@/views/accounts/LogoutView.vue'
 import SignupView from '@/views/accounts/SignupView.vue'
 import AccountView from '@/views/accounts/AccountView.vue'
+import UserProfile from '@/views/accounts/UserProfile.vue'
+import EditUserProfile from '@/views/accounts/EditUserProfile.vue'
 
 // Batches
 import BatchList from '@/views/farm/batches/BatchList.vue'
@@ -56,6 +58,8 @@ const router = createRouter({
     { path: '/signup', name: 'signup', component: SignupView },
     { path: '/logout', name: 'logout', component: LogoutView, meta: { requiresAuth: true } },
     { path: '/account', name: 'account', component: AccountView, meta: { requiresAuth: true } },
+    { path: '/perfil', component: UserProfile},
+    { path: '/perfil/editar',component: EditUserProfile},
 
     // Generales
     { path: '/about', name: 'about', component: AboutView, meta: { requiresAuth: true } },
