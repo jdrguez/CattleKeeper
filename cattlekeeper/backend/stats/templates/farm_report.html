@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Reporte Mensual - {{ month }}/{{ year }}</title>
+    <style>
+        body {
+            font-family: "Arial", sans-serif;
+            margin: 2em;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1em;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 0.5em;
+            text-align: left;
+        }
+        th {
+            background-color: #eee;
+        }
+        .section {
+            margin-bottom: 3em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Reporte Mensual de la Granja</h1>
+    <h2>{{ month }}/{{ year }}</h2>
+
+    <div class="section">
+        <h3>Resumen Ingresos y Egresos</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Mes</th>
+                    <th>Ingresos</th>
+                    <th>Egresos</th>
+                    <th>Utilidad Neta</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in monthly_summary %}
+                <tr>
+                    <td>{{ row.month }}</td>
+                    <td>${{ row.income }}</td>
+                    <td>${{ row.expense }}</td>
+                    <td>${{ row.net }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h3>Producción por Tipo</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Total Producido</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in production_summary %}
+                <tr>
+                    <td>{{ item.production_type }}</td>
+                    <td>{{ item.total }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="2">Sin datos</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h3>Egresos por Categoría</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Categoría</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in category_summary %}
+                <tr>
+                    <td>{{ item.category }}</td>
+                    <td>${{ item.total }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="2">Sin datos</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h3>Utilidad por Lote</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Lote</th>
+                    <th>Ingresos</th>
+                    <th>Egresos</th>
+                    <th>Utilidad Neta</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for batch in batches %}
+                <tr>
+                    <td>{{ batch.batch }}</td>
+                    <td>${{ batch.income }}</td>
+                    <td>${{ batch.expense }}</td>
+                    <td>${{ batch.net }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="4">Sin datos</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

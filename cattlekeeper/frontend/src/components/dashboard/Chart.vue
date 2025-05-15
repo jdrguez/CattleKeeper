@@ -5,9 +5,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import * as echarts from 'echarts'
-import axios from 'axios'
+import api from '@/api/axios'  // ✅ Cliente con token incluido
 
 const chartContainer = ref(null)
 let chartInstance = null
@@ -63,7 +63,7 @@ const drawChart = (months, income, expense, net) => {
 
 const loadData = async () => {
   try {
-    const res = await axios.get('http://localhost:8000/api/stats/monthly-summary/')
+    const res = await api.get('/api/stats/monthly-summary/') // ✅ Token incluido automáticamente
     const summary = res.data?.monthly_summary ?? []
 
     if (summary.length === 0) {
@@ -83,8 +83,13 @@ const loadData = async () => {
 }
 
 onMounted(loadData)
+onBeforeUnmount(() => {
+  if (chartInstance) {
+    chartInstance.dispose()
+  }
+})
 </script>
 
 <style scoped>
-/* puedes agregar más estilos aquí si necesitas */
+/* Puedes agregar estilos adicionales aquí si quieres */
 </style>

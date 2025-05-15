@@ -1,7 +1,7 @@
 import json
 import re
 from json.decoder import JSONDecodeError
-from orders.models import Order
+from farm.models import AnimalBatch
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.http import JsonResponse
@@ -68,11 +68,11 @@ def check_json_body(func):
 
 def user_owner(func):
     def wrapper(request, *args, **kwargs):
-        order = Order.objects.get(pk=kwargs['order_pk'])
+        batch = AnimalBatch.objects.get(slug=kwargs['batch_slug'])
         user = request.user
-        if order.user == user:
+        if batch.owner == user:
             return func(request, *args, **kwargs)
-        return JsonResponse({'error': 'User is not the owner of requested order'}, status=403)
+        return JsonResponse({'error': 'User is not the owner of batch'}, status=403)
 
     return wrapper
 

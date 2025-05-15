@@ -9,12 +9,6 @@
           <label class="form-label">📅 Fecha de compra</label>
           <input type="date" v-model="batch.purchase_date" class="form-control rounded-pill shadow-sm" required />
         </div>
-
-        <div>
-          <label class="form-label">🔢 Cantidad</label>
-          <input type="number" v-model="batch.quantity" class="form-control rounded-pill shadow-sm" required />
-        </div>
-
         <div>
           <label class="form-label">🌍 Origen</label>
           <input type="text" v-model="batch.origin" class="form-control rounded-pill shadow-sm" />

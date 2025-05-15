@@ -2,16 +2,17 @@ from ..models.finances import Expense, Income
 from ..models.animals import AnimalBatch
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from shared.decorators import method_required, valid_token, required_fields, authenticated_user
+from shared.decorators import method_required, authenticated_user, user_owner
 from ..serializers.finances import ExpenseSerializer, IncomeSerializer
-from ..helpers import expense_exist, income_exist
+from ..helpers import expense_exist, income_exist, user_owner_expense, user_owner_income
 import json
 from django.db.models import Sum
 
 @csrf_exempt
 @method_required('get')
+@authenticated_user
 def all_expenses(request):
-    expenses = Expense.objects.all().order_by('-date')
+    expenses = Expense.objects.filter(user=request.user).order_by('-date')
     category = request.GET.get('category')
     batch = request.GET.get('batch')
     if category:
@@ -29,6 +30,7 @@ def expense_summary(request):
 
 @csrf_exempt
 @method_required('post')
+@authenticated_user
 def expense_create(request):
     data = json.loads(request.body)
     category = data.get('category')
@@ -46,13 +48,16 @@ def expense_create(request):
         amount=amount,
         payment_method = payment_method,
         date=date,
-        currency=currency
+        currency=currency,
+        user = request.user
     )
     return JsonResponse({'message': 'Expense created successfully', 'id': expense.id}, status=200)
 
 @csrf_exempt
 @method_required('post')
 @expense_exist
+@authenticated_user
+@user_owner_expense
 def expense_update(request, expense_pk):
     expense = request.expense
     data = json.loads(request.body)
@@ -68,6 +73,8 @@ def expense_update(request, expense_pk):
 @csrf_exempt
 @method_required('delete')
 @expense_exist
+@authenticated_user
+@user_owner_expense
 def expense_delete(request, expense_pk):
     expense = request.expense
     expense.delete()
@@ -75,8 +82,9 @@ def expense_delete(request, expense_pk):
 
 @csrf_exempt
 @method_required('get')
+@authenticated_user
 def all_incomes(request):
-    incomes = Income.objects.all().order_by('-date')
+    incomes = Income.objects.filter(user=request.user).order_by('-date')
     category = request.GET.get('category')
     batch = request.GET.get('batch')
     if category:
@@ -94,6 +102,7 @@ def income_summary(request):
 
 @csrf_exempt
 @method_required('post')
+@authenticated_user
 def income_create(request):
     data = json.loads(request.body)
     category = data.get('category')
@@ -109,13 +118,16 @@ def income_create(request):
         description=description,
         amount=amount,
         currency=currency,
-        date=date
+        date=date,
+        user= request
     )
     return JsonResponse({'message': 'Income created successfully', 'id': income.id}, status=200)
 
 @csrf_exempt
 @method_required('post')
 @income_exist
+@authenticated_user
+@user_owner_income
 def income_update(request, income_pk):
     income = request.income
     data = json.loads(request.body)
@@ -130,6 +142,8 @@ def income_update(request, income_pk):
 @csrf_exempt
 @method_required('delete')
 @income_exist
+@authenticated_user
+@user_owner_income
 def income_delete(request, income_pk):
     income = request.income
     income.delete()
