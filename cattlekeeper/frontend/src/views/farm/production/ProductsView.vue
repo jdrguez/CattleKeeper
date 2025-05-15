@@ -40,9 +40,9 @@
 
 <script setup lang="ts">
 import { defineComponent, ref, computed, onMounted } from 'vue';
-import { useCartStore } from '../stores/cartStore';
-import { useOrderStore } from '../stores/orderStore';
-import { useWishlistStore } from '../stores/wishlistStore';
+import { useCartStore } from '../../../stores/cartStore';
+import { useOrderStore } from '../../../stores/orderStore';
+import { useWishlistStore } from '../../../stores/wishlistStore';
 import { useI18n } from 'vue-i18n';
 import api from '@/api/axios.ts'
 

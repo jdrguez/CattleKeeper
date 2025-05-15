@@ -6,7 +6,9 @@
         <RouterLink to="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
           <img class="logo" src="../assets/img/logo.webp" alt="">
         </RouterLink>
+
         <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+
           <li v-if="!isLoggedIn">
             <NavButton 
               to_router=""
@@ -15,6 +17,7 @@
               :name="t('home')"
             />
           </li>
+
           <li v-if="!isLoggedIn">
             <NavButton 
               to_router="login"
@@ -42,6 +45,20 @@
             />
           </li>
 
+          <li v-if="isLoggedIn" class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">
+              {{ t('farm') }}
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <RouterLink to="/batches" class="dropdown-item">{{ t('batch-list') }}</RouterLink>
+              </li>
+              <li>
+                <RouterLink to="/finances/expenses" class="dropdown-item">{{ t('finances') }}</RouterLink>
+              </li>
+            </ul>
+          </li>
+
           <li v-if="isLoggedIn">
             <NavButton 
               to_router="account"
@@ -63,6 +80,7 @@
           <li>
             <button @click="changeLanguage" style="background: none; border: none;">{{ t('change') }}</button>
           </li>
+
         </ul>
       </div>
     </div>
@@ -74,12 +92,10 @@ import { useI18n } from 'vue-i18n';
 import { inject, reactive, computed } from 'vue';
 import NavButton from './NavButton.vue';
 
-// Inyectar el estado de autenticación y hacerlo reactivo
 const auth = inject<{ isLoggedIn: boolean }>('auth')!;
-const reactiveAuth = reactive(auth); // Hacemos reactivo el objeto de auth
+const reactiveAuth = reactive(auth);
 const { t, locale } = useI18n();
 
-// Utilizamos reactiveAuth para que cualquier cambio en isLoggedIn se actualice en la vista
 const isLoggedIn = computed(() => reactiveAuth.isLoggedIn);
 
 const changeLanguage = () => {

@@ -93,9 +93,9 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { RouterLink} from 'vue-router'
-import { useOrderStore } from '../stores/orderStore';
-import { useWishlistStore } from '../stores/wishlistStore';
-import { useCartStore } from '../stores/cartStore';
+import { useOrderStore } from '../../stores/orderStore';
+import { useWishlistStore } from '../../stores/wishlistStore';
+import { useCartStore } from '../../stores/cartStore';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
