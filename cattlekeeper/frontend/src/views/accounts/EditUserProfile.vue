@@ -1,30 +1,80 @@
 <template>
-    <div class="max-w-xl mx-auto p-4">
-      <h2 class="text-2xl font-bold mb-4">Editar Perfil</h2>
-      <form @submit.prevent="guardarPerfil">
-        <div class="mb-4">
-          <label class="block">Nombre</label>
-          <input v-model="form.first_name" class="w-full border rounded p-2" />
+    <div class="container mt-5">
+      <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+          <h2 class="mb-0">Editar Perfil</h2>
         </div>
-        <div class="mb-4">
-          <label class="block">Apellido</label>
-          <input v-model="form.last_name" class="w-full border rounded p-2" />
+        <div class="card-body">
+          <form @submit.prevent="guardarPerfil" class="row g-3">
+  
+            <div class="col-md-6">
+              <label for="firstName" class="form-label">Nombre</label>
+              <input
+                id="firstName"
+                type="text"
+                v-model="form.first_name"
+                class="form-control"
+                placeholder="Tu nombre"
+                required
+              />
+            </div>
+  
+            <div class="col-md-6">
+              <label for="lastName" class="form-label">Apellido</label>
+              <input
+                id="lastName"
+                type="text"
+                v-model="form.last_name"
+                class="form-control"
+                placeholder="Tu apellido"
+                required
+              />
+            </div>
+  
+            <div class="col-12">
+              <label for="email" class="form-label">Email</label>
+              <input
+                id="email"
+                type="email"
+                v-model="form.email"
+                class="form-control"
+                placeholder="correo@ejemplo.com"
+                required
+              />
+            </div>
+  
+            <div class="col-12">
+              <label for="bio" class="form-label">Biografía</label>
+              <textarea
+                id="bio"
+                v-model="form.bio"
+                rows="4"
+                class="form-control"
+                placeholder="Cuéntanos sobre ti..."
+              ></textarea>
+            </div>
+  
+            <div class="col-12">
+              <label for="avatar" class="form-label">Avatar</label>
+              <input
+                id="avatar"
+                type="file"
+                @change="handleFileUpload"
+                accept="image/*"
+                class="form-control"
+              />
+            </div>
+  
+            <div class="col-12 d-flex justify-content-end gap-2">
+              <button type="button" class="btn btn-secondary" @click="$router.back()">Cancelar</button>
+              <button type="submit" class="btn btn-success">Guardar</button>
+            </div>
+  
+          </form>
+  
+          <p v-if="mensaje" class="mt-3 text-success fw-semibold">{{ mensaje }}</p>
         </div>
-        <div class="mb-4">
-          <label class="block">Email</label>
-          <input v-model="form.email" type="email" class="w-full border rounded p-2" />
-        </div>
-        <div class="mb-4">
-          <label class="block">Biografía</label>
-          <textarea v-model="form.bio" class="w-full border rounded p-2"></textarea>
-        </div>
-        <div class="mb-4">
-          <label class="block">Avatar</label>
-          <input type="file" @change="handleFileUpload" class="w-full" />
-        </div>
-        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Guardar</button>
-      </form>
-      <p v-if="mensaje" class="mt-4 text-green-600">{{ mensaje }}</p>
+      </div>
     </div>
   </template>
   
