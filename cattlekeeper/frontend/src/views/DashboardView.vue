@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { RouterLink} from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import Chart from '@/components/dashboard/Chart.vue';
@@ -6,6 +6,21 @@ import production from '@/components/dashboard/ProductionChart.vue';
 import expenses from '@/components/dashboard/ExpensesChart.vue'
 import incomerBatch from '@/components/dashboard/IncomesBatchChart.vue'
 const { t } = useI18n();
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import api from '@/api/axios';
+
+const batches = ref([]);
+const router = useRouter();
+
+onMounted(async () => {
+  try {
+    const response = await api.get('api/farm/batch/');
+    batches.value = response.data;
+  } catch (error) {
+    console.error('Error fetching batches:', error);
+  }
+});
 
 </script>
 
@@ -243,91 +258,33 @@ const { t } = useI18n();
       
 
       <h2>{{t('dash.d14')}}</h2>
-      <div class="table-responsive small">
-        <table class="table table-striped table-sm">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">{{ t('breed') }}</th>
-            <th scope="col">{{ t('quantity') }}</th>
-            <th scope="col">{{ t('production') }}</th>
-            <th scope="col">{{ t('location') }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>{{ t('farms.farmA') }}</td>
-            <td>150</td>
-            <td>30</td>
-            <td>{{ t('farms.farmA') }}</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>{{ t('farms.farmB') }}</td>
-            <td>80</td>
-            <td>25</td>
-            <td>{{ t('farms.farmB') }}</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>{{ t('farms.farmC') }}</td>
-            <td>200</td>
-            <td>N/A</td>
-            <td>{{ t('farms.farmC') }}</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>{{ t('farms.farmD') }}</td>
-            <td>120</td>
-            <td>N/A</td>
-            <td>{{ t('farms.farmD') }}</td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>{{ t('farms.farmE') }}</td>
-            <td>90</td>
-            <td>20</td>
-            <td>{{ t('farms.farmE') }}</td>
-          </tr>
-          <tr>
-            <td>6</td>
-            <td>{{ t('farms.farmF') }}</td>
-            <td>110</td>
-            <td>N/A</td>
-            <td>{{ t('farms.farmF') }}</td>
-          </tr>
-          <tr>
-            <td>7</td>
-            <td>{{ t('farms.farmG') }}</td>
-            <td>75</td>
-            <td>N/A</td>
-            <td>{{ t('farms.farmG') }}</td>
-          </tr>
-          <tr>
-            <td>8</td>
-            <td>{{ t('farms.farmH') }}</td>
-            <td>60</td>
-            <td>22</td>
-            <td>{{ t('farms.farmH') }}</td>
-          </tr>
-          <tr>
-            <td>9</td>
-            <td>{{ t('farms.farmI') }}</td>
-            <td>50</td>
-            <td>18</td>
-            <td>{{ t('farms.farmI') }}</td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td>{{ t('farms.farmJ') }}</td>
-            <td>40</td>
-            <td>N/A</td>
-            <td>{{ t('farms.farmJ') }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="card my-4">
+    <div class="card-header">
+      <h5 class="card-title mb-0">Inventory</h5>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-striped mb-0">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Species</th>
+              <th>Sex</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="batch in batches" :key="batch.id">
+              <td>{{ batch.name }}</td>
+              <td>{{ batch.species }}</td>
+              <td>{{ batch.sex }}</td>
+              <td>{{ batch.quantity }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+    </div>
+  </div>
     </main>
   </div>
 </div>
