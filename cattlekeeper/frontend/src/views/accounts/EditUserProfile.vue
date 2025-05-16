@@ -73,17 +73,18 @@
   
           </form>
   
-          <p v-if="mensaje" class="mt-3 text-success fw-semibold">{{ mensaje }}</p>
         </div>
       </div>
     </div>
   </template>
   
   <script setup>
-  import Breadcrumbs from '@/components/utils/Breadcrumbs.vue';
   import { ref, onMounted } from 'vue'
   import api from '@/api/axios';
+  import { useToast } from 'vue-toastification';
   
+  const toast = useToast()
+
   const form = ref({
     first_name: '',
     last_name: '',
@@ -122,8 +123,10 @@
     try {
       const response = await api.post('/api/accounts/user/edit/', formData)
       mensaje.value = 'Perfil actualizado correctamente.'
+      toast.success('Se ha actualizado tu perfil correctamente')
     } catch (error) {
       console.error('Error al actualizar el perfil:', error)
+      toast.error('No se ha podido actualizar tu perfil')
     }
   }
   

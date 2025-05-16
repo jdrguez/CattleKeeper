@@ -93,7 +93,7 @@ def required_fields(*fields):
 def authenticated_user(func):
     def wrapper(request, *args, **kwargs):
         auth = request.headers.get('Authorization', '')
-        regexp = r'Bearer (?P<token>[0-9a-f\-]{36})'
+        regexp = r'Bearer (?P<token>[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})'
         match = re.fullmatch(regexp, auth)
         if not match:
             return JsonResponse({'error': 'Invalid or missing authentication token'}, status=400)

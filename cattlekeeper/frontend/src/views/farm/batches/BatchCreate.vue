@@ -2,6 +2,9 @@
 import { ref } from 'vue';
 import api from '@/api/axios';
 import { useRouter } from 'vue-router';
+import { useToast } from 'vue-toastification';
+
+const toast = useToast()
 
 const router = useRouter();
 
@@ -9,7 +12,7 @@ const form = ref({
   species: '',
   purchase_date: '',
   quantity: '',
-  sex: 3, // Default: MIXED
+  sex: 3, 
   origin: '',
   notes: ''
 });
@@ -29,19 +32,21 @@ const sexOptions = [
   { value: 3, label: 'Mixed' }
 ];
 
+
 const createBatch = async () => {
   try {
     await api.post('api/farm/batch/create/', form.value);
-    alert('Lote creado correctamente');
-    router.push({ name: 'batch-list' });
+    router.push({ name: 'batch-list' , params: {msg:'Se ha creado correctamente'}});
+    toast.success('Se ha creado el lote correctamente')
   } catch (error) {
     console.error('Error al crear el lote:', error);
-    alert('Hubo un error al crear el lote.');
+    toast.error('No se ha podido crear el lote')
   }
 };
 </script>
 
 <template>
+
   <div class="container mt-5">
     <div class="card shadow-sm">
       <div class="card-header bg-success text-white">

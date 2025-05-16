@@ -44,6 +44,8 @@ import api from '@/api/axios';
 const batches = ref([]);
 const router = useRouter();
 
+
+
 onMounted(async () => {
   try {
     const response = await api.get('api/farm/batch/');

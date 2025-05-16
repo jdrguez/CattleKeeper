@@ -2,8 +2,10 @@
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import api from '@/api/axios';
+import { useToast } from 'vue-toastification';
 
 const router = useRouter();
+const toast = useToast();
 
 const form = ref({
   category: '',
@@ -51,11 +53,11 @@ onMounted(() => {
 const createExpense = async () => {
   try {
     await api.post('api/farm/finances/expenses/create/', form.value);
-    alert('Gasto creado correctamente');
+    toast.success('Se ha creado un gasto correctamente')
     router.push({ name: 'expenses' });
   } catch (error) {
     console.error('Error creando gasto:', error);
-    alert('Hubo un error al crear el gasto.');
+    toast.error('No se ha creado el gasto')
   }
 };
 </script>

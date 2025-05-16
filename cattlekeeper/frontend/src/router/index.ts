@@ -69,38 +69,39 @@ const router = createRouter({
     { path: '/wishlist', name: 'Wishlist', component: WishlistView, meta: { requiresAuth: true, breadcrumb: 'Lista deseos' } },
 
     // Batches
-    { path: '/batches', name: 'batch-list', component: BatchList, meta: { breadcrumb: 'Lotes' } },
-    { path: '/batch/:batch_slug', name: 'BatchDetail', component: BatchDetail, meta: { breadcrumb: 'Detalle lote' } },
-    { path: '/batch/create', name: 'BatchCreate', component: BatchCreate, meta: { breadcrumb: 'Crear lote' } },
-    { path: '/batch/:batch_slug/update', name: 'BatchUpdate', component: BatchUpdate, meta: { breadcrumb: 'Actualizar lote' } },
-    { path: '/batch/:batch_slug/delete', name: 'batch-delete', component: BatchDelete, props: true, meta: { breadcrumb: 'Eliminar lote' } },
-    { path: '/batches/:batch_slug/animals', name: 'BatchAnimalList', component: BatchAnimalList, meta: { breadcrumb: 'Animales lote' } },
+    { path: '/batches', name: 'batch-list', component: BatchList, meta: { requiresAuth: true, breadcrumb: 'Lotes' } },
+    { path: '/batch/:batch_slug', name: 'BatchDetail', component: BatchDetail, meta: { requiresAuth: true, breadcrumb: 'Detalle lote' } },
+    { path: '/batch/create', name: 'BatchCreate', component: BatchCreate, meta: { requiresAuth: true, breadcrumb: 'Crear lote' } },
+    { path: '/batch/:batch_slug/update', name: 'BatchUpdate', component: BatchUpdate, meta: { requiresAuth: true, breadcrumb: 'Actualizar lote' } },
+    { path: '/batch/:batch_slug/delete', name: 'batch-delete', component: BatchDelete, props: true, meta: { requiresAuth: true, breadcrumb: 'Eliminar lote' } },
+    { path: '/batches/:batch_slug/animals', name: 'BatchAnimalList', component: BatchAnimalList, meta: { requiresAuth: true, breadcrumb: 'Animales lote' } },
 
     // Animales
-    { path: '/batches/:batch_slug/animals/:animal_slug', name: 'AnimalDetail', component: AnimalDetail, meta: { breadcrumb: 'Detalle animal' } },
-    { path: '/batches/:batch_slug/animals/create', name: 'AnimalCreate', component: AnimalCreate, meta: { breadcrumb: 'Crear animal' } },
-    { path: '/batch/:batch_slug/animals/:animal_slug/update', name: 'AnimalUpdate', component: AnimalUpdate, meta: { breadcrumb: 'Actualizar animal' } },
-    { path: '/farm/batch/:batch_slug/animals/:animal_slug/delete', name: 'AnimalDelete', component: AnimalDelete, meta: { breadcrumb: 'Eliminar animal' } },
+    { path: '/batches/:batch_slug/animals/:animal_slug', name: 'AnimalDetail', component: AnimalDetail, meta: { requiresAuth: true, breadcrumb: 'Detalle animal' } },
+    { path: '/batches/:batch_slug/animals/create', name: 'AnimalCreate', component: AnimalCreate, meta: { requiresAuth: true, breadcrumb: 'Crear animal' } },
+    { path: '/batch/:batch_slug/animals/:animal_slug/update', name: 'AnimalUpdate', component: AnimalUpdate, meta: { requiresAuth: true, breadcrumb: 'Actualizar animal' } },
+    { path: '/farm/batch/:batch_slug/animals/:animal_slug/delete', name: 'AnimalDelete', component: AnimalDelete, meta: { requiresAuth: true, breadcrumb: 'Eliminar animal' } },
 
     // Salud
-    { path: '/batches/:batch_slug/animals/:animal_slug/health/create', name: 'HealthEventCreate', component: HealthEventCreate, meta: { breadcrumb: 'Crear evento salud' } },
+    { path: '/batches/:batch_slug/animals/:animal_slug/health/create', name: 'HealthEventCreate', component: HealthEventCreate, meta: { requiresAuth: true, breadcrumb: 'Crear evento salud' } },
 
     // Producción
-    { path: '/batch/:batch_slug/productions', name: 'ProductionList', component: ProductionList, meta: { breadcrumb: 'Producción' } },
-    { path: '/batch/:batch_slug/production/create', name: 'ProductionCreate', component: ProductionCreate, meta: { breadcrumb: 'Crear producción' } },
-    { path: '/batch/:batch_slug/production/:production_pk/edit', name: 'ProductionEdit', component: ProductionEdit, meta: { breadcrumb: 'Editar producción' } },
+    { path: '/batch/:batch_slug/productions', name: 'ProductionList', component: ProductionList, meta: {requiresAuth: true, breadcrumb: 'Producción' } },
+    { path: '/batch/:batch_slug/production/create', name: 'ProductionCreate', component: ProductionCreate, meta: { requiresAuth: true, breadcrumb: 'Crear producción' } },
+    { path: '/batch/:batch_slug/production/:production_pk/edit', name: 'ProductionEdit', component: ProductionEdit, meta: { requiresAuth: true, breadcrumb: 'Editar producción' } },
 
     // Finanzas
-    { path: '/finances/expenses', name: 'expenses', component: Expenses, meta: { breadcrumb: 'Gastos' } },
-    { path: '/finances/expenses/create', name: 'expense-create', component: ExpenseCreate, meta: { breadcrumb: 'Crear gasto' } },
-    { path: '/finances/expenses/:expense_pk/update', name: 'expense-update', component: ExpenseUpdate, meta: { breadcrumb: 'Actualizar gasto' } },
-    { path: '/finances/incomes', name: 'incomes', component: Incomes, meta: { breadcrumb: 'Ingresos' } },
-    { path: '/finances/incomes/create', name: 'create-income', component: CreateIncome, meta: { breadcrumb: 'Crear ingreso' } },
-    { path: '/finances/incomes/:id/edit', name: 'edit-income', component: EditIncome, meta: { breadcrumb: 'Editar ingreso' } },
+    { path: '/finances/expenses', name: 'expenses', component: Expenses, meta: { requiresAuth: true, breadcrumb: 'Gastos' } },
+    { path: '/finances/expenses/create', name: 'expense-create', component: ExpenseCreate, meta: { requiresAuth: true, breadcrumb: 'Crear gasto' } },
+    { path: '/finances/expenses/:expense_pk/update', name: 'expense-update', component: ExpenseUpdate, meta: { requiresAuth: true, breadcrumb: 'Actualizar gasto' } },
+    { path: '/finances/incomes', name: 'incomes', component: Incomes, meta: { requiresAuth: true, breadcrumb: 'Ingresos' } },
+    { path: '/finances/incomes/create', name: 'create-income', component: CreateIncome, meta: { requiresAuth: true, breadcrumb: 'Crear ingreso' } },
+    { path: '/finances/incomes/:id/edit', name: 'edit-income', component: EditIncome, meta: { requiresAuth: true, breadcrumb: 'Editar ingreso' } },
 
     //Mapa
     { path: '/map', name:'FarmMap', component: FarmMap, meta: {breadcrumb: 'Mapa', requiresAuth: true}},
 
+    
   ],
 })
 
