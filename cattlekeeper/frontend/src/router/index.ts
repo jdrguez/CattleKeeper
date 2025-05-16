@@ -8,6 +8,7 @@ import NotFound from '@/views/NotFound.vue'
 import OrderDetail from '@/views/orders/OrderDetail.vue'
 import WishlistView from '@/views/WishlistView.vue'
 import ProductsView from '@/views/ProductsView.vue'
+import FarmMap from '@/views/farm/map/FarmMap.vue'
 
 // Cuentas
 import LoginView from '@/views/accounts/LoginView.vue'
@@ -96,6 +97,10 @@ const router = createRouter({
     { path: '/finances/incomes', name: 'incomes', component: Incomes, meta: { breadcrumb: 'Ingresos' } },
     { path: '/finances/incomes/create', name: 'create-income', component: CreateIncome, meta: { breadcrumb: 'Crear ingreso' } },
     { path: '/finances/incomes/:id/edit', name: 'edit-income', component: EditIncome, meta: { breadcrumb: 'Editar ingreso' } },
+
+    //Mapa
+    { path: '/map', name:'FarmMap', component: FarmMap, meta: {breadcrumb: 'Mapa', requiresAuth: true}},
+
   ],
 })
 

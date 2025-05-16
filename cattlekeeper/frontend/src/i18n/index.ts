@@ -25,6 +25,7 @@ const messages = {
     account: 'Account',
     login: 'Login',
     logout:'Logout',
+    map:'Map',
     home_text:{
         home1: 'Discover our app',
         home2: 'Take your farm control to the next level',
@@ -95,6 +96,7 @@ const messages = {
     account: 'Cuenta',
     login: 'Login',
     logout: 'Salir',
+    map: 'Mapa',
     home_text:{
         home1: 'Descubre nuestra app',
         home2: 'lleva el control de tu granja al siguiente nivel',

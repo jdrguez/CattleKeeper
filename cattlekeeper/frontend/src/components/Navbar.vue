@@ -31,6 +31,15 @@
 
           <li v-if="isLoggedIn">
             <NavButton 
+              to_router="map"
+              class_str="nav-link text-white"
+              svg_class="bi bi-compass d-block mx-auto mb-1"
+              :name="t('map')"
+            />
+          </li>
+
+          <li v-if="isLoggedIn">
+            <NavButton 
               to_router="dashboard"
               class_str="nav-link text-white"
               svg_class="bi bi-speedometer d-block mx-auto mb-1"
