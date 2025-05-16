@@ -5,6 +5,7 @@ from shared.decorators import method_required, check_json_body, required_fields,
 from .helpers import product_exist, review_exist
 from django.views.decorators.csrf import csrf_exempt
 
+
 @csrf_exempt
 @method_required('get')
 @valid_token

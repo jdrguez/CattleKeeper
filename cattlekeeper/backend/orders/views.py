@@ -6,6 +6,20 @@ from django.views.decorators.csrf import csrf_exempt
 from .helpers import order_exist, product_exist, status_errors, validate_card, valid_status
 from products.serializers import ProductSerializer
 from django.http import JsonResponse
+from django.contrib.auth.models import User
+
+@csrf_exempt
+@method_required('get')
+@valid_token
+@token_exists
+def order_list(request):
+    user = User.objects.get(token__key=request.token)
+    orders = Order.objects.filter(user=user)
+    orders_json = OrderSerializer(orders, request=request)
+    return orders_json.json_response()
+
+
+
 
 @csrf_exempt
 @method_required('post')
@@ -33,7 +47,6 @@ def order_product_list(request, order_pk):
 @valid_token
 @token_exists
 @order_exist
-@user_owner
 def order_detail(request, order_pk):
     order_json = OrderSerializer(request.order, request=request)
     return order_json.json_response()

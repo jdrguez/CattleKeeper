@@ -1,4 +1,5 @@
 <template>
+
     <div class="container mt-5">
       <div class="card shadow-sm">
         <div class="card-header bg-success text-white">
@@ -79,6 +80,7 @@
   </template>
   
   <script setup>
+  import Breadcrumbs from '@/components/utils/Breadcrumbs.vue';
   import { ref, onMounted } from 'vue'
   import api from '@/api/axios';
   
