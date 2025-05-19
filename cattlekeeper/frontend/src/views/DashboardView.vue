@@ -205,21 +205,6 @@ onMounted(async () => {
           </ul>
 
           <hr class="my-3">
-
-          <ul class="nav flex-column mb-auto">
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
-                <svg class="bi"><use xlink:href="#gear-wide-connected"/></svg>
-                {{t('dash.d9')}}
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
-                <svg class="bi"><use xlink:href="#door-closed"/></svg>
-                {{t('dash.d10')}}
-              </a>
-            </li>
-          </ul>
         </div>
       </div>
     </div>

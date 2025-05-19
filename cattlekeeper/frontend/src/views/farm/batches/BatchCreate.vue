@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import api from '@/api/axios';
 import { useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification';
+import Breadcrumbs from '@/components/utils/Breadcrumbs.vue';
 
 const toast = useToast()
 
@@ -46,6 +47,18 @@ const createBatch = async () => {
 </script>
 
 <template>
+
+  <Breadcrumbs :breadcrumbs="[
+    {lable: 'Batch', to: '/batches'},
+    {lable: 'Create', to: '/'}
+  ]"
+  
+  
+  >
+  
+  
+  </Breadcrumbs>
+
 
   <div class="container mt-5">
     <div class="card shadow-sm">

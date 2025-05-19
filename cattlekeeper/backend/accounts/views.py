@@ -41,7 +41,6 @@ def login_user(request):
             token, _ = Token.objects.get_or_create(user=user)
             response = JsonResponse({'message': 'Login successful.'})
             response.headers['authorization'] = str(token.key)
-            print(response.headers)
             return response
         else:
             return JsonResponse({'error': 'Invalid credentials.'}, status=401) 
