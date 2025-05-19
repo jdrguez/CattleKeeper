@@ -47,19 +47,6 @@ const createBatch = async () => {
 </script>
 
 <template>
-
-  <Breadcrumbs :breadcrumbs="[
-    {lable: 'Batch', to: '/batches'},
-    {lable: 'Create', to: '/'}
-  ]"
-  
-  
-  >
-  
-  
-  </Breadcrumbs>
-
-
   <div class="container mt-5">
     <div class="card shadow-sm">
       <div class="card-header bg-success text-white">

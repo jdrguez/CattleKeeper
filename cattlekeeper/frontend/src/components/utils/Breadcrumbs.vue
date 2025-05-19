@@ -1,56 +1,60 @@
 <template>
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
+  <nav aria-label="breadcrumb" class="breadcrumb">
+    <ol>
       <li
-        v-for="(crumb, index) in breadcrumbs"
+        v-for="(item, index) in breadcrumb"
         :key="index"
-        class="breadcrumb-item"
-        :class="{ active: index === breadcrumbs.length - 1 }"
-        :aria-current="index === breadcrumbs.length - 1 ? 'page' : null"
+        :class="{ active: index === breadcrumb.length - 1 }"
       >
-        <template v-if="index !== breadcrumbs.length - 1">
-          <RouterLink v-if="crumb.to" :to="crumb.to">{{ crumb.label }}</RouterLink>
-          <span v-else>{{ crumb.label }}</span>
-        </template>
-        <span v-else>{{ crumb.label }}</span>
+        <router-link v-if="item.to && index !== breadcrumb.length - 1" :to="item.to">
+          {{ item.label }}
+        </router-link>
+        <span v-else>{{ item.label }}</span>
       </li>
     </ol>
   </nav>
 </template>
 
 <script setup>
-import { RouterLink } from 'vue-router'
+import { useRoute } from 'vue-router'
+import { computed } from 'vue'
 
-defineProps({
-  breadcrumbs: {
-    type: Array,
-    required: true,
-    validator: (val) =>
-      val.every(
-        (item) =>
-          typeof item.label === 'string' &&
-          ('to' in item ? typeof item.to === 'string' : true)
-      ),
-  },
+const route = useRoute()
+
+const breadcrumb = computed(() => {
+  return route.meta.breadcrumb || [{ label: 'Inicio', to: '/' }]
 })
 </script>
 
 <style scoped>
-.breadcrumb {
-  display: flex;
-  gap: 0.5rem;
+.breadcrumb ol {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  gap: 0.5em;
 }
-.breadcrumb-item::after {
-  content: "/";
-  margin-left: 0.5rem;
+
+.breadcrumb li::after {
+  content: '/';
+  margin-left: 0.5em;
 }
-.breadcrumb-item:last-child::after {
-  content: "";
+
+.breadcrumb li:last-child::after {
+  content: '';
 }
-.breadcrumb-item.active {
+
+.breadcrumb li.active span {
   font-weight: bold;
+  color: #555;
+}
+
+.breadcrumb li a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.breadcrumb li a:hover {
+  text-decoration: underline;
 }
 </style>

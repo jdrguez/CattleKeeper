@@ -1,7 +1,14 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
+import { RouterView, useRoute } from 'vue-router' 
 import Footer from './components/Footer.vue';
 import Navbar from './components/Navbar.vue';
+import Breadcrumbs from './components/utils/Breadcrumbs.vue';
+
+const route = useRoute()
+
+
+
+
 </script>
 
 <template>
@@ -9,6 +16,7 @@ import Navbar from './components/Navbar.vue';
     <Navbar></Navbar>
   </nav>
   <main class="container mt-4">
+    <Breadcrumbs :items="route.meta.breadcrumb || []" />
     <RouterView />
   </main>
   <footer>

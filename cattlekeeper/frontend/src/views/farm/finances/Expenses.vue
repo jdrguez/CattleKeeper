@@ -104,7 +104,6 @@ onMounted(() => {
 
 <style scoped>
 .page-container {
-  max-width: 720px;
   margin: 2rem auto;
   background: #fff;
   padding: 2rem 2.5rem;
@@ -117,7 +116,7 @@ onMounted(() => {
 .page-title {
   font-size: 2.1rem;
   font-weight: 700;
-  border-bottom: 3px solid #4a90e2;
+  border-bottom: 3px solid #28a745;
   padding-bottom: 0.3rem;
   margin-bottom: 1.8rem;
   letter-spacing: 0.03em;
@@ -152,8 +151,8 @@ onMounted(() => {
 
 .select:focus {
   outline: none;
-  border-color: #4a90e2;
-  box-shadow: 0 0 8px #4a90e2aa;
+  border-color: #28a745;;
+  box-shadow: 0 0 8px #33d459;
 }
 
 .btn-link {
@@ -162,21 +161,21 @@ onMounted(() => {
 
 .btn-create {
   padding: 0.55rem 1.6rem;
-  background: linear-gradient(135deg, #4a90e2, #357abd);
+  background: linear-gradient(135deg, #28a745, #1e7e34);
   color: white;
   font-weight: 700;
   border: none;
   border-radius: 30px;
   cursor: pointer;
   user-select: none;
-  box-shadow: 0 6px 16px rgba(53, 122, 189, 0.5);
+  box-shadow:  0 6px 16px rgba(30, 126, 52, 0.5);
   transition: background 0.4s ease, box-shadow 0.4s ease;
 }
 
 .btn-create:hover,
 .btn-create:focus {
-  background: linear-gradient(135deg, #357abd, #4a90e2);
-  box-shadow: 0 8px 24px rgba(53, 122, 189, 0.8);
+  background: linear-gradient(135deg, #1e7e34, #28a745);
+  box-shadow: 0 8px 24px rgba(30, 126, 52, 0.8);
   outline: none;
 }
 
@@ -199,7 +198,7 @@ onMounted(() => {
 
 .expense-item:hover {
   box-shadow:
-    0 6px 18px rgba(74, 144, 226, 0.2);
+  0 6px 18px rgba(40, 167, 69, 0.2);
 }
 
 .expense-main {
@@ -213,7 +212,7 @@ onMounted(() => {
 }
 
 .expense-category {
-  background: #4a90e2;
+  background: #28a745;
   color: #fff;
   padding: 0.15rem 0.9rem;
   border-radius: 14px;
@@ -230,7 +229,7 @@ onMounted(() => {
 .expense-desc {
   margin-top: 0.5rem;
   font-style: italic;
-  color: #66788a;
+  color: #4c774c;
   user-select: text;
 }
 
@@ -254,7 +253,7 @@ onMounted(() => {
 
 .btn-edit {
   background: #ebf2ff;
-  color: #357abd;
+  color: #1e7e34;
 }
 
 .btn-edit:hover {
@@ -279,7 +278,7 @@ onMounted(() => {
 }
 
 .summary-section {
-  border-top: 2px solid #e2e8f0;
+  border-top: 2px solid #d4edda;
   padding-top: 1.8rem;
 }
 
@@ -287,7 +286,7 @@ onMounted(() => {
   font-weight: 700;
   font-size: 1.6rem;
   margin-bottom: 1rem;
-  color: #34495e;
+  color: #2f4f2f;
   user-select: none;
 }
 
@@ -308,7 +307,7 @@ onMounted(() => {
   color: #2d3a45;
   user-select: none;
   box-shadow:
-    inset 1px 1px 4px #c6d0e9,
+    inset 1px 1px 4px #b7d7b7,
     inset -1px -1px 4px #ffffff;
   flex: 1 1 180px;
   display: flex;
@@ -316,7 +315,7 @@ onMounted(() => {
 }
 
 .summary-category {
-  color: #4a90e2;
+  color: #28a745;
 }
 
 .summary-total {
