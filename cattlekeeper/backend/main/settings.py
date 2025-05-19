@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'farm.apps.FarmConfig',
     'stats.apps.StatsConfig',
     'colorfield',
+    'django_rq',
 ]
 
 MIDDLEWARE = [
@@ -109,6 +110,30 @@ DATABASES = {
         'PORT': 5432,
     }
 }
+
+
+
+# Rq
+
+RQ_QUEUES = {
+    'default': {
+        'HOST': 'redis',
+        'PORT': 6379,
+        'DB': 0,
+    },
+    'high': {
+        'HOST': 'redis',
+        'PORT': 6379,
+        'DB': 0,
+    },
+    'low': {
+        'HOST': 'redis',
+        'PORT': 6379,
+        'DB': 0,
+    }
+}
+
+
 
 
 # Password validation

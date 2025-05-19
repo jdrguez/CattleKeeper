@@ -28,6 +28,7 @@ handler500 = server_error
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('django-rq/', include('django_rq.urls')),
     path('api/products/', include('products.urls')),
     path('api/accounts/', include('accounts.urls')),
     path('api/orders/', include('orders.urls')),

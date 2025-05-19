@@ -4,10 +4,12 @@ Brotli==1.1.0
 certifi==2025.4.26
 cffi==1.17.1
 charset-normalizer==3.4.2
+click==8.2.0
 cssselect2==0.8.0
 Django==5.2.1
 django-colorfield==0.14.0
 django-cors-headers==4.7.0
+django-rq==3.0.1
 fonttools==4.58.0
 idna==3.10
 pillow==11.2.1
@@ -15,7 +17,9 @@ psycopg2-binary==2.9.10
 pycparser==2.22
 pydyf==0.11.0
 pyphen==0.17.2
+redis==6.1.0
 requests==2.32.3
+rq==2.3.3
 soupsieve==2.7
 sqlparse==0.5.3
 tinycss2==1.4.0
