@@ -119,7 +119,7 @@ def income_create(request):
         amount=amount,
         currency=currency,
         date=date,
-        user= request
+        user= request.user
     )
     return JsonResponse({'message': 'Income created successfully', 'id': income.id}, status=200)
 

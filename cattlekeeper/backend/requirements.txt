@@ -1,15 +1,27 @@
-Django>=4.2,<6.0
-django-cors-headers>=4.6.0
-asgiref>=3.6
-sqlparse>=0.3.1
-
-
-#pip install django
-#Collecting django-cors-headers
-#Downloading django_cors_headers-4.6.0-py3-none-any.whl.metadata (16 kB)
-#Requirement already satisfied: asgiref>=3.6 in ./.venv/lib/python3.12/site-packages (from django-cors-headers) (3.8.1)
-#Requirement already satisfied: django>=4.2 in ./.venv/lib/python3.12/site-packages (from django-cors-headers) (5.1.6)
-#Requirement already satisfied: sqlparse>=0.3.1 in ./.venv/lib/python3.12/site-packages (from django>=4.2->django-cors-headers) (0.5.3)
-#Downloading django_cors_headers-4.6.0-py3-none-any.whl (12 kB)
-#Installing collected packages: django-cors-headers
-#Successfully installed django-cors-headers-4.6.0
+asgiref==3.8.1
+beautifulsoup4==4.13.4
+Brotli==1.1.0
+certifi==2025.4.26
+cffi==1.17.1
+charset-normalizer==3.4.2
+cssselect2==0.8.0
+Django==5.2.1
+django-colorfield==0.14.0
+django-cors-headers==4.7.0
+fonttools==4.58.0
+idna==3.10
+pillow==11.2.1
+psycopg2-binary==2.9.10
+pycparser==2.22
+pydyf==0.11.0
+pyphen==0.17.2
+requests==2.32.3
+soupsieve==2.7
+sqlparse==0.5.3
+tinycss2==1.4.0
+tinyhtml5==2.0.0
+typing_extensions==4.13.2
+urllib3==2.4.0
+weasyprint==65.1
+webencodings==0.5.1
+zopfli==0.2.3.post1

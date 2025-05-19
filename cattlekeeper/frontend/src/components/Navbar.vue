@@ -66,7 +66,10 @@
                 <RouterLink to="/batches" class="dropdown-item">{{ t('batch-list') }}</RouterLink>
               </li>
               <li>
-                <RouterLink to="/finances/expenses" class="dropdown-item">{{ t('finances') }}</RouterLink>
+                <RouterLink to="/finances/expenses" class="dropdown-item">{{ t('expenses') }}</RouterLink>
+              </li>
+              <li>
+                <RouterLink to="/finances/incomes" class="dropdown-item">{{ t('incomes') }}</RouterLink>
               </li>
             </ul>
           </li>
@@ -90,7 +93,7 @@
           </li>
 
           <li>
-            <button @click="changeLanguage" style="background: none; border: none;">{{ t('change') }}</button>
+            <button @click="changeLanguage" style="background: none; border: none;" class="nav-link d-block mx-auto mb-1">{{ t('change') }}</button>
           </li>
 
         </ul>
