@@ -2,13 +2,12 @@ from django.conf import settings
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django_rq import job
-import django_rq
 from django.utils import timezone
 from farm.models import Income, Expense, Production, AnimalBatch
 from django.db.models import Sum
-from django.http import HttpResponse
 from io import BytesIO
 from django.contrib.auth import get_user_model
+from weasyprint import HTML
 
 @job
 def farm_report_pdf(user, year = None, month = None):
@@ -67,6 +66,9 @@ def farm_report_pdf(user, year = None, month = None):
     })
 
     pdf_buffer = BytesIO()
+    html = HTML(string=html_string)
+    html.write_pdf(target=pdf_buffer)
+    pdf_buffer.seek(0)
 
     email = EmailMessage(
         subject=f'Reporte mensual de tu granja - {month}/{year}',
@@ -77,9 +79,3 @@ def farm_report_pdf(user, year = None, month = None):
 
     email.attach(f'report_{month}_{year}.pdf', pdf_buffer.getvalue(), 'application/pdf')
     email.send()
-
-def generate_reports_for_users(year=None, month=None):
-    user = get_user_model()
-    queue = django_rq.get_queue()
-    for user in user.objects.all():
-        queue.enqueue(farm_report_pdf, user, year, month)
