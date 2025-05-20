@@ -19,80 +19,95 @@
   </div>
 </template>
 
-  
-  <script setup>
-  import { ref, reactive } from 'vue';
-  import ZoneItem from '@/components/farm/ZoneItem.vue';
-  import ZoneDetailsModal from '@/components/farm/ZoneDetailsModal.vue';
-  
-  const selectedZone = ref(null);
-  
-  function showDetails(zone) {
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import ZoneItem from '@/components/farm/ZoneItem.vue';
+import ZoneDetailsModal from '@/components/farm/ZoneDetailsModal.vue';
+import api from '@/api/axios';
+
+const router = useRouter();
+const map = ref(null);
+const scale = ref(1);
+const selectedZone = ref(null);
+const zones = ref([]);
+
+function showDetails(zone) {
   if (zone && typeof zone === 'object') {
     selectedZone.value = { ...zone };
-  }}
-
-  
-  const zones = reactive([
-    {
-      id: 1,
-      name: 'Potrero Sur',
-      lot: 122,
-      cattleCount: 62,
-      entryDate: '03/08/2023',
-      image: '/assets/Establo_icono.webp',
-      animalImage: '/assets/vaca.png',
-      x: 100,
-      y: 200,
-    },
-    {
-      id: 2,
-      name: 'Gallinero Noroeste',
-      lot: 45,
-      cattleCount: 15,
-      entryDate: '01/02/2024',
-      image: '/assets/corral.png',
-      animalImage: '/assets/gallina.png',
-      x: 300,
-      y: 200,
-    },
-    {
-      id: 3,
-      name: 'Potrero Sur',
-      lot: 122,
-      cattleCount: 62,
-      entryDate: '03/08/2023',
-      image: '/assets/Establo_icono.webp',
-      animalImage: '/assets/vaca.png',
-      x: 500,
-      y: 200,
-    },
-    {
-      id: 4,
-      name: 'Potrero Sur',
-      lot: 122,
-      cattleCount: 62,
-      entryDate: '03/08/2023',
-      image: '/assets/Establo_icono.webp',
-      animalImage: '/assets/vaca.png',
-      x: 100,
-      y: 300,
-    },
-  ]);
-  
-  const map = ref(null);
-  let scale = 1;
-  
-  function handleZoom(e) {
-    e.preventDefault();
-    const delta = e.deltaY > 0 ? -0.1 : 0.1;
-    scale += delta;
-    scale = Math.min(Math.max(0.5, scale), 2);
-    map.value.style.transform = `scale(${scale})`;
   }
-  </script>
-  
-  <style scoped>
+}
+
+function handleZoom(e) {
+  e.preventDefault();
+  const delta = e.deltaY > 0 ? -0.1 : 0.1;
+  scale.value += delta;
+  scale.value = Math.min(Math.max(0.5, scale.value), 2);
+  if (map.value) {
+    map.value.style.transform = `scale(${scale.value})`;
+  }
+}
+
+onMounted(async () => {
+  try {
+    const response = await api.get('api/farm/batch/');
+    const batches = response.data;
+
+    zones.value = batches.map((batch, index) => ({
+      id: batch.id || index,
+      name: batch.name,
+      species: batch.species,
+      sex: batch.sex,
+      cattleCount: batch.quantity,
+      entryDate: batch.purchase_date || 'Sin fecha',
+      image: getZoneImage(batch.species),
+      animalImage: getAnimalImage(batch.species),
+      x: getXPosition(index),
+      y: getYPosition(index),
+    }));
+  } catch (error) {
+    console.error('Error fetching batches:', error);
+  }
+});
+
+const goToDetail = (slug) => {
+  router.push({ name: 'BatchDetail', params: { batch_slug: slug } });
+};
+
+// Posiciones automáticas (puedes personalizar más adelante)
+function getXPosition(index) {
+  return 100 + (index % 4) * 250;
+}
+
+function getYPosition(index) {
+  return 200 + Math.floor(index / 4) * 150;
+}
+
+// Ruta de íconos de zona (estable, corral, etc.)
+function getZoneImage(species) {
+  switch (species) {
+    case 'Cattle': return '/assets/Establo_icono.webp'; 
+    case 'Poultry': return '/assets/corral.png';        
+    case 'Pig': return '/assets/lodo.png';  
+    case 'Sheep': return '/assets/Establo_icono.webp';    
+    case 'Goat': return '/assets/Establo_icono.webp';  
+    default: return '/assets/Establo_icono.webp';  
+  }
+}
+
+function getAnimalImage(species) {
+  switch (species) {
+    case 'Cattle': return '/assets/vaca.png';       
+    case 'Poultry': return '/assets/gallina.png';   
+    case 'Pig': return '/assets/pig.png';      
+    case 'Sheep': return '/assets/sheep.png';      
+    case 'Goat': return '/assets/goat.png';      
+    default: return '/assets/default_animal.png'; 
+  }
+}
+</script>
+
+<style scoped>
  .farm-container {
   max-width: 1200px;
   margin: 40px auto;
@@ -129,5 +144,4 @@
 .farm-map:hover {
   box-shadow: 0 0 20px rgba(128, 128, 128, 0.3);
 }
-  </style>
-  
+</style>
