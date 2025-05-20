@@ -56,18 +56,8 @@ def logout_user(request):
 @valid_token
 def user_detail(request):
     user = User.objects.get(token__key=request.token)
-    profile = user.profile
-    data = {
-        "username": user.username,
-        "email": user.email,
-        "first_name": user.first_name,
-        "last_name": user.last_name,
-        "profile": {
-            "bio": profile.bio,
-            "avatar": profile.avatar.url if profile.avatar else None,
-        }
-    }
-    return JsonResponse(data)
+    serilizer = UserSerializer(user, request=request)
+    return serilizer.json_response()
 
 @csrf_exempt  
 @method_required("POST")
@@ -90,14 +80,5 @@ def edit_profile(request):
             return JsonResponse({'errors': form.errors}, status=400)
 
     else:
-        data = {
-            "username": user.username,
-            "email": user.email,
-            "first_name": user.first_name,
-            "last_name": user.last_name,
-            "profile": {
-                "bio": profile.bio,
-                "avatar": profile.avatar.url if profile.avatar else None,
-            }
-        }
-        return JsonResponse(data, status=200)
+        serializer = UserSerializer(user, request=request)
+        return serializer.json_response()

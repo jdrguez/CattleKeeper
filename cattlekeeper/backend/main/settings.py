@@ -44,8 +44,10 @@ INSTALLED_APPS = [
     'orders.apps.OrdersConfig',
     'farm.apps.FarmConfig',
     'stats.apps.StatsConfig',
+    'subscription.apps.SubscriptionConfig',
     'colorfield',
     'django_rq',
+    
 ]
 
 MIDDLEWARE = [

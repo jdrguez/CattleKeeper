@@ -82,8 +82,10 @@
   import { ref, onMounted } from 'vue'
   import api from '@/api/axios';
   import { useToast } from 'vue-toastification';
+  import { useRouter } from 'vue-router';
   
   const toast = useToast()
+  const router = useRouter()
 
   const form = ref({
     first_name: '',
@@ -122,7 +124,7 @@
   
     try {
       const response = await api.post('/api/accounts/user/edit/', formData)
-      mensaje.value = 'Perfil actualizado correctamente.'
+      router.push('/account')
       toast.success('Se ha actualizado tu perfil correctamente')
     } catch (error) {
       console.error('Error al actualizar el perfil:', error)

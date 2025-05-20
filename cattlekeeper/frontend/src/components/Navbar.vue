@@ -74,13 +74,19 @@
             </ul>
           </li>
 
-          <li v-if="isLoggedIn">
-            <NavButton 
-              to_router="account"
-              class_str="nav-link text-white"
-              svg_class="bi bi-person d-block mx-auto mb-1"
-              :name="t('account')"
-            />
+          <li v-if="isLoggedIn" class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">
+              <i class="bi bi-person d-block mx-auto mb-1"></i>
+              {{ t('Profile') }}
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <RouterLink to="/account" class="dropdown-item">{{ t('account') }}</RouterLink>
+              </li>
+              <li>
+                <RouterLink to="/plans" class="dropdown-item">{{ t('plans') }}</RouterLink>
+              </li>
+            </ul>
           </li>
           
           <li v-if="isLoggedIn">

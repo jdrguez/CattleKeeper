@@ -14,7 +14,6 @@ import FarmMap from '@/views/farm/map/FarmMap.vue'
 import LoginView from '@/views/accounts/LoginView.vue'
 import LogoutView from '@/views/accounts/LogoutView.vue'
 import SignupView from '@/views/accounts/SignupView.vue'
-import AccountView from '@/views/accounts/AccountView.vue'
 import UserProfile from '@/views/accounts/UserProfile.vue'
 import EditUserProfile from '@/views/accounts/EditUserProfile.vue'
 
@@ -48,6 +47,9 @@ import Incomes from '@/views/farm/finances/Incomes.vue'
 import CreateIncome from '@/views/farm/finances/CreateIncome.vue'
 import EditIncome from '@/views/farm/finances/EditIncome.vue'
 
+// Subscripciones
+import SubscribeToPlan from '@/views/accounts/SubscribeToPlan.vue'
+import PlansView from '@/views/accounts/PlansView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -101,6 +103,14 @@ const router = createRouter({
 
     // Mapa
     { path: '/map', name: 'FarmMap', component: FarmMap, meta: { breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Mapa' }], requiresAuth: true } },
+
+    //Subscripcion
+    { path: '/plans', name: 'PlansView', component: PlansView, meta: { requiresAuth: true, breadcrumb: [ { label: 'Inicio', to: '/dashboard' },{ label: 'Planes disponibles' }]}},
+    { path: '/plans/subscribe/:planId', name: 'SubscribeToPlan', component: SubscribeToPlan, props: true, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Planes disponibles', to: '/plans' }, { label: 'Subscribirse' }]}},
+
+
+
+
   ],
 })
 

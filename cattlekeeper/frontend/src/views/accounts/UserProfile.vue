@@ -82,6 +82,16 @@
                 </div>
             <br>
             <br>
+
+
+            <div>
+              <ActiveSubscripcion></ActiveSubscripcion>
+
+            </div>
+
+
+
+
           </div>
   
           <div v-else class="text-center text-muted">
@@ -96,6 +106,7 @@
   import { RouterLink, useRouter  } from 'vue-router'
   import { onMounted, ref } from 'vue'
   import api from '@/api/axios'
+import ActiveSubscripcion from '@/components/subscripcion/ActiveSubscripcion.vue'
 
   
   const user = ref(null)
