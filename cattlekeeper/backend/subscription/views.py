@@ -80,3 +80,11 @@ def create_subscription(request):
         return JsonResponse({'error': 'Plan no encontrado'}, status=404)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
+
+@authenticated_user
+@valid_token
+@method_required('get')
+def subscription_status(request):
+    user = request.user
+    active = UserSubscription.objects.get(user=user).is_active()
+    return JsonResponse({'active': active})
