@@ -9,6 +9,7 @@ from django.template.loader import render_to_string
 from weasyprint import HTML
 from django.http import HttpResponse
 from io import BytesIO
+from .tasks import farm_report_pdf
 
 @csrf_exempt
 @method_required('get')
@@ -73,7 +74,7 @@ def net_income_per_batch(request):
 @csrf_exempt
 @method_required('get')
 @authenticated_user
-def farm_report_pdf(request):
+def farm_report_pdf_hola(request):
     user = request.user
     year = request.GET.get('year')
     month = request.GET.get('month')
@@ -137,3 +138,15 @@ def farm_report_pdf(request):
     response = HttpResponse(pdf_file.getvalue(), content_type='application/pdf')
     response['Content-Disposition'] = f'inline; filename="farm_report_{year}_{month}.pdf"'
     return response
+
+@csrf_exempt
+@method_required('get')
+@authenticated_user
+def get_report(request):
+    user = request.user
+    year = request.GET.get('year')
+    month = request.GET.get('month')
+
+    farm_report_pdf.delay(user, year, month)
+    
+    return HttpResponse('TOdo bien')

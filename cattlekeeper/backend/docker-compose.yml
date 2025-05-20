@@ -34,6 +34,15 @@ services:
       - "6379:6379"
     volumes:
       - redis_data:/data
+  
+  worker:
+    build: .
+    command: python manage.py rqworker
+    depends_on:
+      - redis
+    volumes:
+      - .:/app
+
 
 
 volumes:

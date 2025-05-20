@@ -8,5 +8,5 @@ urlpatterns = [
     path('production-summary/', views.production_by_type, name='production_summary'),
     path('expense-category-summary/', views.expenses_by_category, name='expense_category_summary'),
     path('batch-net-income/', views.net_income_per_batch, name='batch_net_income'),
-    path('report/pdf/', views.farm_report_pdf, name='farm_report_pdf'),
+    path('report/pdf/', views.get_report, name='get-report'),
 ]

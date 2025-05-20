@@ -46,6 +46,7 @@ import ExpenseUpdate from '@/views/farm/finances/ExpenseUpdate.vue'
 import Incomes from '@/views/farm/finances/Incomes.vue'
 import CreateIncome from '@/views/farm/finances/CreateIncome.vue'
 import EditIncome from '@/views/farm/finances/EditIncome.vue'
+import Report from '@/views/farm/finances/Report.vue'
 
 // Subscripciones
 import SubscribeToPlan from '@/views/accounts/SubscribeToPlan.vue'
@@ -62,7 +63,7 @@ const router = createRouter({
     { path: '/signup', name: 'signup', component: SignupView, meta: { breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Registro' }], hideSidebar: true } },
     { path: '/logout', name: 'logout', component: LogoutView, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Cerrar sesión' }], hideSidebar: true } },
     { path: '/account', name: 'account', component: UserProfile, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Perfil' }] } },
-    { path: '/account/edit', component: EditUserProfile, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Editar perfil' }] } },
+    { path: '/account/edit', component: EditUserProfile, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, {label: 'Perfil', to: '/account'},{ label: 'Editar perfil' }] } },
 
     // Generales
     { path: '/about', name: 'about', component: AboutView, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Acerca de' }] } },
@@ -82,7 +83,7 @@ const router = createRouter({
     // Animales
     { path: '/batches/:batch_slug/animals/:animal_slug', name: 'AnimalDetail', component: AnimalDetail, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Detalle animal' }] } },
     { path: '/batches/:batch_slug/animals/create', name: 'AnimalCreate', component: AnimalCreate, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Crear animal' }] } },
-    { path: '/batch/:batch_slug/animals/:animal_slug/update', name: 'AnimalUpdate', component: AnimalUpdate, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Actualizar animal' }] } },
+    { path: '/batch/:batch_slug/animals/:animal_slug/update', name: 'AnimalUpdate', component: AnimalUpdate, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, {label: 'Animales', to:'/batches'},{ label: 'Actualizar animal' }] } },
     { path: '/farm/batch/:batch_slug/animals/:animal_slug/delete', name: 'AnimalDelete', component: AnimalDelete, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Eliminar animal' }] } },
 
     // Salud
@@ -100,6 +101,9 @@ const router = createRouter({
     { path: '/finances/incomes', name: 'incomes', component: Incomes, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Ingresos' }] } },
     { path: '/finances/incomes/create', name: 'create-income', component: CreateIncome, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, {label: 'Ingresos', to:'/finances/incomes'},{ label: 'Crear ingreso' }] } },
     { path: '/finances/incomes/:id/edit', name: 'edit-income', component: EditIncome, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, {label: 'Ingresos', to:'/finances/incomes'},{ label: 'Editar ingreso' }] } },
+    { path: '/report/', name: 'report', component: Report, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, {label: 'Ingresos', to:'/finances/incomes'},{ label: 'Editar ingreso' }] } },
+    
+
 
     // Mapa
     { path: '/map', name: 'FarmMap', component: FarmMap, meta: { breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Mapa' }], requiresAuth: true } },

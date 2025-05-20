@@ -22,6 +22,18 @@ ENV PATH="/root/bin:${PATH}"
 
 RUN just --help
 
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libffi-dev \
+    libpango1.0-0 \
+    libcairo2 \
+    libjpeg-dev \
+    zlib1g-dev \
+    && pip install --upgrade pip \
+    && pip install -r requirements.txt
+
+COPY . .
+
 EXPOSE 8000
 
 CMD ["bash", "-c", "python manage.py runserver 0.0.0.0:8000"]
