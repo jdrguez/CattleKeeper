@@ -18,6 +18,9 @@ export const useSubscriptionStore = defineStore('subscription', {
       } finally {
         this.loading = false
       }
+    },
+    setSubscriptionStatus(status:any) {
+      this.isActive = status
     }
   }
 })

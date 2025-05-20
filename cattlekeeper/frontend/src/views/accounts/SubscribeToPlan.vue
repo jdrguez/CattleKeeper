@@ -21,9 +21,10 @@
   import { ref, onMounted } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
   import api from '@/api/axios'
-  
+  import { useSubscriptionStore } from '@/stores/subscription'
   const route = useRoute()
   const router = useRouter()
+  const subscription = useSubscriptionStore()
   const planId = route.params.planId
   
   console.log(planId)
@@ -47,6 +48,7 @@
       const response = await api.post('/api/subscription/create/', {
         plan_id: plan.value.id
       })
+      await subscription.checkSubscription()
       message.value = response.data.message || 'Suscripción creada.'
     } catch (error) {
       message.value = error.response?.data?.error || 'Error al suscribirse.'
