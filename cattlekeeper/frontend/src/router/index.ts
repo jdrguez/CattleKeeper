@@ -5,9 +5,6 @@ import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import DashboardView from '../views/DashboardView.vue'
 import NotFound from '@/views/NotFound.vue'
-import OrderDetail from '@/views/orders/OrderDetail.vue'
-import WishlistView from '@/views/WishlistView.vue'
-import ProductsView from '@/views/ProductsView.vue'
 import FarmMap from '@/views/farm/map/FarmMap.vue'
 
 // Cuentas
@@ -74,10 +71,7 @@ const router = createRouter({
     // Generales
     { path: '/about', name: 'about', component: AboutView, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Acerca de' }] } },
     { path: '/dashboard', name: 'dashboard', component: DashboardView, meta: { requiresAuth: true, requiresSubscription: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Panel' }], hideSidebar: true } },
-    { path: '/products', name: 'products', component: ProductsView, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Productos' }] } },
-    { path: '/order/:id', name: 'order', component: OrderDetail, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Detalle orden' }] } },
-    { path: '/wishlist', name: 'Wishlist', component: WishlistView, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Lista deseos' }] } },
-
+   
     // Batches
     { path: '/batches', name: 'batch-list', component: BatchList, meta: { requiresAuth: true ,breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Lotes' }] } },
     { path: '/batch/:batch_slug', name: 'BatchDetail', component: BatchDetail, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Lotes' , to: '/batches'}, {label: 'Detalle del lote'}] } },
@@ -108,8 +102,6 @@ const router = createRouter({
     { path: '/finances/incomes/create', name: 'create-income', component: CreateIncome, meta: { requiresAuth: true, requiresSubscription: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, {label: 'Ingresos', to:'/finances/incomes'},{ label: 'Crear ingreso' }] } },
     { path: '/finances/incomes/:id/edit', name: 'edit-income', component: EditIncome, meta: { requiresAuth: true, requiresSubscription: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, {label: 'Ingresos', to:'/finances/incomes'},{ label: 'Editar ingreso' }] } },
     { path: '/report/', name: 'report', component: Report, meta: { requiresAuth: true, requiresSubscription: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, {label: 'Ingresos', to:'/finances/incomes'},{ label: 'Editar ingreso' }] } },
-    
-
 
     // Mapa
     { path: '/map', name: 'FarmMap', component: FarmMap, meta: { breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Mapa' }], requiresAuth: true } },
@@ -117,9 +109,6 @@ const router = createRouter({
     //Subscripcion
     { path: '/plans', name: 'PlansView', component: PlansView, meta: { requiresAuth: true, breadcrumb: [ { label: 'Inicio', to: '/dashboard' },{ label: 'Planes disponibles' }]}},
     { path: '/plans/subscribe/:planId', name: 'SubscribeToPlan', component: SubscribeToPlan, props: true, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Planes disponibles', to: '/plans' }, { label: 'Subscribirse' }]}},
-
-
-
 
   ],
 })

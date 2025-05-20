@@ -47,15 +47,6 @@
             />
           </li>
 
-          <li v-if="isLoggedIn">
-            <NavButton 
-              to_router="products"
-              class_str="nav-link text-white"
-              svg_class="bi bi-bag d-block mx-auto mb-1"
-              :name="t('products')"
-            />
-          </li>
-
           <li v-if="isLoggedIn" class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">
               <i class="bi bi-flower3 d-block mx-auto mb-1"></i>

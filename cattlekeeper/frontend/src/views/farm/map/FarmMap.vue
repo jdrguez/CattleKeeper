@@ -1,6 +1,6 @@
 <template>
   <div class="farm-container">
-    <h2 class="farm-title">🐄 Vista general de las zonas de la granja</h2>
+    <h2 class="farm-title">Vista general de las zonas de la granja</h2>
 
     <div ref="map" class="farm-map">
       <ZoneItem

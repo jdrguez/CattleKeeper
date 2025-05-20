@@ -1,38 +1,48 @@
 <template>
   <div class="container py-5">
     <div class="d-flex justify-content-between align-items-center mb-5">
-      <h1 class="fw-bold text-primary-emphasis">🐄 Lista de Lotes</h1>
-      <router-link to="/batch/create" class="btn btn-success btn-lg rounded-pill shadow">
-        ➕ Crear nuevo lote
+      <h1 class="fw-bold text-primary-emphasis">Lista de Lotes</h1>
+      <router-link to="/batch/create" class="btn btn-success btn-lg shadow">
+        +
       </router-link>
     </div>
 
-    <div class="row g-4">
-      <div
-        v-for="batch in batches"
-        :key="batch.slug"
-        class="col-12 col-md-6 col-lg-4"
-      >
-        <div class="card h-100 rounded-4 shadow-sm border-0" style="background-color: #f9f9fb;">
-          <div class="card-body d-flex flex-column justify-content-between">
-            <div>
-              <h4 class="fw-semibold text-secondary-emphasis mb-3">{{ batch.name }}</h4>
-              <ul class="list-unstyled text-muted">
-                <li><strong>🐾 Especie:</strong> {{ batch.species }}</li>
-                <li><strong>♀️/♂️ Sexo:</strong> {{ batch.sex }}</li>
-                <li><strong>🔢 Cantidad:</strong> {{ batch.quantity }}</li>
-              </ul>
-            </div>
-            <button
-              class="btn btn-outline-primary mt-4 rounded-pill w-100 shadow-sm"
-              @click="goToDetail(batch.slug)"
-            >
-              Ver detalle
-            </button>
-          </div>
+<div class="row g-4">
+  <div
+    v-for="batch in batches"
+    :key="batch.slug"
+    class="col-12 col-md-6 col-lg-4"
+  >
+    <div class="card h-100 rounded-4 shadow-sm border-0" style="background-color: #f9f9fb;">
+      <div class="card-body d-flex flex-column justify-content-between">
+        <div>
+          <h4 class="fw-semibold text-secondary-emphasis mb-3">{{ batch.name }}</h4>
+          <ul class="list-unstyled text-muted">
+            <li class="d-flex align-items-center mb-1">
+              <i class="bi bi-patch-question me-2 text-secondary"></i>
+              <strong class="me-1">Especie:</strong> {{ batch.species }}
+            </li>
+            <li class="d-flex align-items-center mb-1">
+              <i class="bi bi-gender-ambiguous me-2 text-secondary"></i>
+              <strong class="me-1">Sexo:</strong> {{ batch.sex }}
+            </li>
+            <li class="d-flex align-items-center">
+              <i class="bi bi-123 me-2 text-secondary"></i>
+              <strong class="me-1">Cantidad:</strong> {{ batch.quantity }}
+            </li>
+          </ul>
         </div>
+        <button
+          class="btn btn-outline-primary mt-4 rounded-pill w-100 shadow-sm"
+          @click="goToDetail(batch.slug)"
+        >
+          Ver detalle
+        </button>
       </div>
     </div>
+  </div>
+</div>
+
   </div>
 </template>
 
