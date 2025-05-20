@@ -33,7 +33,7 @@ const login = async () => {
   <div class="d-flex align-items-center justify-content-center vh-50 mb-4">
     <div
       class="card shadow-lg p-4"
-      style="width: 100%; max-width: 400px; border-radius: 20px; background-color: #0d1f17; color: white; position: relative"
+      style="width: 100%; max-width: 400px; border-radius: 20px; background-color: #015730; color: white; position: relative"
     >
       
 
