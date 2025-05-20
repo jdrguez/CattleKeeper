@@ -131,7 +131,7 @@ onMounted(async () => {
 
 <div class="container-fluid">
   <div class="row">
-    <div class="sidebar border border-right col-md-3 col-lg-2 p-0" style="background-color: #3A5A40;">
+    <div class="sidebar border border-right col-md-3 col-lg-2 p-0" style="background-color: #015730;">
       <div class="offcanvas-md offcanvas-end" style="background-color: #3A5A40;" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
         <div class="offcanvas-header">
           <h5 class="offcanvas-title" id="sidebarMenuLabel">Company name</h5>

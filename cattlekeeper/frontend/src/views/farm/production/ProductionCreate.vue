@@ -43,8 +43,10 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { useToast } from 'vue-toastification';
 import api from '@/api/axios';
 
+const toast = useToast()
 const router = useRouter();
 const route = useRoute();
 const batchSlug = ref(null);
@@ -86,11 +88,11 @@ const createProduction = async () => {
 
   try {
     await api.post(`api/farm/batch/${batchSlug.value}/production/create/`, form.value);
-    alert('Producción creada correctamente');
+    toast.success('Se ha creado la producción correctamente');
     router.push({ name: 'ProductionList', params: { batch_slug: batchSlug.value } });
   } catch (error) {
     console.error('Error creando producción:', error);
-    alert('Hubo un error al crear la producción.');
+    toast.error('No se ha podido crear la producción');
   }
 };
 </script>
