@@ -1,9 +1,9 @@
 import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from .models import SubscriptionPlan, UserSubscription
+from .serializers import SubscriptionPlanSerializer, UserSubscriptionSerializer
 from datetime import timedelta
 from shared.decorators import valid_token, method_required, authenticated_user
 
@@ -28,13 +28,8 @@ def plans_list(request):
 @method_required('get')
 def plan_detail(request, plan_pk):
     plan = SubscriptionPlan.objects.get(pk=plan_pk)
-    data = {
-        'id': plan.id,
-        'name': plan.name,
-        'price': float(plan.price),
-        'duration_days': plan.duration_days
-    }
-    return JsonResponse(data)
+    serializer = SubscriptionPlanSerializer(plan, request=request)
+    return serializer.json_response()
 
 @authenticated_user
 @valid_token
@@ -42,17 +37,8 @@ def plan_detail(request, plan_pk):
 def get_subscription(request):
     try:
         sub = request.user.usersubscription
-        return JsonResponse({
-            'plan': {
-                'id': sub.plan.id,
-                'name': sub.plan.name,
-                'price': float(sub.plan.price),
-                'duration_days': sub.plan.duration_days,
-            },
-            'start_date': sub.start_date.isoformat(),
-            'end_date': sub.end_date.isoformat(),
-            'is_active': sub.is_active()
-        })
+        serializer = UserSubscriptionSerializer(sub, request=request)
+        return serializer.json_response()
     except UserSubscription.DoesNotExist:
         return JsonResponse({'error': 'No subscription found'}, status=404)
 

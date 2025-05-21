@@ -1,14 +1,10 @@
-from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from shared.decorators import method_required,authenticated_user, subscription_status
 from farm.models import Income, Expense, Production, AnimalBatch
 from django.db.models import Sum
 from django.utils import timezone
-from django.template.loader import render_to_string
-from weasyprint import HTML
 from django.http import HttpResponse
-from io import BytesIO
 from .tasks import farm_report_pdf
 
 @csrf_exempt

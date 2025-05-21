@@ -2,6 +2,19 @@
   <div class="container py-5">
     <h1 class="text-center mb-5 fw-bold display-5">Planes de Suscripción</h1>
 
+      <div class="row justify-content-center mb-5">
+    <div class="col-12 col-md-10">
+      <div class="alert alert-warning shadow-sm rounded-4 px-4 py-4 text-center">
+        <h4 class="mb-3 fw-bold text-success">¿Por qué hacerte Premium?</h4>
+        <p class="mb-0 fs-5 text-muted">
+          Al suscribirte obtienes acceso a un <strong>Dashboard personalizado</strong>, gestión completa de tus <strong>gastos e ingresos</strong>,
+          organización de tus <strong>lotes de animales</strong>, control de sus <strong>eventos médicos</strong>, <strong>producción</strong> ¡y mucho más!
+        </p>
+        </div>
+      </div>
+    </div>
+
+
     <div class="row g-4 justify-content-center">
       <div class="col-12 col-sm-8 col-md-6 col-lg-4" v-for="plan in plans" :key="plan.id">
         <div
