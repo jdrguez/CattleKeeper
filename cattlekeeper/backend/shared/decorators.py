@@ -5,7 +5,7 @@ from farm.models import AnimalBatch
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.http import JsonResponse
-
+from subscription.models import UserSubscription
 
 def auth_required(func):
     def wrapper(request, *args, **kwargs):
@@ -105,4 +105,16 @@ def authenticated_user(func):
             return JsonResponse({'error': 'Unregistered authentication token'}, status=401)
 
         return func(request, *args, **kwargs)
+    return wrapper
+
+
+
+def subscription_status(func):
+    def wrapper(request, *args, **kwargs):
+        user = request.user
+        active = UserSubscription.objects.get(user=user).is_active()
+
+        if active:
+            return func(request, *args, **kwargs)
+        return JsonResponse({'error': 'No Premium active'}, status=402)
     return wrapper

@@ -52,7 +52,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import api from '@/api/axios';
 
 const route = useRoute();
@@ -61,6 +61,7 @@ const expenses = ref([]);
 const summary = ref([]);
 const selectedCategory = ref('');
 const selectedBatch = ref(batchSlug);
+const router = useRouter()
 
 const getExpenses = async () => {
   try {
@@ -71,8 +72,12 @@ const getExpenses = async () => {
       },
     });
     expenses.value = response.data;
-  } catch (error) {
-    console.error('Error al obtener los gastos:', error);
+  } catch(error) {
+    if (error.response && error.response.status== 402){
+      router.push('/plans')
+    }else{
+      console.error('Error buscando los expenses:', error);
+    }
   }
 };
 
@@ -80,8 +85,12 @@ const getExpenseSummary = async () => {
   try {
     const response = await api.get('api/farm/finances/expenses/summary/');
     summary.value = response.data.summary;
-  } catch (error) {
-    console.error('Error al obtener el resumen de gastos:', error);
+  } catch(error) {
+    if (error.response && error.response.status== 402){
+      router.push('/plans')
+    }else{
+      console.error('Error al obtener el resumen de gastos:', error);
+    }
   }
 };
 

@@ -18,7 +18,11 @@ onMounted(async () => {
     const response = await api.get('api/farm/batch/');
     batches.value = response.data;
   } catch (error) {
-    console.error('Error fetching batches:', error);
+    if (error.response && error.response.status== 402){
+      router.push('/plans')
+    }else{
+      console.error('Error fetching batches:', error);
+    }
   }
 });
 
@@ -193,8 +197,7 @@ onMounted(async () => {
         <h1>{{t('dashboard')}}</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group me-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary">{{t('dash.d11')}}</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">{{t('dash.d12')}}</button>
+            
           </div>
         </div>
       </div>

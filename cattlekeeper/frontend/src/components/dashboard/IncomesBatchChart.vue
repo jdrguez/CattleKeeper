@@ -7,8 +7,10 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import * as echarts from 'echarts'
+import { useRouter } from 'vue-router'
 import api from '@/api/axios'
 
+const router = useRouter()
 const chartContainer = ref(null)
 
 const loadData = async () => {
@@ -35,8 +37,12 @@ const loadData = async () => {
         { name: 'Net', type: 'line', data: net, itemStyle: { color: '#2196f3' } }
       ]
     })
-  } catch (err) {
-    console.error('Error loading batches:', err)
+  } catch (error) {
+    if (error.response && error.response.status== 402){
+      router.push('/plans')
+    }else{
+      console.error('Error fetching batches:', error);
+    }
   }
 }
 

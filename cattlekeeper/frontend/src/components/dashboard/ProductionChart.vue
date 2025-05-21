@@ -8,7 +8,9 @@
 import { ref, onMounted } from 'vue'
 import * as echarts from 'echarts'
 import api from '@/api/axios'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const chartContainer = ref(null)
 
 const loadData = async () => {
@@ -32,8 +34,12 @@ const loadData = async () => {
         }
       ]
     })
-  } catch (err) {
-    console.error('Error loading production:', err)
+  } catch (error) {
+    if (error.response && error.response.status== 402){
+      router.push('/plans')
+    }else{
+      console.error('Error loading production:', error)
+    }
   }
 }
 

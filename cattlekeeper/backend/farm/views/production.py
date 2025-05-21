@@ -1,28 +1,28 @@
 from ..models.production import Production
 from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import render, redirect
 from django.http import JsonResponse
-from shared.decorators import method_required, user_owner, authenticated_user
+from shared.decorators import method_required, user_owner, authenticated_user, subscription_status
 from ..serializers.production import ProductionSerializer
 from ..helpers import batch_exist, production_exist
+from datetime import date
 import json
 
 @csrf_exempt
 @method_required('get')
 @batch_exist
 @authenticated_user
+@subscription_status
 @user_owner
 def production_list(request, batch_slug):
     productions = Production.objects.filter(batch=request.batch)
     serializer = ProductionSerializer(productions, request=request)
     return serializer.json_response()
 
-from datetime import date
-
 @csrf_exempt
 @method_required('post')
 @batch_exist
 @authenticated_user
+@subscription_status
 def production_create(request, batch_slug):
     data = json.loads(request.body)
 
@@ -44,6 +44,7 @@ def production_create(request, batch_slug):
 @batch_exist
 @production_exist
 @authenticated_user
+@subscription_status
 @user_owner
 def update_production(request, batch_slug, production_pk):
     data = json.loads(request.body)
@@ -63,6 +64,7 @@ def update_production(request, batch_slug, production_pk):
 @batch_exist
 @production_exist
 @authenticated_user
+@subscription_status
 @user_owner
 def delete_production(request, batch_slug, production_pk):
     production = request.production

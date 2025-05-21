@@ -88,3 +88,19 @@ def subscription_status(request):
     user = request.user
     active = UserSubscription.objects.get(user=user).is_active()
     return JsonResponse({'active': active})
+
+
+@csrf_exempt
+@authenticated_user
+@valid_token
+@method_required('post')
+def cancel_subscription(request):
+    try:
+        subscription = UserSubscription.objects.get(user=request.user)
+        subscription.end_date = timezone.now()
+        subscription.save()
+        return JsonResponse({'message': 'Suscripción cancelada correctamente'})
+    except UserSubscription.DoesNotExist:
+        return JsonResponse({'error': 'No tienes una suscripción activa'}, status=404)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)

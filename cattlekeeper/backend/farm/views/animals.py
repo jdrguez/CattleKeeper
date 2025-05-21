@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from shared.decorators import method_required, user_owner, required_fields, authenticated_user
+from shared.decorators import method_required, user_owner, required_fields, authenticated_user, subscription_status
 from django.views.decorators.csrf import csrf_exempt
 from ..models.animals import AnimalBatch, Animal
 from ..serializers.animals import AnimalBatchSerializer, AnimalSerializer
@@ -73,6 +73,7 @@ def batch_update(request, batch_slug):
 @method_required('get')
 @batch_exist
 @authenticated_user
+@subscription_status
 @user_owner
 def animal_list(request, batch_slug):
     batch = request.batch
@@ -83,6 +84,7 @@ def animal_list(request, batch_slug):
 @csrf_exempt
 @method_required('get')
 @authenticated_user
+@subscription_status
 @user_owner
 def animal_detail(request, batch_slug, animal_slug):
     animal = Animal.objects.get(slug=animal_slug, batch__slug=batch_slug)
@@ -94,6 +96,7 @@ def animal_detail(request, batch_slug, animal_slug):
 @required_fields('birth_date','weight', 'health_status', 'notes')
 @batch_exist
 @authenticated_user
+@subscription_status
 @user_owner
 def animal_create(request, batch_slug):
     data = json.loads(request.body)
@@ -113,6 +116,7 @@ def animal_create(request, batch_slug):
 @method_required('post')
 @animal_exist
 @authenticated_user
+@subscription_status
 @user_owner
 def animal_update(request, batch_slug, animal_slug):
     animal = request.animal
@@ -131,6 +135,7 @@ def animal_update(request, batch_slug, animal_slug):
 @animal_exist
 @batch_exist
 @authenticated_user
+@subscription_status
 @user_owner
 def animal_delete(request, batch_slug, animal_slug):
     animal = request.animal

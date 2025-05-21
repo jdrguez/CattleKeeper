@@ -1,7 +1,6 @@
 from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import render, redirect
 from django.http import JsonResponse
-from shared.decorators import method_required, authenticated_user, user_owner
+from shared.decorators import method_required, authenticated_user, user_owner, subscription_status
 from ..serializers.health import HealthEventSerializer
 from ..models import HealthEvent
 from ..helpers import animal_exist, event_exist
@@ -9,6 +8,8 @@ import json
 
 @csrf_exempt
 @method_required('get')
+@authenticated_user
+@subscription_status
 @animal_exist
 def health_events(request, batch_slug, animal_slug):
     animal = request.animal
@@ -18,6 +19,8 @@ def health_events(request, batch_slug, animal_slug):
 
 @csrf_exempt
 @method_required('post')
+@authenticated_user
+@subscription_status
 @animal_exist
 def health_event_create(request, batch_slug, animal_slug):
     animal = request.animal
@@ -37,6 +40,7 @@ def health_event_create(request, batch_slug, animal_slug):
 @method_required('post')
 @event_exist
 @authenticated_user
+@subscription_status
 @user_owner
 def health_event_update(request, batch_slug, animal_slug, event_pk):
     event = request.event
@@ -57,6 +61,7 @@ def health_event_update(request, batch_slug, animal_slug, event_pk):
 @method_required('post')
 @event_exist
 @authenticated_user
+@subscription_status
 @user_owner
 def health_event_delete(request, batch_slug, animal_slug, event_pk):
     event = request.event

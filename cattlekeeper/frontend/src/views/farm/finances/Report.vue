@@ -1,6 +1,5 @@
 <template>
     <div class="p-4">
-      <Breadcrumbs :items="[{ text: 'Inicio', to: '/' }, { text: 'Reporte PDF' }]" />
   
       <h1 class="text-xl font-bold mb-4">Descargar Reporte PDF</h1>
       <button @click="getPdfReport" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
@@ -34,9 +33,14 @@
       window.URL.revokeObjectURL(url);
   
       toast.success('Reporte descargado correctamente');
-    } catch (error) {
-      console.error('Error al descargar el PDF:', error);
-      toast.error('No se pudo descargar el reporte. ¿Estás autenticado?');
+    } catch(error) {
+      if (error.response && error.response.status== 402){
+        router.push('/plans')
+      }else{
+        console.error('Error al descargar el PDF:', error);
+        toast.error('No se pudo descargar el reporte. ¿Estás autenticado?');
+      }
+     
     }
   };
   </script>

@@ -6,6 +6,6 @@ urlpatterns = [
     path('status/', views.subscription_status, name='subscription-status'),
     path('plans/', views.plans_list, name='plans_list'),
     path('create/', views.create_subscription, name='create_subscription'),
-
+    path('cancel/', views.cancel_subscription, name='cancel-subscription'),
     path('plans/<plan_pk>/', views.plan_detail, name='plan-detail'),
 ]

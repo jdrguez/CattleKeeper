@@ -72,6 +72,12 @@
           <div>
             <ActiveSubscripcion />
           </div>
+
+          <div>
+            <CancelSubscripcion></CancelSubscripcion>
+          </div>
+
+
         </div>
 
         <div
@@ -91,6 +97,7 @@ import { RouterLink } from 'vue-router'
 import { onMounted, ref } from 'vue'
 import api from '@/api/axios'
 import ActiveSubscripcion from '@/components/subscripcion/ActiveSubscripcion.vue'
+import CancelSubscripcion from '@/components/subscripcion/CancelSubscripcion.vue'
 
 const user = ref(null)
 

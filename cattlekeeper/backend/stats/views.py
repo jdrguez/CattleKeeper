@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from shared.decorators import method_required, valid_token, required_fields, authenticated_user
+from shared.decorators import method_required,authenticated_user, subscription_status
 from farm.models import Income, Expense, Production, AnimalBatch
 from django.db.models import Sum
 from django.utils import timezone
@@ -14,6 +14,7 @@ from .tasks import farm_report_pdf
 @csrf_exempt
 @method_required('get')
 @authenticated_user
+@subscription_status
 def monthly_income_expense_summary(request):
     user = request.user
     year = request.GET.get('year') or timezone.now().year
@@ -35,6 +36,7 @@ def monthly_income_expense_summary(request):
 @csrf_exempt
 @method_required('get')
 @authenticated_user
+@subscription_status
 def production_by_type(request):
     user = request.user
     summary = Production.objects.filter(user=user).values('production_type').annotate(total=Sum('quantity')).order_by('-total')
@@ -44,6 +46,7 @@ def production_by_type(request):
 @csrf_exempt
 @method_required('get')
 @authenticated_user
+@subscription_status
 def expenses_by_category(request):
     user = request.user
     summary = Expense.objects.filter(user=user).values('category').annotate(total=Sum('amount')).order_by('-total')
@@ -53,6 +56,7 @@ def expenses_by_category(request):
 @csrf_exempt
 @method_required('get')
 @authenticated_user
+@subscription_status
 def net_income_per_batch(request):
     user = request.user
     batches = AnimalBatch.objects.filter(owner=user)
@@ -71,77 +75,12 @@ def net_income_per_batch(request):
     return JsonResponse({'batches': data})
 
 
-@csrf_exempt
-@method_required('get')
-@authenticated_user
-def farm_report_pdf_hola(request):
-    user = request.user
-    year = request.GET.get('year')
-    month = request.GET.get('month')
 
-    if not year or not month:
-        now = timezone.now()
-        year = now.year
-        month = now.month
-    else:
-        year = int(year)
-        month = int(month)
-
-    incomes = Income.objects.filter(user=user, date__year=year, date__month=month).aggregate(total=Sum('amount'))['total'] or 0
-    expenses = Expense.objects.filter(user=user, date__year=year, date__month=month).aggregate(total=Sum('amount'))['total'] or 0
-    monthly_summary = [{
-        'month': month,
-        'income': float(incomes),
-        'expense': float(expenses),
-        'net': float(incomes - expenses)
-    }]
-
-    production_summary = list(
-        Production.objects.filter(user=user, date__year=year, date__month=month)
-        .values('production_type')
-        .annotate(total=Sum('quantity'))
-        .order_by('-total')
-    )
-
-    category_summary = list(
-        Expense.objects.filter(user=user, date__year=year, date__month=month)
-        .values('category')
-        .annotate(total=Sum('amount'))
-        .order_by('-total')
-    )
-
-    batches_data = []
-    for batch in AnimalBatch.objects.filter(owner=user):
-        income = batch.incomes.filter(user=user, date__year=year, date__month=month).aggregate(total=Sum('amount'))['total'] or 0
-        expense = batch.expenses.filter(user=user, date__year=year, date__month=month).aggregate(total=Sum('amount'))['total'] or 0
-        net = income - expense
-        batches_data.append({
-            'batch': batch.name,
-            'income': float(income),
-            'expense': float(expense),
-            'net': float(net)
-        })
-
-    html_string = render_to_string('farm_report.html', {
-        'year': year,
-        'month': month,
-        'monthly_summary': monthly_summary,
-        'production_summary': production_summary,
-        'category_summary': category_summary,
-        'batches': batches_data,
-    })
-
-    html = HTML(string=html_string)
-    pdf_file = BytesIO()
-    html.write_pdf(target=pdf_file)
-
-    response = HttpResponse(pdf_file.getvalue(), content_type='application/pdf')
-    response['Content-Disposition'] = f'inline; filename="farm_report_{year}_{month}.pdf"'
-    return response
 
 @csrf_exempt
 @method_required('get')
 @authenticated_user
+@subscription_status
 def get_report(request):
     user = request.user
     year = request.GET.get('year')

@@ -2,7 +2,7 @@ from ..models.finances import Expense, Income
 from ..models.animals import AnimalBatch
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from shared.decorators import method_required, authenticated_user, user_owner
+from shared.decorators import method_required, authenticated_user, subscription_status
 from ..serializers.finances import ExpenseSerializer, IncomeSerializer
 from ..helpers import expense_exist, income_exist, user_owner_expense, user_owner_income
 import json
@@ -11,6 +11,7 @@ from django.db.models import Sum
 @csrf_exempt
 @method_required('get')
 @authenticated_user
+@subscription_status
 def all_expenses(request):
     expenses = Expense.objects.filter(user=request.user).order_by('-date')
     category = request.GET.get('category')
@@ -24,6 +25,8 @@ def all_expenses(request):
 
 @csrf_exempt
 @method_required('get')
+@authenticated_user
+@subscription_status
 def expense_summary(request):
     summary = Expense.objects.values('category').annotate(total=Sum('amount'))
     return JsonResponse({'summary': list(summary)})
@@ -31,6 +34,7 @@ def expense_summary(request):
 @csrf_exempt
 @method_required('post')
 @authenticated_user
+@subscription_status
 def expense_create(request):
     data = json.loads(request.body)
     category = data.get('category')
@@ -57,6 +61,7 @@ def expense_create(request):
 @method_required('post')
 @expense_exist
 @authenticated_user
+@subscription_status
 @user_owner_expense
 def expense_update(request, expense_pk):
     expense = request.expense
@@ -74,6 +79,7 @@ def expense_update(request, expense_pk):
 @method_required('delete')
 @expense_exist
 @authenticated_user
+@subscription_status
 @user_owner_expense
 def expense_delete(request, expense_pk):
     expense = request.expense
@@ -83,6 +89,7 @@ def expense_delete(request, expense_pk):
 @csrf_exempt
 @method_required('get')
 @authenticated_user
+@subscription_status
 def all_incomes(request):
     incomes = Income.objects.filter(user=request.user).order_by('-date')
     category = request.GET.get('category')
@@ -96,6 +103,8 @@ def all_incomes(request):
 
 @csrf_exempt
 @method_required('get')
+@authenticated_user
+@subscription_status
 def income_summary(request):
     summary = Income.objects.values('category').annotate(total=Sum('amount'))
     return JsonResponse({'summary': list(summary)})
@@ -103,6 +112,7 @@ def income_summary(request):
 @csrf_exempt
 @method_required('post')
 @authenticated_user
+@subscription_status
 def income_create(request):
     data = json.loads(request.body)
     category = data.get('category')
@@ -127,6 +137,7 @@ def income_create(request):
 @method_required('post')
 @income_exist
 @authenticated_user
+@subscription_status
 @user_owner_income
 def income_update(request, income_pk):
     income = request.income
@@ -143,6 +154,7 @@ def income_update(request, income_pk):
 @method_required('delete')
 @income_exist
 @authenticated_user
+@subscription_status
 @user_owner_income
 def income_delete(request, income_pk):
     income = request.income

@@ -12,8 +12,11 @@ const fetchIncomes = async () => {
     const response = await api.get('api/farm/finances/incomes/');
     incomes.value = response.data;
   } catch (error) {
-    console.error('Error al obtener ingresos:', error);
-    alert('Hubo un error al obtener los ingresos.');
+    if (error.response && error.response.status==402){
+      router.push('/plans')
+    }else{
+      console.error('Error al obtener ingresos:', error);
+    }
   }
 };
 

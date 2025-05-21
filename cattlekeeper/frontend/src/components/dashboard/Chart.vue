@@ -6,11 +6,13 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { useRouter } from 'vue-router'
 import * as echarts from 'echarts'
 import api from '@/api/axios'  
 
 const chartContainer = ref(null)
 let chartInstance = null
+const router = useRouter()
 
 const drawChart = (months, income, expense, net) => {
   if (!chartContainer.value) return
@@ -77,8 +79,12 @@ const loadData = async () => {
     const net = summary.map(s => s.net)
 
     drawChart(months, income, expense, net)
-  } catch (err) {
-    console.error('Error getting data from backend:', err)
+  } catch (error) {
+    if (error.response && error.response.status== 402){
+      router.push('/plans')
+    }else{
+      console.error('Error getting data from backend:', error)
+    }
   }
 }
 

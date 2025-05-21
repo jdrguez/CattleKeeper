@@ -29,9 +29,14 @@ const fetchBatches = async () => {
   try {
     const response = await api.get('api/farm/batch/');
     batches.value = response.data;
-  } catch (error) {
-    console.error('Error al obtener lotes:', error);
-    toast.error('No se pudieron cargar los lotes');
+  } catch(error) {
+    if (error.response && error.response.status== 402){
+      router.push('/plans')
+      toast.error('No tienes subscripción activa');
+    }else{
+      console.error('Error creando ingreso:', error);
+      toast.error('Hubo un error al crear el ingreso');
+    }
   }
 };
 
@@ -44,9 +49,14 @@ const createIncome = async () => {
     await api.post('api/farm/finances/incomes/create/', form.value);
     toast.success('Ingreso creado correctamente');
     router.push({ name: 'incomes' });
-  } catch (error) {
-    console.error('Error creando ingreso:', error);
-    toast.error('Hubo un error al crear el ingreso');
+  }catch(error) {
+    if (error.response && error.response.status== 402){
+      router.push('/plans')
+      toast.error('Hubo un error al crear el ingreso');
+    }else{
+      console.error('Error creando ingreso:', error);
+      toast.error('Hubo un error al crear el ingreso');
+    }
   }
 };
 </script>
