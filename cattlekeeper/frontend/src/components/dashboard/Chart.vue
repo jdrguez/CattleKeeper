@@ -7,7 +7,7 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import * as echarts from 'echarts'
-import api from '@/api/axios'  // ✅ Cliente con token incluido
+import api from '@/api/axios'  
 
 const chartContainer = ref(null)
 let chartInstance = null
@@ -19,14 +19,14 @@ const drawChart = (months, income, expense, net) => {
 
   const options = {
     title: {
-      text: 'Ingresos vs Gastos Mensuales',
+      text: 'Monthly Income vs. Expenses',
       left: 'center'
     },
     tooltip: {
       trigger: 'axis'
     },
     legend: {
-      data: ['Ingresos', 'Gastos', 'Neto'],
+      data: ['Incomes', 'Expenses', 'Net'],
       top: 30
     },
     xAxis: {
@@ -38,19 +38,19 @@ const drawChart = (months, income, expense, net) => {
     },
     series: [
       {
-        name: 'Ingresos',
+        name: 'Incomes',
         type: 'bar',
         data: income,
         itemStyle: { color: '#4caf50' }
       },
       {
-        name: 'Gastos',
+        name: 'Expenses',
         type: 'bar',
         data: expense,
         itemStyle: { color: '#f44336' }
       },
       {
-        name: 'Neto',
+        name: 'Net',
         type: 'line',
         data: net,
         itemStyle: { color: '#2196f3' }
@@ -63,11 +63,11 @@ const drawChart = (months, income, expense, net) => {
 
 const loadData = async () => {
   try {
-    const res = await api.get('/api/stats/monthly-summary/') // ✅ Token incluido automáticamente
+    const res = await api.get('/api/stats/monthly-summary/')
     const summary = res.data?.monthly_summary ?? []
 
     if (summary.length === 0) {
-      console.warn('No hay datos para mostrar.')
+      console.warn('There is no data to display.')
       return
     }
 
@@ -78,7 +78,7 @@ const loadData = async () => {
 
     drawChart(months, income, expense, net)
   } catch (err) {
-    console.error('Error al obtener datos del backend:', err)
+    console.error('Error getting data from backend:', err)
   }
 }
 
@@ -91,5 +91,4 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
-/* Puedes agregar estilos adicionales aquí si quieres */
 </style>

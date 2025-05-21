@@ -24,19 +24,19 @@ const loadData = async () => {
     const chart = echarts.init(chartContainer.value)
 
     chart.setOption({
-      title: { text: 'Ingreso Neto por Lote', left: 'center' },
+      title: { text: 'Net Income per Lot', left: 'center' },
       tooltip: { trigger: 'axis' },
-      legend: { data: ['Ingreso', 'Gasto', 'Neto'], top: 30 },
+      legend: { data: ['Incomes', 'Expenses', 'Net'], top: 30 },
       xAxis: { type: 'category', data: batches },
       yAxis: { type: 'value' },
       series: [
-        { name: 'Ingreso', type: 'bar', data: income, itemStyle: { color: '#4caf50' } },
-        { name: 'Gasto', type: 'bar', data: expense, itemStyle: { color: '#f44336' } },
-        { name: 'Neto', type: 'line', data: net, itemStyle: { color: '#2196f3' } }
+        { name: 'Incomes', type: 'bar', data: income, itemStyle: { color: '#4caf50' } },
+        { name: 'Expenses', type: 'bar', data: expense, itemStyle: { color: '#f44336' } },
+        { name: 'Net', type: 'line', data: net, itemStyle: { color: '#2196f3' } }
       ]
     })
   } catch (err) {
-    console.error('Error al cargar lotes:', err)
+    console.error('Error loading batches:', err)
   }
 }
 

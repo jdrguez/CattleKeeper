@@ -134,7 +134,7 @@ onMounted(async () => {
     <div class="sidebar border border-right col-md-3 col-lg-2 p-0" style="background-color: #015730;">
       <div class="offcanvas-md offcanvas-end" style="background-color: #3A5A40;" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
         <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="sidebarMenuLabel">Company name</h5>
+          <h5 class="offcanvas-title" id="sidebarMenuLabel">Cattle Keeper</h5>
           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
@@ -148,59 +148,38 @@ onMounted(async () => {
             <li class="nav-item">
               <RouterLink to="/products" class="nav-link text-white">
                 <svg class="bi"><use xlink:href="#file-earmark"/></svg>
-                {{t('orders')}}
+                Batch list
               </RouterLink>
             </li>
             <li class="nav-item">
-              <RouterLink to="/products" class="nav-link text-white">
-                <svg class="bi"><use xlink:href="#cart"/></svg>
-                {{t('products')}}
-            </RouterLink>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
-                <svg class="bi"><use xlink:href="#people"/></svg>
-                {{t('dash.d2')}}
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
-                <svg class="bi"><use xlink:href="#graph-up"/></svg>
-                {{t('dash.d3')}}
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
+              <RouterLink to="/map" class="nav-link text-white">
                 <svg class="bi"><use xlink:href="#puzzle"/></svg>
-                {{t('dash.d4')}}
-              </a>
+                Map
+              </RouterLink>
             </li>
           </ul>
 
           <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
-            <span>{{t('dash.d5')}}</span>
-            <a class="link-secondary" href="#" aria-label="Add a new report">
-              <svg class="bi"><use xlink:href="#plus-circle"/></svg>
-            </a>
+            <span>Finances</span>
           </h6>
           <ul class="nav flex-column mb-auto">
-            <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
-                <svg class="bi"><use xlink:href="#file-earmark-text"/></svg>
-                {{t('dash.d6')}}
-              </a>
+                        <li class="nav-item">
+              <RouterLink to="/finances/incomes" class="nav-link text-white">
+                 <i class="bi bi-piggy-bank"></i>
+                Incomes
+            </RouterLink>
             </li>
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
-                <svg class="bi"><use xlink:href="#file-earmark-text"/></svg>
-                {{t('dash.d7')}}
-              </a>
+              <RouterLink to="/finances/expenses" class="nav-link text-white">
+                <i class="bi bi-cash-stack"></i>
+                Expenses
+              </RouterLink>
             </li>
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
-                <svg class="bi"><use xlink:href="#file-earmark-text"/></svg>
-                {{t('dash.d8')}}
-              </a>
+              <RouterLink to="/finances/report/" class="nav-link text-white">
+                <svg class="bi"><use xlink:href="#graph-up"/></svg>
+                Reports
+              </RouterLink>
             </li>
           </ul>
 
@@ -211,19 +190,14 @@ onMounted(async () => {
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">{{t('dashboard')}}</h1>
+        <h1>{{t('dashboard')}}</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group me-2">
             <button type="button" class="btn btn-sm btn-outline-secondary">{{t('dash.d11')}}</button>
             <button type="button" class="btn btn-sm btn-outline-secondary">{{t('dash.d12')}}</button>
           </div>
-          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1">
-            <svg class="bi"><use xlink:href="#calendar3"/></svg>
-            {{t('dash.d13')}}
-          </button>
         </div>
       </div>
-
       
       <div style="min-width: 300px; min-height: 300px; border: 1px solid red">
           <Chart />
@@ -240,9 +214,6 @@ onMounted(async () => {
           <incomerBatch />
       </div>
 
-      
-
-      <h2>{{t('dash.d14')}}</h2>
       <div class="card my-4">
     <div class="card-header">
       <h5 class="card-title mb-0">Inventory</h5>
@@ -401,4 +372,13 @@ onMounted(async () => {
 .navbar .form-control {
   padding: .75rem 1rem;
 }
-    </style>
+
+/* table */
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #419649; /* verde muy claro */
+}
+
+.table-striped tbody tr:nth-of-type(even) {
+  background-color: #ffffff; /* blanco */
+}
+</style>

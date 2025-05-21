@@ -19,7 +19,7 @@ const loadData = async () => {
     const chart = echarts.init(chartContainer.value)
 
     chart.setOption({
-      title: { text: 'Producción por Tipo', left: 'center' },
+      title: { text: 'Production by Type', left: 'center' },
       tooltip: { trigger: 'item' },
       series: [
         {
@@ -33,7 +33,7 @@ const loadData = async () => {
       ]
     })
   } catch (err) {
-    console.error('Error al cargar producción:', err)
+    console.error('Error loading production:', err)
   }
 }
 

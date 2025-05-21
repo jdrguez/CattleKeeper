@@ -119,7 +119,8 @@ def animal_update(request, batch_slug, animal_slug):
     data = json.loads(request.body)
     animal.birth_date = data.get('birth_date', animal.birth_date)
     animal.weight = data.get('weight', animal.weight)
-    animal.health_status = data.get('health_status', animal.health_status)
+    if isinstance('health_status', int) and 'health_status' in dict(Animal.HealthStatus.choices):
+        animal.health_status = 'health_status'
     animal.notes = data.get('notes', animal.notes)
     animal.save()
     return JsonResponse({'message': 'Animal updated', 'identifier': animal.identifier})

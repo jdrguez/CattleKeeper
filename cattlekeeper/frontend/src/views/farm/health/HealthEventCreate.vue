@@ -1,57 +1,69 @@
 <template>
-  <div class="health-event-container mx-auto p-4" style="max-width: 480px;">
-    <h2 class="mb-4 text-primary fw-bold border-bottom pb-2">Crear Evento de Salud</h2>
-    <form @submit.prevent="submitEvent" novalidate>
-      <div class="form-group mb-3">
-        <label class="form-label">Fecha:</label>
+  <div class="container py-5" style="max-width: 480px;">
+    <h2 class="mb-4 border-bottom pb-2 text-center"> Create Health Event</h2>
+
+    <form @submit.prevent="submitEvent" class="bg-white p-4 rounded-4 shadow-sm">
+      <div class="mb-3">
+        <label class="form-label fw-semibold" for="date"><i class="bi bi-calendar"></i> Date</label>
         <input
+          id="date"
           type="date"
           v-model="form.date"
           required
-          class="form-control input-custom"
+          class="form-control rounded-pill border-primary"
+          style="box-shadow: inset 0 1px 3px rgb(0 0 0 / 0.1);"
           aria-required="true"
         />
       </div>
 
-      <div class="form-group mb-3">
-        <label class="form-label">Tipo de Evento:</label>
+      <div class="mb-3">
+        <label class="form-label fw-semibold" for="event_type"><i class="bi bi-list-check"></i> Event Type</label>
         <select
+          id="event_type"
           v-model="form.event_type"
           required
-          class="form-select input-custom"
+          class="form-select rounded-pill border-primary"
+          style="box-shadow: inset 0 1px 3px rgb(0 0 0 / 0.1);"
           aria-required="true"
         >
-          <option disabled value="">Selecciona tipo</option>
-          <option value="VACCINE">Vacuna</option>
-          <option value="ILLNESS">Enfermedad</option>
-          <option value="CHECKUP">Chequeo</option>
-          <option value="SURGERY">Cirugía</option>
+          <option disabled value="">Select type</option>
+          <option value="VACCINE">Vaccine</option>
+          <option value="ILLNESS">Illness</option>
+          <option value="CHECKUP">Checkup</option>
+          <option value="SURGERY">Surgery</option>
         </select>
       </div>
 
-      <div class="form-group mb-3">
-        <label class="form-label">Descripción:</label>
+      <div class="mb-3">
+        <label class="form-label fw-semibold" for="description"><i class="bi bi-card-text"></i> Description</label>
         <textarea
+          id="description"
           v-model="form.description"
           required
-          class="form-control input-custom"
+          class="form-control rounded-3 border-secondary"
           rows="4"
+          style="resize: vertical;"
           aria-required="true"
         ></textarea>
       </div>
 
-      <div class="form-group mb-4">
-        <label class="form-label">Veterinario (opcional):</label>
+      <div class="mb-4">
+        <label class="form-label fw-semibold" for="veterinarian"><i class="bi bi-person-badge"></i> Veterinarian (optional)</label>
         <input
+          id="veterinarian"
           type="text"
           v-model="form.veterinarian"
-          class="form-control input-custom"
-          placeholder="Nombre del veterinario"
+          class="form-control rounded-pill border-primary"
+          style="box-shadow: inset 0 1px 3px rgb(0 0 0 / 0.1);"
+          placeholder="Veterinarian name"
         />
       </div>
 
-      <button type="submit" class="btn btn-primary w-100 fw-semibold shadow-sm">
-        Guardar
+      <button
+        type="submit"
+        class="btn btn-primary w-100 rounded-pill shadow-sm fw-bold"
+      >
+        Save
       </button>
     </form>
   </div>
@@ -61,7 +73,9 @@
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import api from '@/api/axios'
+import { useToast } from 'vue-toastification';
 
+const toast = useToast()
 const route = useRoute()
 const router = useRouter()
 const { batch_slug, animal_slug } = route.params
@@ -76,6 +90,7 @@ const form = ref({
 const submitEvent = async () => {
   await api.post(`/api/farm/batch/${batch_slug}/animals/${animal_slug}/health/create/`, form.value)
   router.push({ name: 'AnimalDetail', params: { batch_slug, animal_slug } })
+  toast.success('The health event has been created successfully.')
 }
 </script>
 
@@ -86,7 +101,6 @@ const submitEvent = async () => {
   box-shadow:
     0 4px 12px rgba(0, 0, 0, 0.08),
     0 1px 4px rgba(0, 0, 0, 0.06);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .form-label {

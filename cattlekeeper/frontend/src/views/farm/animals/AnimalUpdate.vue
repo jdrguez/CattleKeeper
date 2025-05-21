@@ -1,10 +1,14 @@
 <template>
   <div class="container py-5" style="max-width: 480px;">
-    <h2 class="mb-4 text-primary border-bottom pb-2">✏️ Editar Animal</h2>
+    <h2 class="mb-4 border-bottom pb-2 text-center">
+      <i class="bi bi-pencil-square"></i> &nbsp; Edit Animal
+    </h2>
 
     <form @submit.prevent="updateAnimal" class="bg-white p-4 rounded-4 shadow-sm">
-      <div class="mb-4">
-        <label for="birth_date" class="form-label fw-semibold">📅 Fecha de nacimiento</label>
+      <div class="mb-3">
+        <label class="form-label fw-semibold" for="birth_date">
+          <i class="bi bi-calendar"></i> Birth date
+        </label>
         <input
           id="birth_date"
           type="date"
@@ -14,42 +18,49 @@
         />
       </div>
 
-      <div class="mb-4">
-        <label for="weight" class="form-label fw-semibold">⚖️ Peso (kg)</label>
+      <div class="mb-3">
+        <label class="form-label fw-semibold" for="weight">
+          <i class="bi bi-speedometer2"></i> Weight (kg)
+        </label>
         <input
           id="weight"
           type="number"
           v-model="animal.weight"
+          required
           min="0"
           step="0.1"
           class="form-control rounded-pill border-primary"
-          placeholder="Ej: 150.5"
+          placeholder="Ex: 150.5"
           style="box-shadow: inset 0 1px 3px rgb(0 0 0 / 0.1);"
         />
       </div>
 
-      <div class="mb-4">
-        <label for="health_status" class="form-label fw-semibold">🩺 Estado de salud</label>
+      <div class="mb-3">
+        <label class="form-label fw-semibold" for="health_status">
+          <i class="bi bi-heart-pulse"></i> Health
+        </label>
         <select
           id="health_status"
-          v-model="animal.health_status"
+          v-model.number="animal.health_status"
           class="form-select rounded-pill border-primary"
-          style="box-shadow: inset 0 1px 3px rgb(0 0 0 / 0.1);"
         >
-          <option :value="1">Saludable</option>
-          <option :value="2">Enfermo</option>
-          <option :value="3">Muerto</option>
+          <option :value="1">Healthy</option>
+          <option :value="2">Sick</option>
+          <option :value="3">Recovering</option>
+          <option :value="4">Dead</option>
         </select>
       </div>
 
       <div class="mb-4">
-        <label for="notes" class="form-label fw-semibold">📝 Notas</label>
+        <label class="form-label fw-semibold" for="notes">
+          <i class="bi bi-pencil"></i> Notes
+        </label>
         <textarea
           id="notes"
           v-model="animal.notes"
-          rows="4"
+          rows="3"
           class="form-control rounded-3 border-secondary"
-          placeholder="Detalles adicionales..."
+          placeholder="Additional details..."
           style="resize: vertical;"
         ></textarea>
       </div>
@@ -58,7 +69,7 @@
         type="submit"
         class="btn btn-primary w-100 rounded-pill shadow-sm fw-bold"
       >
-        Actualizar Animal
+        Update Animal
       </button>
     </form>
   </div>
@@ -68,7 +79,9 @@
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import api from '@/api/axios'
+import { useToast } from 'vue-toastification'
 
+const toast = useToast()
 const route = useRoute()
 const router = useRouter()
 
@@ -83,7 +96,11 @@ onMounted(async () => {
   const { batch_slug, animal_slug } = route.params
   try {
     const res = await api.get(`/api/farm/batch/${batch_slug}/animals/${animal_slug}/`)
-    animal.value = res.data
+    const data = res.data
+    if (data.birth_date) {
+      data.birth_date = data.birth_date.slice(0, 10)
+    }
+    animal.value = data
   } catch (error) {
     console.error('Error al cargar animal:', error)
   }
@@ -91,12 +108,16 @@ onMounted(async () => {
 
 const updateAnimal = async () => {
   const { batch_slug, animal_slug } = route.params
+  const payload = { ...animal.value }
+
+  if (!payload.birth_date) delete payload.birth_date
+
   try {
-    await api.post(`/api/farm/batch/${batch_slug}/animals/${animal_slug}/update/`, animal.value)
-    alert('Animal actualizado')
+    await api.post(`/api/farm/batch/${batch_slug}/animals/${animal_slug}/update/`, payload)
+    toast.success('The animal has been updated successfully.')
     router.back()
   } catch (error) {
-    alert('Error al actualizar el animal')
+    toast.error('Error updating animal.')
     console.error(error)
   }
 }

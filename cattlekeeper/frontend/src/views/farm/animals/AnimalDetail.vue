@@ -1,31 +1,31 @@
 <template>
   <div v-if="animal" class="container py-5">
-    <h2 class="fw-bold text-primary mb-4 border-bottom pb-2">🐄 Detalle del Animal</h2>
+    <h2 class="fw-bold text-primary mb-4 border-bottom pb-2"> <i class="bi bi-card-text"></i> &nbsp; Animal Details</h2>
 
     <div class="card shadow-sm border-0 rounded-4 p-4 mb-4" style="background-color: #fdfdfd;">
       <div class="row">
         <div class="col-md-6">
-          <p><strong>🔖 Identificador:</strong> {{ animal.identifier }}</p>
-          <p><strong>⚖️ Peso:</strong> {{ animal.weight }} kg</p>
+          <p><strong><i class="bi bi-tag"></i> Identifier:</strong> {{ animal.identifier }}</p>
+          <p><strong><i class="bi bi-speedometer2"></i> Weight:</strong> {{ animal.weight }} kg</p>
         </div>
         <div class="col-md-6">
-          <p><strong>🎂 Fecha de nacimiento:</strong> {{ animal.birth_date }}</p>
-          <p><strong>❤️ Salud:</strong> {{ animal.health_status }}</p>
+          <p><strong><i class="bi bi-calendar"></i> Birth date:</strong> {{ animal.birth_date }}</p>
+          <p><strong><i class="bi bi-heart-pulse"></i> Health:</strong> {{ animal.health_status }}</p>
         </div>
         <div class="col-12">
-          <p><strong>📝 Notas:</strong> {{ animal.notes || 'N/A' }}</p>
+          <p><strong><i class="bi bi-pencil"></i> Notes:</strong> {{ animal.notes || 'N/A' }}</p>
         </div>
       </div>
     </div>
 
     <div class="d-flex justify-content-between align-items-center mb-3">
-      <h3 class="text-secondary fw-semibold mb-0">📋 Eventos de Salud</h3>
-      <router-link
-        :to="{ name: 'HealthEventCreate', params: { batch_slug, animal_slug } }"
-        class="btn btn-outline-success rounded-pill shadow-sm"
-      >
-        ➕ Añadir Evento
-      </router-link>
+      <h3 class="text-secondary fw-semibold mb-0"><i class="bi bi-clipboard2-pulse"></i> &nbsp; Health Events</h3>
+      <button
+      class="btn btn-outline-danger mt-3 rounded-pill shadow-sm"
+      @click="$router.push({ name: 'AnimalDelete', params: { batch_slug, animal_slug } })"
+    >
+      <i class="bi bi-trash"></i> Delete Animal
+    </button>
     </div>
 
     <div v-if="healthEvents.length" class="list-group mb-4">
@@ -38,27 +38,27 @@
           <div>
             <h6 class="mb-1">{{ event.event_type }} <small class="text-muted">({{ event.date }})</small></h6>
             <p class="mb-1">{{ event.description }}</p>
-            <small v-if="event.veterinarian" class="text-muted">👨‍⚕️ {{ event.veterinarian }}</small>
+            <small v-if="event.veterinarian" class="text-muted"><i class="bi bi-person-badge"></i> {{ event.veterinarian }}</small>
           </div>
           <button
             @click="deleteHealthEvent(event.id)"
             class="btn btn-sm btn-outline-danger rounded-circle"
-            title="Eliminar evento"
+            title="Delete event"
           >
-            🗑️
+            <i class="bi bi-trash"></i>
           </button>
         </div>
       </div>
     </div>
 
-    <p v-else class="text-muted fst-italic">No hay eventos registrados.</p>
+    <p v-else class="text-muted fst-italic">No registered events.</p>
 
-    <button
-      class="btn btn-outline-danger mt-3 rounded-pill shadow-sm"
-      @click="$router.push({ name: 'AnimalDelete', params: { batch_slug, animal_slug } })"
-    >
-      🐄 Eliminar Animal
-    </button>
+         <router-link
+        :to="{ name: 'HealthEventCreate', params: { batch_slug, animal_slug } }"
+        class="btn btn-outline-success rounded-pill shadow-sm"
+      >
+        <i class="bi bi-plus"></i> Add Event
+      </router-link>
   </div>
 </template>
 

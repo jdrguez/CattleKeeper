@@ -1,7 +1,7 @@
 <template>
   <div class="container py-5">
     <div class="d-flex justify-content-between align-items-center mb-5">
-      <h1 class="fw-bold text-primary-emphasis">Lista de Lotes</h1>
+      <h1 class="fw-bold text-primary-emphasis">Batch List</h1>
       <router-link to="/batch/create" class="btn btn-success btn-lg shadow">
         +
       </router-link>
@@ -20,15 +20,15 @@
           <ul class="list-unstyled text-muted">
             <li class="d-flex align-items-center mb-1">
               <i class="bi bi-patch-question me-2 text-secondary"></i>
-              <strong class="me-1">Especie:</strong> {{ batch.species }}
+              <strong class="me-1">Species:</strong> {{ batch.species }}
             </li>
             <li class="d-flex align-items-center mb-1">
               <i class="bi bi-gender-ambiguous me-2 text-secondary"></i>
-              <strong class="me-1">Sexo:</strong> {{ batch.sex }}
+              <strong class="me-1">Sex:</strong> {{ batch.sex }}
             </li>
             <li class="d-flex align-items-center">
               <i class="bi bi-123 me-2 text-secondary"></i>
-              <strong class="me-1">Cantidad:</strong> {{ batch.quantity }}
+              <strong class="me-1">Quantity:</strong> {{ batch.quantity }}
             </li>
           </ul>
         </div>
@@ -36,7 +36,7 @@
           class="btn btn-outline-primary mt-4 rounded-pill w-100 shadow-sm"
           @click="goToDetail(batch.slug)"
         >
-          Ver detalle
+          View Details
         </button>
       </div>
     </div>
@@ -45,6 +45,7 @@
 
   </div>
 </template>
+
 
 <script setup>
 import { ref, onMounted } from 'vue';

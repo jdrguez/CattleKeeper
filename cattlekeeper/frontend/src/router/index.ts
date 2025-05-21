@@ -70,7 +70,7 @@ const router = createRouter({
 
     // Generales
     { path: '/about', name: 'about', component: AboutView, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Acerca de' }] } },
-    { path: '/dashboard', name: 'dashboard', component: DashboardView, meta: { requiresAuth: true, requiresSubscription: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Panel' }], hideSidebar: true } },
+    { path: '/dashboard', name: 'dashboard', component: DashboardView, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Panel' }], hideSidebar: true } },
    
     // Batches
     { path: '/batches', name: 'batch-list', component: BatchList, meta: { requiresAuth: true ,breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Lotes' }] } },
@@ -87,21 +87,21 @@ const router = createRouter({
     { path: '/farm/batch/:batch_slug/animals/:animal_slug/delete', name: 'AnimalDelete', component: AnimalDelete, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Eliminar animal' }] } },
 
     // Salud
-    { path: '/batches/:batch_slug/animals/:animal_slug/health/create', name: 'HealthEventCreate', component: HealthEventCreate, meta: { requiresAuth: true,requiresSubscription: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Crear evento salud' }] } },
+    { path: '/batches/:batch_slug/animals/:animal_slug/health/create', name: 'HealthEventCreate', component: HealthEventCreate, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Crear evento salud' }] } },
 
     // Producción
-    { path: '/batch/:batch_slug/productions', name: 'ProductionList', component: ProductionList, meta: { requiresAuth: true, requiresSubscription: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Producción' }] } },
-    { path: '/batch/:batch_slug/production/create', name: 'ProductionCreate', component: ProductionCreate, meta: { requiresAuth: true, requiresSubscription: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Crear producción' }] } },
-    { path: '/batch/:batch_slug/production/:production_pk/edit', name: 'ProductionEdit', component: ProductionEdit, meta: { requiresAuth: true, requiresSubscription: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Editar producción' }] } },
+    { path: '/batch/:batch_slug/productions', name: 'ProductionList', component: ProductionList, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Producción' }] } },
+    { path: '/batch/:batch_slug/production/create', name: 'ProductionCreate', component: ProductionCreate, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Crear producción' }] } },
+    { path: '/batch/:batch_slug/production/:production_pk/edit', name: 'ProductionEdit', component: ProductionEdit, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Editar producción' }] } },
 
     // Finanzas
-    { path: '/finances/expenses', name: 'expenses', component: Expenses, meta: { requiresAuth: true, requiresSubscription: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Gastos' }] } },
-    { path: '/finances/expenses/create', name: 'expense-create', component: ExpenseCreate, meta: { requiresAuth: true, requiresSubscription: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, {label: 'Gastos', to:'/finances/expenses'},{ label: 'Crear gasto' }] } },
-    { path: '/finances/expenses/:expense_pk/update', name: 'expense-update', component: ExpenseUpdate, meta: { requiresAuth: true, requiresSubscription: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, {label: 'Gastos', to:'/finances/expenses'},{ label: 'Actualizar gasto' }] } },
-    { path: '/finances/incomes', name: 'incomes', component: Incomes, meta: { requiresAuth: true, requiresSubscription: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Ingresos' }] } },
-    { path: '/finances/incomes/create', name: 'create-income', component: CreateIncome, meta: { requiresAuth: true, requiresSubscription: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, {label: 'Ingresos', to:'/finances/incomes'},{ label: 'Crear ingreso' }] } },
-    { path: '/finances/incomes/:id/edit', name: 'edit-income', component: EditIncome, meta: { requiresAuth: true, requiresSubscription: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, {label: 'Ingresos', to:'/finances/incomes'},{ label: 'Editar ingreso' }] } },
-    { path: '/report/', name: 'report', component: Report, meta: { requiresAuth: true, requiresSubscription: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, {label: 'Ingresos', to:'/finances/incomes'},{ label: 'Editar ingreso' }] } },
+    { path: '/finances/expenses', name: 'expenses', component: Expenses, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Gastos' }] } },
+    { path: '/finances/expenses/create', name: 'expense-create', component: ExpenseCreate, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, {label: 'Gastos', to:'/finances/expenses'},{ label: 'Crear gasto' }] } },
+    { path: '/finances/expenses/:expense_pk/update', name: 'expense-update', component: ExpenseUpdate, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, {label: 'Gastos', to:'/finances/expenses'},{ label: 'Actualizar gasto' }] } },
+    { path: '/finances/incomes', name: 'incomes', component: Incomes, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Ingresos' }] } },
+    { path: '/finances/incomes/create', name: 'create-income', component: CreateIncome, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, {label: 'Ingresos', to:'/finances/incomes'},{ label: 'Crear ingreso' }] } },
+    { path: '/finances/incomes/:id/edit', name: 'edit-income', component: EditIncome, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, {label: 'Ingresos', to:'/finances/incomes'},{ label: 'Editar ingreso' }] } },
+    { path: '/finances/report/', name: 'report', component: Report, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, {label: 'Ingresos', to:'/finances/incomes'},{ label: 'Editar ingreso' }] } },
 
     // Mapa
     { path: '/map', name: 'FarmMap', component: FarmMap, meta: { breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Mapa' }], requiresAuth: true } },

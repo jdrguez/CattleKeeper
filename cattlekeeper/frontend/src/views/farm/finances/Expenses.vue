@@ -1,21 +1,21 @@
 <template>
   <div class="page-container">
-    <h1 class="page-title">Listado de Gastos</h1>
+    <h1 class="page-title">Expenses List</h1>
 
     <section class="controls">
-      <label for="category" class="label">Categoría</label>
+      <label for="category" class="label">Category</label>
       <select id="category" v-model="selectedCategory" @change="getExpenses" class="select">
-        <option value="">Todas</option>
-        <option value="FEED">Alimento</option>
-        <option value="VET">Veterinaria</option>
-        <option value="MAINTENANCE">Mantenimiento</option>
-        <option value="LABOR">Mano de obra</option>
-        <option value="EQUIPMENT">Equipamiento</option>
-        <option value="OTHER">Otro</option>
+        <option value="">All</option>
+        <option value="FEED">Feed</option>
+        <option value="VET">Veterinary</option>
+        <option value="MAINTENANCE">Maintenance</option>
+        <option value="LABOR">Labor</option>
+        <option value="EQUIPMENT">Equipment</option>
+        <option value="OTHER">Other</option>
       </select>
 
       <router-link :to="{ name: 'expense-create' }" class="btn-link">
-        <button class="btn-create">➕ Crear Gasto</button>
+        <button class="btn-create">Create Expense</button>
       </router-link>
     </section>
 
@@ -27,19 +27,19 @@
           <span class="expense-amount">{{ expense.amount }} {{ expense.currency }}</span>
           <span class="expense-date">{{ expense.date }}</span>
         </div>
-        <p v-if="expense.description" class="expense-desc">📝 {{ expense.description }}</p>
+        <p v-if="expense.description" class="expense-desc"><i class="bi bi-card-text"></i> {{ expense.description }}</p>
 
         <div class="expense-actions">
-          <router-link :to="{ name: 'expense-update', params: { expense_pk: expense.id } }" class="btn-edit">✏️ Editar</router-link>
-          <button @click="deleteExpense(expense.id)" class="btn-delete">🗑️ Eliminar</button>
+          <router-link :to="{ name: 'expense-update', params: { expense_pk: expense.id } }" class="btn-edit"><i class="bi bi-pencil"></i> Edit</router-link>
+          <button @click="deleteExpense(expense.id)" class="btn-delete"><i class="bi bi-trash"></i> Delete</button>
         </div>
       </li>
     </ul>
 
-    <p v-else class="no-expenses">No hay gastos registrados.</p>
+    <p v-else class="no-expenses">No expenses registered.</p>
 
     <section v-if="summary.length" class="summary-section">
-      <h2 class="summary-title">Resumen de Gastos</h2>
+      <h2 class="summary-title">Expenses Summary</h2>
       <ul class="summary-list">
         <li v-for="item in summary" :key="item.category" class="summary-item">
           <span class="summary-category">{{ item.category }}:</span>

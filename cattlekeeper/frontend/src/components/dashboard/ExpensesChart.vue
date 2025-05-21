@@ -19,7 +19,7 @@ const loadData = async () => {
     const chart = echarts.init(chartContainer.value)
 
     chart.setOption({
-      title: { text: 'Gastos por Categoría', left: 'center' },
+      title: { text: 'Expenses by Category', left: 'center' },
       tooltip: { trigger: 'item' },
       series: [
         {
@@ -33,7 +33,7 @@ const loadData = async () => {
       ]
     })
   } catch (err) {
-    console.error('Error al cargar gastos:', err)
+    console.error('Error loading expenses:', err)
   }
 }
 

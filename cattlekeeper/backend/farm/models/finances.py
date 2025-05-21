@@ -11,19 +11,19 @@ class Currency(models.TextChoices):
 
 class Expense(models.Model):
     class Category(models.TextChoices):
-        FEED = "FEED", "Alimento"
-        VET = "VET", "Veterinaria"
-        MAINTENANCE = "MAINTENANCE", "Mantenimiento"
-        LABOR = "LABOR", "Mano de obra"
-        EQUIPMENT = "EQUIPMENT", "Equipamiento"
-        OTHER = "OTHER", "Otro"
+        FEED = "FEED", "Feed"
+        VET = "VET", "Veterinary"
+        MAINTENANCE = "MAINTENANCE", "Maintenance"
+        LABOR = "LABOR", "Labor"
+        EQUIPMENT = "EQUIPMENT", "Equipment"
+        OTHER = "OTHER", "Other"
 
     class PaymentMethod(models.TextChoices):
-        CASH = 'CASH', 'Efectivo'
-        BANK_TRANSFER = 'BANK_TRANSFER', 'Transferencia Bancaria'
-        MOBILE_PAYMENT = 'MOBILE_PAYMENT', 'Pago Móvil'
-        CHECK = 'CHECK', 'Cheque'
-        OTHER = 'OTHER', 'Otro'
+        CASH = 'CASH', 'Cash'
+        BANK_TRANSFER = 'BANK_TRANSFER', 'Bank Transfer'
+        MOBILE_PAYMENT = 'MOBILE_PAYMENT', 'Mobile Payment'
+        CHECK = 'CHECK', 'Check'
+        OTHER = 'OTHER', 'Other'
 
     batch = models.ForeignKey(AnimalBatch, on_delete=models.SET_NULL, null=True, related_name='expenses')
     category = models.CharField(max_length=20, choices=Category.choices)
@@ -57,10 +57,10 @@ class Expense(models.Model):
 
 class Income(models.Model):
     class Category(models.TextChoices):
-        SALE = 'SALE', 'Venta'
-        SUBSIDY = 'SUBSIDY', 'Subvención'
-        DONATION = 'DONATION', 'Donación'
-        OTHER = 'OTHER', 'Otro'
+        SALE = 'SALE', 'Sale'
+        SUBSIDY = 'SUBSIDY', 'Subsidy'
+        DONATION = 'DONATION', 'Donation'
+        OTHER = 'OTHER', 'Other'
 
     category = models.CharField(
         max_length=20,

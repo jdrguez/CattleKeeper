@@ -3,7 +3,6 @@ import { ref } from 'vue';
 import api from '@/api/axios';
 import { useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification';
-import Breadcrumbs from '@/components/utils/Breadcrumbs.vue';
 
 const toast = useToast()
 
@@ -37,11 +36,11 @@ const sexOptions = [
 const createBatch = async () => {
   try {
     await api.post('api/farm/batch/create/', form.value);
-    router.push({ name: 'batch-list' , params: {msg:'Se ha creado correctamente'}});
-    toast.success('Se ha creado el lote correctamente')
+    router.push({ name: 'batch-list'});
+    toast.success('The batch has been created successfully.')
   } catch (error) {
     console.error('Error al crear el lote:', error);
-    toast.error('No se ha podido crear el lote')
+    toast.error('The batch could not be created.')
   }
 };
 </script>
@@ -50,16 +49,16 @@ const createBatch = async () => {
   <div class="container mt-5">
     <div class="card shadow-sm">
       <div class="card-header bg-success text-white">
-        <h2 class="mb-0">Crear nuevo lote</h2>
+        <h2 class="mb-0">Create New Batch</h2>
       </div>
       <div class="card-body">
         <form @submit.prevent="createBatch">
           <div class="row g-3">
 
             <div class="col-md-6">
-              <label class="form-label">Especie <span class="text-danger">*</span></label>
+              <label class="form-label">Species <span class="text-danger">*</span></label>
               <select v-model="form.species" class="form-select" required>
-                <option value="" disabled>Seleccionar especie...</option>
+                <option value="" disabled>Select species...</option>
                 <option
                   v-for="option in speciesOptions"
                   :key="option.value"
@@ -71,7 +70,7 @@ const createBatch = async () => {
             </div>
 
             <div class="col-md-6">
-              <label class="form-label">Fecha de compra <span class="text-danger">*</span></label>
+              <label class="form-label">Purchase Date <span class="text-danger">*</span></label>
               <input
                 type="date"
                 v-model="form.purchase_date"
@@ -81,7 +80,7 @@ const createBatch = async () => {
             </div>
 
             <div class="col-md-4">
-              <label class="form-label">Cantidad <span class="text-danger">*</span></label>
+              <label class="form-label">Quantity <span class="text-danger">*</span></label>
               <input
                 type="number"
                 v-model="form.quantity"
@@ -92,7 +91,7 @@ const createBatch = async () => {
             </div>
 
             <div class="col-md-4">
-              <label class="form-label">Sexo</label>
+              <label class="form-label">Sex</label>
               <select v-model="form.sex" class="form-select">
                 <option
                   v-for="option in sexOptions"
@@ -105,22 +104,22 @@ const createBatch = async () => {
             </div>
 
             <div class="col-md-4">
-              <label class="form-label">Origen</label>
+              <label class="form-label">Origin</label>
               <input
                 type="text"
                 v-model="form.origin"
                 class="form-control"
-                placeholder="Opcional"
+                placeholder="Optional"
               />
             </div>
 
             <div class="col-12">
-              <label class="form-label">Notas</label>
+              <label class="form-label">Notes</label>
               <textarea
                 v-model="form.notes"
                 class="form-control"
                 rows="4"
-                placeholder="Agregar detalles adicionales..."
+                placeholder="Add additional details..."
               ></textarea>
             </div>
 
@@ -132,10 +131,10 @@ const createBatch = async () => {
               class="btn btn-secondary me-2"
               @click="$router.back()"
             >
-              Cancelar
+              Cancel
             </button>
             <button type="submit" class="btn btn-success">
-              Crear Lote
+              Create Batch
             </button>
           </div>
         </form>
@@ -143,3 +142,4 @@ const createBatch = async () => {
     </div>
   </div>
 </template>
+

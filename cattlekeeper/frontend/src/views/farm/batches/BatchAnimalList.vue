@@ -1,6 +1,6 @@
 <template>
   <div class="container py-4">
-    <h2 class="mb-4 text-center fw-semibold">Animales del lote</h2>
+    <h2 class="mb-4 text-center fw-semibold">Batch Animals</h2>
 
     <div class="row row-cols-1 row-cols-md-2 g-4">
       <div v-for="animal in animals" :key="animal.slug" class="col">
@@ -10,20 +10,20 @@
               ID: {{ animal.identifier }}
             </h5>
             <p class="card-text mb-3">
-              <strong>Peso:</strong> {{ animal.weight }} kg
+              <strong>Weight:</strong> {{ animal.weight }} kg
             </p>
             <div class="d-flex gap-2">
               <button
                 class="btn btn-outline-primary btn-sm"
                 @click="$router.push({ name: 'AnimalDetail', params: { batch_slug: animal.batch, animal_slug: animal.slug } })"
               >
-                Ver detalle
+                View details
               </button>
               <button
                 class="btn btn-outline-secondary btn-sm"
                 @click="$router.push({ name: 'AnimalUpdate', params: { batch_slug: animal.batch, animal_slug: animal.slug } })"
               >
-                Editar
+                Edit
               </button>
             </div>
           </div>
@@ -37,7 +37,7 @@
         class="btn btn-success btn-lg px-4 rounded-pill shadow"
         @click="$router.push({ name: 'AnimalCreate', params: { batch_slug: route.params.batch_slug } })"
       >
-        + Añadir animal
+        + Add Animal
       </button>
     </div>
   </div>
