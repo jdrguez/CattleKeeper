@@ -78,7 +78,10 @@ const signup = async () => {
       password: password.value,
     })
 
+    router.push('/account')
+
     if (response.status === 200) {
+      // Show success message before redirecting
       toast.success('Registration successful! You will be redirected to login.')
       router.push('/login')
     }
