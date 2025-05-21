@@ -3,11 +3,11 @@
     <div class="modal-content">
       <h2 class="modal-title">{{ zone.name }}</h2>
       <div class="modal-details">
-        <p><strong>Lote:</strong> {{ zone.lot }}</p>
-        <p><strong>Ganado:</strong> {{ zone.cattleCount }}</p>
-        <p><strong>Fecha de entrada:</strong> {{ zone.entryDate }}</p>
+        <p><strong>Lot:</strong> {{ zone.lot }}</p>
+        <p><strong>Cattle:</strong> {{ zone.cattleCount }}</p>
+        <p><strong>Entry date:</strong> {{ zone.entryDate }}</p>
       </div>
-      <button class="modal-close-btn" @click="$emit('close')">Cerrar</button>
+      <button class="modal-close-btn" @click="$emit('close')">Close</button>
     </div>
   </div>
 </template>

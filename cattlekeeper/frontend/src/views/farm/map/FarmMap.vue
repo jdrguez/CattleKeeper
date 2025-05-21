@@ -1,6 +1,6 @@
 <template>
   <div class="farm-container">
-    <h2 class="farm-title">Vista general de las zonas de la granja</h2>
+    <h2 class="farm-title">Overview of the farm areas</h2>
 
     <div ref="map" class="farm-map">
       <ZoneItem
@@ -74,7 +74,6 @@ const goToDetail = (slug) => {
   router.push({ name: 'BatchDetail', params: { batch_slug: slug } });
 };
 
-// Posiciones automáticas (puedes personalizar más adelante)
 function getXPosition(index) {
   return 100 + (index % 4) * 250;
 }
@@ -83,7 +82,6 @@ function getYPosition(index) {
   return 200 + Math.floor(index / 4) * 150;
 }
 
-// Ruta de íconos de zona (estable, corral, etc.)
 function getZoneImage(species) {
   switch (species) {
     case 'Cattle': return '/assets/Establo_icono.webp'; 
@@ -102,7 +100,7 @@ function getAnimalImage(species) {
     case 'Pig': return '/assets/pig.png';      
     case 'Sheep': return '/assets/sheep.png';      
     case 'Goat': return '/assets/goat.png';      
-    default: return '/assets/default_animal.png'; 
+    default: return '/assets/vaca.png';
   }
 }
 </script>

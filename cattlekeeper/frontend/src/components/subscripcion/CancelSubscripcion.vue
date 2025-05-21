@@ -1,21 +1,21 @@
 <template>
     <div class="card shadow-sm mx-auto my-5" style="max-width: 500px;">
       <div class="card-body">
-        <h5 class="card-title">Cancelar suscripción</h5>
+        <h5 class="card-title">Cancel Subscription</h5>
   
         <div v-if="loading" class="text-muted mb-3">
-          Procesando...
+          Processing...
         </div>
   
         <div v-else>
-          <p class="card-text">¿Estás seguro de que deseas cancelar tu suscripción?</p>
+          <p class="card-text">Are you sure you want to cancel your subscription?</p>
   
           <button
             class="btn btn-danger"
             @click="cancelSubscription"
             :disabled="isSubmitting"
           >
-            Cancelar suscripción
+            Cancel Subscription
           </button>
   
           <div v-if="message" class="alert alert-success mt-3" role="alert">
@@ -46,12 +46,12 @@
   
     try {
       const response = await api.post('/api/subscription/cancel/')
-      message.value = response.data.message || 'Suscripción cancelada correctamente.'
+      message.value = response.data.message || 'Subscription cancelled successfully.'
     } catch (err) {
       if (err.response && err.response.data && err.response.data.error) {
         error.value = err.response.data.error
       } else {
-        error.value = 'Error de red o del servidor.'
+        error.value = 'Network or server error.'
       }
     } finally {
       loading.value = false
@@ -62,4 +62,3 @@
   
   <style scoped>
   </style>
-  

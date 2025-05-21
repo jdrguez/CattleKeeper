@@ -9,12 +9,11 @@
       <img :src="zone.image" class="zone-image" />
       <img v-if="zone.animalImage" :src="zone.animalImage" class="animal" />
   
-      <div v-if="hovered" class="zone-info">
-        <strong>{{ zone.name }}</strong><br />
-        Lote: {{ zone.lot }}<br />
-        C. Ganado: {{ zone.cattleCount }}<br />
-        Entrada: {{ zone.entryDate }}
-      </div>
+    <div v-if="hovered" class="zone-info">
+      <strong>Batch {{ zone.name }}</strong><br />
+      Cattle: {{ zone.cattleCount }}<br />
+      Entry: {{ zone.entryDate }}
+    </div>
     </div>
   </template>
   
