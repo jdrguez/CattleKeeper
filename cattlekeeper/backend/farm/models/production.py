@@ -6,15 +6,15 @@ from django.conf import settings
 
 class Production(models.Model):
     class ProductionType(models.TextChoices):
-        MEAT = 'MEAT', 'Carne'
-        MILK = 'MILK', 'Leche'
-        EGG = 'EGG', 'Huevos'
-        WOOL = 'WOOL', 'Lana'
+        MEAT = 'MEAT', 'Meat'
+        MILK = 'MILK', 'Milk'
+        EGG = 'EGG', 'Eggs'
+        WOOL = 'WOOL', 'Wool'
 
     class Unit(models.TextChoices):
-        LITERS = 'L', 'Litros'
-        KILOGRAMS = 'KG', 'Kilogramos'
-        UNITS = 'U', 'Unidades'
+        LITERS = 'L', 'Liters'
+        KILOGRAMS = 'KG', 'Kilograms'
+        UNITS = 'U', 'Units'
 
     batch = models.ForeignKey(AnimalBatch, on_delete=models.CASCADE, related_name='productions')
     production_type = models.CharField(max_length=10, choices=ProductionType.choices)

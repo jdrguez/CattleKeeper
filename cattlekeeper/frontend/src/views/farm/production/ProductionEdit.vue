@@ -1,10 +1,10 @@
 <template>
   <div class="form-container mx-auto p-5" style="max-width: 600px;">
-    <h1 class="form-title mb-4">Editar Producción</h1>
+    <h1 class="form-title mb-4">Edit Production</h1>
     <form @submit.prevent="updateProduction" class="form-grid">
       <div class="form-group">
-        <label for="production_type">Tipo de Producción:</label>
-        <select id="production_type" v-model="form.production_type" required>
+        <label for="production_type">Production Type:</label>
+        <select id="production_type" v-model="form.production_type">
           <option v-for="option in productionTypeOptions" :key="option.value" :value="option.value">
             {{ option.label }}
           </option>
@@ -12,13 +12,13 @@
       </div>
 
       <div class="form-group">
-        <label for="quantity">Cantidad:</label>
-        <input id="quantity" v-model.number="form.quantity" type="number" required placeholder="Cantidad" />
+        <label for="quantity">Quantity:</label>
+        <input id="quantity" v-model.number="form.quantity" type="number" required placeholder="Quantity" />
       </div>
 
       <div class="form-group">
-        <label for="unit">Unidad:</label>
-        <select id="unit" v-model="form.unit" required>
+        <label for="unit">Unit:</label>
+        <select id="unit" v-model="form.unit">
           <option v-for="option in unitOptions" :key="option.value" :value="option.value">
             {{ option.label }}
           </option>
@@ -26,16 +26,16 @@
       </div>
 
       <div class="form-group">
-        <label for="date">Fecha:</label>
+        <label for="date">Date:</label>
         <input id="date" v-model="form.date" type="date" required />
       </div>
 
       <div class="form-group full-width">
-        <label for="notes">Notas:</label>
-        <textarea id="notes" v-model="form.notes" placeholder="Notas" rows="3"></textarea>
+        <label for="notes">Notes:</label>
+        <textarea id="notes" v-model="form.notes" placeholder="Notes" rows="3"></textarea>
       </div>
 
-      <button type="submit" class="btn-submit">Actualizar</button>
+      <button type="submit" class="btn-submit">Update</button>
     </form>
   </div>
 </template>
@@ -44,7 +44,9 @@
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import api from '@/api/axios';
+import { useToast } from 'vue-toastification';
 
+const toast = useToast()
 const route = useRoute();
 const router = useRouter();
 const batchSlug = route.params.batch_slug;
@@ -58,17 +60,20 @@ const form = ref({
   notes: ''
 });
 
+const originalProductionType = ref('');
+const originalUnit = ref('');
+
 const productionTypeOptions = [
-  { value: 'MEAT', label: 'Carne' },
-  { value: 'MILK', label: 'Leche' },
-  { value: 'EGG', label: 'Huevos' },
-  { value: 'WOOL', label: 'Lana' }
+  { value: 'MEAT', label: 'Meat' },
+  { value: 'MILK', label: 'Milk' },
+  { value: 'EGG', label: 'Egg' },
+  { value: 'WOOL', label: 'Wool' }
 ];
 
 const unitOptions = [
-  { value: 'L', label: 'Litros' },
-  { value: 'KG', label: 'Kilogramos' },
-  { value: 'U', label: 'Unidades' }
+  { value: 'L', label: 'Liters' },
+  { value: 'KG', label: 'Kilograms' },
+  { value: 'U', label: 'Units' }
 ];
 
 onMounted(async () => {
@@ -76,28 +81,50 @@ onMounted(async () => {
     const res = await api.get(`api/farm/batch/${batchSlug}/production/`);
     const prod = res.data.find(p => p.id === parseInt(productionPk));
     if (prod) {
+      const matchingProductionType = productionTypeOptions.find(
+        opt => opt.value === prod.production_type || opt.label === prod.production_type
+      );
+
+      const matchingUnit = unitOptions.find(
+        opt => opt.value === prod.unit || opt.label === prod.unit
+      );
+
       form.value = {
-        production_type: prod.production_type,
+        production_type: matchingProductionType ? matchingProductionType.value : prod.production_type,
         quantity: prod.quantity,
-        unit: prod.unit,
+        unit: matchingUnit ? matchingUnit.value : prod.unit,
         date: prod.date,
         notes: prod.notes
       };
+
+      originalProductionType.value = matchingProductionType ? matchingProductionType.value : prod.production_type;
+      originalUnit.value = matchingUnit ? matchingUnit.value : prod.unit;
     }
   } catch (error) {
     console.error('Error cargando producción:', error);
   }
 });
 
+
 const updateProduction = async () => {
   try {
+    if (!form.value.production_type) {
+      form.value.production_type = originalProductionType.value;
+    }
+    if (!form.value.unit) {
+      form.value.unit = originalUnit.value;
+    }
+
     await api.post(`api/farm/batch/${batchSlug}/production/${productionPk}/update/`, form.value);
-    router.push({ name: 'ProductionList', params: { batch_slug: batchSlug } });
+    toast.success('The production has been updated successfully.');
+    router.back();
   } catch (error) {
     console.error('Error actualizando producción:', error);
+    toast.error('The batch could not be updated.');
   }
 };
 </script>
+
 
 <style scoped>
 .form-container {

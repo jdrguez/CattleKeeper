@@ -58,6 +58,7 @@ def expense_create(request):
     return JsonResponse({'message': 'Expense created successfully', 'id': expense.id}, status=200)
 
 @csrf_exempt
+<<<<<<< HEAD
 @method_required('post')
 @expense_exist
 @authenticated_user
@@ -76,6 +77,8 @@ def expense_update(request, expense_pk):
     return JsonResponse({'message': 'Expense updated successfully', 'id': expense.pk})
 
 @csrf_exempt
+=======
+>>>>>>> e38dca5d731473599fe7da8492b17d0407c433bc
 @method_required('delete')
 @expense_exist
 @authenticated_user
@@ -133,6 +136,7 @@ def income_create(request):
     )
     return JsonResponse({'message': 'Income created successfully', 'id': income.id}, status=200)
 
+<<<<<<< HEAD
 @csrf_exempt
 @method_required('post')
 @income_exist
@@ -149,6 +153,8 @@ def income_update(request, income_pk):
     income.date = data.get('date', income.date)
     income.save()
     return JsonResponse({'message': 'Income updated successfully', 'id': income.pk})
+=======
+>>>>>>> e38dca5d731473599fe7da8492b17d0407c433bc
 
 @csrf_exempt
 @method_required('delete')

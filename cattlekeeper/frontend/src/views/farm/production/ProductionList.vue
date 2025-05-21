@@ -1,9 +1,9 @@
 <template>
   <div class="production-container mx-auto p-4" style="max-width: 720px;">
     <div class="header d-flex justify-content-between align-items-center mb-4">
-      <h1 class="title mb-0">Producciones del lote: <span class="text-secondary">{{ batchSlug }}</span></h1>
+      <h1 class="title mb-0">Batch Productions: <span class="text-secondary">{{ batchSlug }}</span></h1>
       <router-link :to="{ name: 'ProductionCreate', params: { batch_slug: batchSlug } }" class="btn-create">
-        + Crear producción
+        Create production
       </router-link>
     </div>
 
@@ -15,16 +15,16 @@
           <span class="production-date">{{ prod.date }}</span>
         </div>
 
-        <div v-if="prod.notes" class="production-notes">📝 {{ prod.notes }}</div>
+        <div v-if="prod.notes" class="production-notes"><i class="bi bi-card-text"></i> {{ prod.notes }}</div>
 
         <div class="actions">
-          <button @click="goToEdit(prod.id)" class="btn-edit">Editar</button>
-          <button @click="deleteProduction(prod.id)" class="btn-delete">Eliminar</button>
+          <button @click="goToEdit(prod.id)" class="btn-edit"><i class="bi bi-pencil"></i> Edit</button>
+          <button @click="deleteProduction(prod.id)" class="btn-delete"><i class="bi bi-trash"></i> Delete</button>
         </div>
       </li>
     </ul>
 
-    <p v-else class="no-data">No hay producciones registradas para este lote.</p>
+    <p v-else class="no-data">No productions registered for this batch.</p>
   </div>
 </template>
 
