@@ -5,8 +5,8 @@
       
       <div v-if="subscription" class="text-dark">
         <p><strong>Plan:</strong> {{ subscription.plan.name }}</p>
-        <p><strong>Valid from:</strong> {{ subscription.start_date }}</p>
-        <p><strong>Valid until:</strong> {{ subscription.end_date }}</p>
+        <p><strong>Valid from:</strong> {{ formatDate(subscription.start_date) }}</p>
+        <p><strong>Valid until:</strong> {{ formatDate(subscription.end_date) }}</p>
         <p><strong>Active?:</strong> <span :class="subscription.is_active ? 'text-success' : 'text-danger'">{{ subscription.is_active ? 'Yes' : 'No' }}</span></p>
       </div>
       
@@ -17,8 +17,17 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import api from '@/api/axios'  
+import api from '@/api/axios'
+
 const subscription = ref(null)
+
+function formatDate(date) {
+  return new Date(date).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  })
+}
 
 onMounted(async () => {
   try {
