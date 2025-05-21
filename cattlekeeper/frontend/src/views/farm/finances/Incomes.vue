@@ -46,35 +46,35 @@ onMounted(() => {
 
 <template>
   <div class="page-container">
-    <h1 class="page-title">Listado de Ingresos</h1>
+    <h1 class="page-title">Income List</h1>
 
     <section class="controls">
       <router-link :to="{ name: 'create-income' }" class="btn-link">
-        <button class="btn-create">➕ Nuevo Ingreso</button>
+        <button class="btn-create"> New Income</button>
       </router-link>
     </section>
 
     <ul v-if="incomes.length" class="income-list">
       <li v-for="income in incomes" :key="income.id" class="income-item">
-        <div class="income-main">
-          <span class="income-category">{{ income.category }}</span>
-          <span class="income-batch">{{ income.batch?.name || income.batch?.slug || '—' }}</span>
-          <span class="income-amount">{{ income.amount }} {{ income.currency }}</span>
-          <span class="income-date">{{ income.date }}</span>
+        <div class="income-content">
+          <div class="income-main">
+            <span class="income-category">{{ income.category }}</span>
+            <span class="income-batch">{{ income.batch?.name || income.batch?.slug || '—' }}</span>
+            <span class="income-amount">{{ income.amount }} {{ income.currency }}</span>
+            <span class="income-date">{{ income.date }}</span>
+          </div>
+          <p v-if="income.description" class="income-desc"><i class="bi bi-card-text"></i> {{ income.description }}</p>
         </div>
-        <p v-if="income.description" class="income-desc">📝 {{ income.description }}</p>
-
         <div class="income-actions">
-          <router-link :to="{ name: 'edit-income', params: { id: income.id } }" class="btn-edit">✏️ Editar</router-link>
-          <button @click="deleteIncome(income.id)" class="btn-delete">🗑️ Eliminar</button>
+          <button @click="deleteIncome(income.id)" class="btn-delete"><i class="bi bi-trash"></i> Delete</button>
         </div>
       </li>
     </ul>
 
-    <p v-else class="no-incomes">No hay ingresos registrados.</p>
+    <p v-else class="no-incomes">No registered income.</p>
 
     <section v-if="summary.length" class="summary-section">
-      <h2 class="summary-title">Resumen de Ingresos</h2>
+      <h2 class="summary-title">Income Summary</h2>
       <ul class="summary-list">
         <li v-for="item in summary" :key="item.category" class="summary-item">
           <span class="summary-category">{{ item.category }}:</span>
@@ -192,6 +192,7 @@ onMounted(() => {
   user-select: text;
 }
 
+
 .income-actions {
   margin-top: 1rem;
   display: flex;
@@ -210,14 +211,7 @@ onMounted(() => {
   transition: background-color 0.25s ease;
 }
 
-.btn-edit {
-  background: #e6f4ea;
-  color: #1e7e34;
-}
 
-.btn-edit:hover {
-  background: #c3e6cb;
-}
 
 .btn-delete {
   background: #fef0f0;

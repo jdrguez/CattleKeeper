@@ -1,9 +1,9 @@
 <template>
   <div class="form-wrapper mx-auto p-5" style="max-width: 600px;">
-    <h1 class="form-title mb-5">Crear Producción</h1>
+    <h1 class="form-title mb-5">Create Production</h1>
     <form @submit.prevent="createProduction" class="form-grid">
       <div class="form-group">
-        <label for="production_type">Tipo de Producción:</label>
+        <label for="production_type">Production Type:</label>
         <select id="production_type" v-model="form.production_type" required>
           <option v-for="option in productionTypes" :key="option.value" :value="option.value">
             {{ option.label }}
@@ -12,12 +12,12 @@
       </div>
 
       <div class="form-group">
-        <label for="quantity">Cantidad:</label>
-        <input id="quantity" type="number" v-model="form.quantity" required placeholder="Cantidad" />
+        <label for="quantity">Quantity:</label>
+        <input id="quantity" type="number" v-model="form.quantity" required placeholder="Quantity" />
       </div>
 
       <div class="form-group">
-        <label for="unit">Unidad:</label>
+        <label for="unit">Unit:</label>
         <select id="unit" v-model="form.unit" required>
           <option v-for="option in unitOptions" :key="option.value" :value="option.value">
             {{ option.label }}
@@ -26,16 +26,16 @@
       </div>
 
       <div class="form-group">
-        <label for="date">Fecha:</label>
+        <label for="date">Date:</label>
         <input id="date" type="date" v-model="form.date" required />
       </div>
 
       <div class="form-group full-width">
-        <label for="notes">Notas:</label>
-        <textarea id="notes" v-model="form.notes" rows="3" placeholder="Notas"></textarea>
+        <label for="notes">Notes:</label>
+        <textarea id="notes" v-model="form.notes" rows="3" placeholder="Notes"></textarea>
       </div>
 
-      <button type="submit" class="btn-submit">Crear Producción</button>
+      <button type="submit" class="btn-submit">Create Production</button>
     </form>
   </div>
 </template>
@@ -88,11 +88,11 @@ const createProduction = async () => {
 
   try {
     await api.post(`api/farm/batch/${batchSlug.value}/production/create/`, form.value);
-    toast.success('Se ha creado la producción correctamente');
+    toast.success('The production has been created successfully');
     router.push({ name: 'ProductionList', params: { batch_slug: batchSlug.value } });
   } catch (error) {
     console.error('Error creando producción:', error);
-    toast.error('No se ha podido crear la producción');
+    toast.error('The production could not be created');
   }
 };
 </script>

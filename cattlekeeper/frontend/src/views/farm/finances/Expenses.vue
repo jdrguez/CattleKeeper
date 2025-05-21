@@ -30,7 +30,6 @@
         <p v-if="expense.description" class="expense-desc"><i class="bi bi-card-text"></i> {{ expense.description }}</p>
 
         <div class="expense-actions">
-          <router-link :to="{ name: 'expense-update', params: { expense_pk: expense.id } }" class="btn-edit"><i class="bi bi-pencil"></i> Edit</router-link>
           <button @click="deleteExpense(expense.id)" class="btn-delete"><i class="bi bi-trash"></i> Delete</button>
         </div>
       </li>

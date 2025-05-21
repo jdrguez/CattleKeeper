@@ -66,16 +66,16 @@ const createExpense = async () => {
   <div class="container mt-5">
     <div class="card shadow-sm">
       <div class="card-header bg-success text-white">
-        <h2 class="mb-0">Crear Gasto</h2>
+        <h2 class="mb-0">Create Expense</h2>
       </div>
       <div class="card-body">
         <form @submit.prevent="createExpense">
           <div class="row g-3">
 
             <div class="col-md-6">
-              <label class="form-label">Categoría <span class="text-danger">*</span></label>
+              <label class="form-label">Category <span class="text-danger">*</span></label>
               <select v-model="form.category" class="form-select" required>
-                <option value="" disabled>Seleccionar categoría...</option>
+                <option value="" disabled>Select category...</option>
                 <option v-for="option in categories" :key="option.value" :value="option.value">
                   {{ option.label }}
                 </option>
@@ -83,9 +83,9 @@ const createExpense = async () => {
             </div>
 
             <div class="col-md-6">
-              <label class="form-label">Lote <span class="text-danger">*</span></label>
+              <label class="form-label">Batch <span class="text-danger">*</span></label>
               <select v-model="form.batch" class="form-select" required>
-                <option value="" disabled>Seleccionar lote...</option>
+                <option value="" disabled>Select batch...</option>
                 <option v-for="batch in batches" :key="batch.slug" :value="batch.slug">
                   {{ batch.name || batch.slug }}
                 </option>
@@ -93,18 +93,18 @@ const createExpense = async () => {
             </div>
 
             <div class="col-12">
-              <label class="form-label">Descripción <span class="text-danger">*</span></label>
+              <label class="form-label">Description <span class="text-danger">*</span></label>
               <textarea
                 v-model="form.description"
                 class="form-control"
                 rows="4"
                 required
-                placeholder="Descripción"
+                placeholder="Description"
               ></textarea>
             </div>
 
             <div class="col-md-4">
-              <label class="form-label">Monto <span class="text-danger">*</span></label>
+              <label class="form-label">Amount <span class="text-danger">*</span></label>
               <input
                 type="number"
                 v-model="form.amount"
@@ -112,14 +112,14 @@ const createExpense = async () => {
                 min="0.01"
                 step="0.01"
                 required
-                placeholder="Monto"
+                placeholder="Amount"
               />
             </div>
 
             <div class="col-md-4">
-              <label class="form-label">Método de Pago <span class="text-danger">*</span></label>
+              <label class="form-label">Payment Method <span class="text-danger">*</span></label>
               <select v-model="form.payment_method" class="form-select" required>
-                <option value="" disabled>Seleccionar método...</option>
+                <option value="" disabled>Select method...</option>
                 <option v-for="option in paymentMethods" :key="option.value" :value="option.value">
                   {{ option.label }}
                 </option>
@@ -127,7 +127,7 @@ const createExpense = async () => {
             </div>
 
             <div class="col-md-4">
-              <label class="form-label">Fecha <span class="text-danger">*</span></label>
+              <label class="form-label">Date <span class="text-danger">*</span></label>
               <input
                 type="date"
                 v-model="form.date"
@@ -137,11 +137,11 @@ const createExpense = async () => {
             </div>
 
             <div class="col-md-4">
-              <label class="form-label">Moneda <span class="text-danger">*</span></label>
+              <label class="form-label">Currency <span class="text-danger">*</span></label>
               <select v-model="form.currency" class="form-select" required>
                 <option value="€">Euros (€)</option>
-                <option value="$">Dólares ($)</option>
-                <option value="">Otro</option>
+                <option value="$">Dollars ($)</option>
+                <option value="">Other</option>
               </select>
             </div>
 
@@ -153,10 +153,10 @@ const createExpense = async () => {
               class="btn btn-secondary me-2"
               @click="$router.back()"
             >
-              Cancelar
+              Cancel
             </button>
             <button type="submit" class="btn btn-success">
-              Crear Gasto
+              Create Expense
             </button>
           </div>
         </form>

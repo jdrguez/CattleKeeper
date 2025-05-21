@@ -39,10 +39,8 @@ import ProductionEdit from '@/views/farm/production/ProductionEdit.vue'
 // Finanzas
 import Expenses from '@/views/farm/finances/Expenses.vue'
 import ExpenseCreate from '@/views/farm/finances/ExpenseCreate.vue'
-import ExpenseUpdate from '@/views/farm/finances/ExpenseUpdate.vue'
 import Incomes from '@/views/farm/finances/Incomes.vue'
 import CreateIncome from '@/views/farm/finances/CreateIncome.vue'
-import EditIncome from '@/views/farm/finances/EditIncome.vue'
 import Report from '@/views/farm/finances/Report.vue'
 
 // Subscripciones
@@ -97,10 +95,8 @@ const router = createRouter({
     // Finanzas
     { path: '/finances/expenses', name: 'expenses', component: Expenses, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Gastos' }] } },
     { path: '/finances/expenses/create', name: 'expense-create', component: ExpenseCreate, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, {label: 'Gastos', to:'/finances/expenses'},{ label: 'Crear gasto' }] } },
-    { path: '/finances/expenses/:expense_pk/update', name: 'expense-update', component: ExpenseUpdate, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, {label: 'Gastos', to:'/finances/expenses'},{ label: 'Actualizar gasto' }] } },
     { path: '/finances/incomes', name: 'incomes', component: Incomes, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Ingresos' }] } },
     { path: '/finances/incomes/create', name: 'create-income', component: CreateIncome, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, {label: 'Ingresos', to:'/finances/incomes'},{ label: 'Crear ingreso' }] } },
-    { path: '/finances/incomes/:id/edit', name: 'edit-income', component: EditIncome, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, {label: 'Ingresos', to:'/finances/incomes'},{ label: 'Editar ingreso' }] } },
     { path: '/finances/report/', name: 'report', component: Report, meta: { requiresAuth: true, breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, {label: 'Ingresos', to:'/finances/incomes'},{ label: 'Editar ingreso' }] } },
 
     // Mapa
