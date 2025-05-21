@@ -3,6 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from accounts.serializers import UserSerializer
+from subscription.models import UserSubscription
 import json
 from shared.decorators import method_required, check_json_body, required_fields, valid_token
 from .models import Token, Profile
@@ -22,6 +23,7 @@ def signup_user(request):
         )
         Token.objects.create(user=user)
         Profile.objects.create(user=user)
+        UserSubscription.objects.create(user=user)
         serializer = UserSerializer(user, request=request)
         return serializer.json_response()
 

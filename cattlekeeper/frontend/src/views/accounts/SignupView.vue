@@ -75,6 +75,8 @@ const signup = async () => {
       password: password.value,
     })
 
+    router.push('/account')
+
     if (response.status === 201) {
       router.push('/login')
     }
