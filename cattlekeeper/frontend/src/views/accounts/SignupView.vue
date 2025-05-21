@@ -4,51 +4,51 @@
       class="card shadow-lg p-4"
       style="width: 100%; max-width: 400px; border-radius: 20px; background-color:#015730; color: white; position: relative"
     >
-      <h3 class="text-center mb-4">Regístrate</h3>
+      <h3 class="text-center mb-4">Sign Up</h3>
 
       <form @submit.prevent="signup">
         <div class="mb-3">
-          <label for="username" class="form-label">Usuario</label>
+          <label for="username" class="form-label">Username</label>
           <input
             v-model="username"
             type="text"
             class="form-control rounded-pill"
             id="username"
-            placeholder="Introduce tu usuario"
+            placeholder="Enter your username"
             required
           />
         </div>
 
         <div class="mb-3">
-          <label for="email" class="form-label">Correo electrónico</label>
+          <label for="email" class="form-label">Email</label>
           <input
             v-model="email"
             type="email"
             class="form-control rounded-pill"
             id="email"
-            placeholder="Introduce tu correo"
+            placeholder="Enter your email"
             required
           />
         </div>
 
         <div class="mb-4">
-          <label for="password" class="form-label">Contraseña</label>
+          <label for="password" class="form-label">Password</label>
           <input
             v-model="password"
             type="password"
             class="form-control rounded-pill"
             id="password"
-            placeholder="Contraseña"
+            placeholder="Password"
             required
           />
         </div>
 
         <button type="submit" class="btn w-100 rounded-pill text-white" style="background-color: #f38b2c">
-          Registrarse
+          Sign Up
         </button>
 
         <div class="text-center mt-3">
-          <RouterLink to="/login" class="text-decoration-none text-warning">¿Ya tienes cuenta? Inicia sesión</RouterLink>
+          <RouterLink to="/login" class="text-decoration-none text-warning">Already have an account? Log in</RouterLink>
         </div>
       </form>
     </div>
@@ -66,6 +66,9 @@ const password = ref('')
 const router = useRouter()
 
 const backendUrl = 'http://127.0.0.1:8000'
+import { useToast } from 'vue-toastification';
+
+const toast = useToast()
 
 const signup = async () => {
   try {
@@ -75,12 +78,13 @@ const signup = async () => {
       password: password.value,
     })
 
-    if (response.status === 201) {
+    if (response.status === 200) {
+      toast.success('Registration successful! You will be redirected to login.')
       router.push('/login')
     }
   } catch (error) {
-    console.error('Error al registrar el usuario:', error)
-    alert('Hubo un error con el registro. Intenta de nuevo.')
+    console.error('Error registering user:', error)
+    toast.error('There was an error with the registration. Please try again.')
   }
 }
 </script>

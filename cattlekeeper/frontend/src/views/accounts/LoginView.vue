@@ -9,7 +9,9 @@ const password = ref('')
 const router = useRouter()
 const backendUrl = 'http://127.0.0.1:8000'
 const auth = inject<{ isLoggedIn: boolean }>('auth')!
+import { useToast } from 'vue-toastification';
 
+const toast = useToast()
 const login = async () => {
   try {
     const response = await axios.post(`${backendUrl}/api/accounts/login/`, {
@@ -23,7 +25,7 @@ const login = async () => {
 
     await router.push('/dashboard')
   } catch (err) {
-    alert('Credenciales inválidas')
+    toast.error('Invalid credentials')
     console.error(err)
   }
 }
@@ -35,8 +37,6 @@ const login = async () => {
       class="card shadow-lg p-4"
       style="width: 100%; max-width: 400px; border-radius: 20px; background-color: #015730; color: white; position: relative"
     >
-      
-
       <h3 class="text-center mb-4">Login</h3>
 
       <form @submit.prevent="login">
@@ -47,7 +47,7 @@ const login = async () => {
             type="text"
             class="form-control rounded-pill"
             id="username"
-            placeholder="Introduce tu username"
+            placeholder="Enter your username"
           />
         </div>
 
@@ -58,7 +58,7 @@ const login = async () => {
             type="password"
             class="form-control rounded-pill"
             id="password"
-            placeholder="Contraseña"
+            placeholder="Password"
           />
         </div>
 
@@ -67,7 +67,7 @@ const login = async () => {
         </button>
 
         <div class="text-center mt-3">
-          <RouterLink to="/signup" class="text-decoration-none text-warning">¿No tienes cuenta? Regístrate</RouterLink>
+          <RouterLink to="/signup" class="text-decoration-none text-warning">Don't have an account? Sign Up</RouterLink>
         </div>
       </form>    
     </div>
