@@ -150,7 +150,7 @@ onMounted(async () => {
               </a>
             </li>
             <li class="nav-item">
-              <RouterLink to="/products" class="nav-link text-white">
+              <RouterLink to="/batches" class="nav-link text-white">
                 <svg class="bi"><use xlink:href="#file-earmark"/></svg>
                 Batch list
               </RouterLink>
