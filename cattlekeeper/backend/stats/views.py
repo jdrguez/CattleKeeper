@@ -71,8 +71,6 @@ def net_income_per_batch(request):
     return JsonResponse({'batches': data})
 
 
-
-
 @csrf_exempt
 @method_required('get')
 @authenticated_user
@@ -84,4 +82,7 @@ def get_report(request):
 
     farm_report_pdf.delay(user, year, month)
     
-    return HttpResponse('TOdo bien')
+    return JsonResponse({
+        'status': 'success',
+        'message': 'Generated Report'
+    })
