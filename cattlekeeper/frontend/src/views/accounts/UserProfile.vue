@@ -1,7 +1,6 @@
 <template>
   <div class="page-container">
     <div class="profile-grid">
-      <!-- Left Column - Profile -->
       <div class="profile-card">
         <div v-if="user">
           <div class="text-center mb-4">
@@ -51,10 +50,9 @@
         </div>
       </div>
 
-      <!-- Right Column - Subscriptions -->
       <div class="subscription-card">
         <ActiveSubscripcion />
-        <CancelSubscripcion />
+        <CancelSubscripcion v-if="isActive"/>
       </div>
     </div>
   </div>
@@ -150,20 +148,27 @@
 </style>
 
 <script setup>
-import { RouterLink } from 'vue-router'
-import { onMounted, ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useSubscriptionStore } from '@/stores/subscription'
 import api from '@/api/axios'
+
 import ActiveSubscripcion from '@/components/subscripcion/ActiveSubscripcion.vue'
 import CancelSubscripcion from '@/components/subscripcion/CancelSubscripcion.vue'
+
+const subscripcion = useSubscriptionStore()
+const { isActive } = storeToRefs(subscripcion)
 
 const user = ref(null)
 
 onMounted(async () => {
   try {
+    await subscripcion.checkSubscription()
+
     const responseUser = await api.get('/api/accounts/me/')
     user.value = responseUser.data
   } catch (error) {
-    console.error('Error getting user data:', error)
+    console.error('Error al obtener datos del usuario o suscripción:', error)
   }
 })
 </script>
