@@ -200,9 +200,9 @@ onMounted(() => {
   margin-top: 1rem;
   display: flex;
   gap: 1rem;
+  justify-content: flex-end;
 }
 
-.btn-edit,
 .btn-delete {
   font-weight: 700;
   padding: 0.4rem 0.8rem;
