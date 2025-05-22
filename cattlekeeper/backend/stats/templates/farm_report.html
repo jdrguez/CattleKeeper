@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Reporte Mensual - {{ month }}/{{ year }}</title>
+    <title>Monthly Report - {{ month }}/{{ year }}</title>
     <style>
         body {
             font-family: "Arial", sans-serif;
@@ -30,18 +30,18 @@
     </style>
 </head>
 <body>
-    <h1>Reporte Mensual de la Granja</h1>
+    <h1>Farm Monthly Report</h1>
     <h2>{{ month }}/{{ year }}</h2>
 
     <div class="section">
-        <h3>Resumen Ingresos y Egresos</h3>
+        <h3>Income and Expenses Summary</h3>
         <table>
             <thead>
                 <tr>
-                    <th>Mes</th>
-                    <th>Ingresos</th>
-                    <th>Egresos</th>
-                    <th>Utilidad Neta</th>
+                    <th>Month</th>
+                    <th>Income</th>
+                    <th>Expenses</th>
+                    <th>Net Profit</th>
                 </tr>
             </thead>
             <tbody>
@@ -58,12 +58,12 @@
     </div>
 
     <div class="section">
-        <h3>Producción por Tipo</h3>
+        <h3>Production by Type</h3>
         <table>
             <thead>
                 <tr>
-                    <th>Tipo</th>
-                    <th>Total Producido</th>
+                    <th>Type</th>
+                    <th>Total Produced</th>
                 </tr>
             </thead>
             <tbody>
@@ -73,18 +73,18 @@
                     <td>{{ item.total }}</td>
                 </tr>
                 {% empty %}
-                <tr><td colspan="2">Sin datos</td></tr>
+                <tr><td colspan="2">No data</td></tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
 
     <div class="section">
-        <h3>Egresos por Categoría</h3>
+        <h3>Expenses by Category</h3>
         <table>
             <thead>
                 <tr>
-                    <th>Categoría</th>
+                    <th>Category</th>
                     <th>Total</th>
                 </tr>
             </thead>
@@ -95,21 +95,21 @@
                     <td>${{ item.total }}</td>
                 </tr>
                 {% empty %}
-                <tr><td colspan="2">Sin datos</td></tr>
+                <tr><td colspan="2">No data</td></tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
 
     <div class="section">
-        <h3>Utilidad por Lote</h3>
+        <h3>Profit by Batch</h3>
         <table>
             <thead>
                 <tr>
-                    <th>Lote</th>
-                    <th>Ingresos</th>
-                    <th>Egresos</th>
-                    <th>Utilidad Neta</th>
+                    <th>Batch</th>
+                    <th>Income</th>
+                    <th>Expenses</th>
+                    <th>Net Profit</th>
                 </tr>
             </thead>
             <tbody>
@@ -121,7 +121,7 @@
                     <td>${{ batch.net }}</td>
                 </tr>
                 {% empty %}
-                <tr><td colspan="4">Sin datos</td></tr>
+                <tr><td colspan="4">No data</td></tr>
                 {% endfor %}
             </tbody>
         </table>

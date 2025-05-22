@@ -32,7 +32,9 @@
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import api from '@/api/axios';
+import { useToast } from 'vue-toastification';
 
+const toast = useToast()
 const route = useRoute();
 const router = useRouter();
 const productions = ref([]);
@@ -52,11 +54,14 @@ const goToEdit = (id) => {
 };
 
 const deleteProduction = async (id) => {
+  if (!confirm('Are you sure you want to delete this production?')) return;
   try {
     await api.post(`api/farm/batch/${batchSlug}/production/${id}/delete/`);
     productions.value = productions.value.filter(p => p.id !== id);
+    toast.success('The production has been successfully deleted.')
   } catch (error) {
-    console.error('Error eliminando producción:', error);
+    console.error('Error deleting production:', error);
+    toast.error('Error deleting production.')
   }
 };
 </script>
@@ -170,7 +175,6 @@ button {
 .btn-edit {
   background-color: #17a2b8;
   color: white;
-  box-shadow: 0 4px 10px rgba(23, 162, 184, 0.35);
 }
 
 .btn-edit:hover,
@@ -183,7 +187,6 @@ button {
 .btn-delete {
   background-color: #dc3545;
   color: white;
-  box-shadow: 0 4px 10px rgba(220, 53, 69, 0.35);
 }
 
 .btn-delete:hover,

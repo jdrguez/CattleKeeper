@@ -1,6 +1,6 @@
 <template>
   <div class="container py-5" style="max-width: 480px;">
-    <h2 class="mb-4 border-bottom pb-2 text-center">Create New Animal</h2>
+    <h1 class="mb-4 pb-2 text-center">Create New Animal</h1>
 
     <form @submit.prevent="createAnimal" class="bg-white p-4 rounded-4 shadow-sm">
       <div class="mb-3">

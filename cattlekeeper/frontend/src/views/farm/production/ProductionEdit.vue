@@ -4,7 +4,11 @@
     <form @submit.prevent="updateProduction" class="form-grid">
       <div class="form-group">
         <label for="production_type">Production Type:</label>
-        <select id="production_type" v-model="form.production_type">
+        <select 
+          id="production_type" 
+          v-model="form.production_type"
+          @change="updateUnitBasedOnType"
+        >
           <option v-for="option in productionTypeOptions" :key="option.value" :value="option.value">
             {{ option.label }}
           </option>
@@ -18,8 +22,12 @@
 
       <div class="form-group">
         <label for="unit">Unit:</label>
-        <select id="unit" v-model="form.unit">
-          <option v-for="option in unitOptions" :key="option.value" :value="option.value">
+        <select 
+          id="unit" 
+          v-model="form.unit"
+          :disabled="!!form.production_type"
+        >
+          <option v-for="option in filteredUnitOptions" :key="option.value" :value="option.value">
             {{ option.label }}
           </option>
         </select>
@@ -41,7 +49,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import api from '@/api/axios';
 import { useToast } from 'vue-toastification';
@@ -51,6 +59,13 @@ const route = useRoute();
 const router = useRouter();
 const batchSlug = route.params.batch_slug;
 const productionPk = route.params.production_pk;
+
+const typeToUnitMap = {
+  MEAT: 'KG',
+  MILK: 'L',
+  EGG: 'U',
+  WOOL: 'KG'
+};
 
 const form = ref({
   production_type: '',
@@ -76,6 +91,17 @@ const unitOptions = [
   { value: 'U', label: 'Units' }
 ];
 
+const filteredUnitOptions = computed(() => {
+  if (!form.value.production_type) return unitOptions;
+  return unitOptions.filter(unit => unit.value === typeToUnitMap[form.value.production_type]);
+});
+
+const updateUnitBasedOnType = () => {
+  if (form.value.production_type) {
+    form.value.unit = typeToUnitMap[form.value.production_type];
+  }
+};
+
 onMounted(async () => {
   try {
     const res = await api.get(`api/farm/batch/${batchSlug}/production/`);
@@ -99,12 +125,15 @@ onMounted(async () => {
 
       originalProductionType.value = matchingProductionType ? matchingProductionType.value : prod.production_type;
       originalUnit.value = matchingUnit ? matchingUnit.value : prod.unit;
+
+      if (form.value.production_type && typeToUnitMap[form.value.production_type]) {
+        form.value.unit = typeToUnitMap[form.value.production_type];
+      }
     }
   } catch (error) {
     console.error('Error cargando producción:', error);
   }
 });
-
 
 const updateProduction = async () => {
   try {
@@ -120,7 +149,7 @@ const updateProduction = async () => {
     router.back();
   } catch (error) {
     console.error('Error actualizando producción:', error);
-    toast.error('The batch could not be updated.');
+    toast.error('The production could not be updated.');
   }
 };
 </script>

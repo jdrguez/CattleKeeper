@@ -100,6 +100,7 @@ const getExpenseSummary = async () => {
 };
 
 const deleteExpense = async (id) => {
+  if (!confirm('Are you sure you want to delete this expense?')) return;
   try {
     await api.delete(`api/farm/finances/expenses/${id}/delete/`);
     expenses.value = expenses.value.filter(e => e.id !== id);

@@ -4,7 +4,12 @@
     <form @submit.prevent="createProduction" class="form-grid">
       <div class="form-group">
         <label for="production_type">Production Type:</label>
-        <select id="production_type" v-model="form.production_type" required>
+        <select 
+          id="production_type" 
+          v-model="form.production_type" 
+          @change="updateUnitBasedOnType"
+          required
+        >
           <option v-for="option in productionTypes" :key="option.value" :value="option.value">
             {{ option.label }}
           </option>
@@ -13,13 +18,26 @@
 
       <div class="form-group">
         <label for="quantity">Quantity:</label>
-        <input id="quantity" type="number" v-model="form.quantity" required placeholder="Quantity" />
+        <input 
+          id="quantity" 
+          type="number" 
+          v-model="form.quantity" 
+          required 
+          placeholder="Quantity" 
+          min="0"
+          step="0.01"
+        />
       </div>
 
       <div class="form-group">
         <label for="unit">Unit:</label>
-        <select id="unit" v-model="form.unit" required>
-          <option v-for="option in unitOptions" :key="option.value" :value="option.value">
+        <select 
+          id="unit" 
+          v-model="form.unit" 
+          required
+          :disabled="!!form.production_type"
+        >
+          <option v-for="option in filteredUnitOptions" :key="option.value" :value="option.value">
             {{ option.label }}
           </option>
         </select>
@@ -41,7 +59,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification';
 import api from '@/api/axios';
@@ -51,13 +69,12 @@ const router = useRouter();
 const route = useRoute();
 const batchSlug = ref(null);
 
-onMounted(() => {
-  if (route.params.batch_slug) {
-    batchSlug.value = route.params.batch_slug;
-  } else {
-    console.error('El parámetro batch_slug no está disponible en la ruta');
-  }
-});
+const typeToUnitMap = {
+  MEAT: 'KG',
+  MILK: 'L',
+  EGG: 'U',
+  WOOL: 'KG'
+};
 
 const form = ref({
   production_type: '',
@@ -80,6 +97,17 @@ const unitOptions = [
   { value: 'U', label: 'Units' }
 ];
 
+const filteredUnitOptions = computed(() => {
+  if (!form.value.production_type) return unitOptions;
+  return unitOptions.filter(unit => unit.value === typeToUnitMap[form.value.production_type]);
+});
+
+const updateUnitBasedOnType = () => {
+  if (form.value.production_type) {
+    form.value.unit = typeToUnitMap[form.value.production_type];
+  }
+};
+
 const createProduction = async () => {
   if (!batchSlug.value) {
     console.error('Not found batchSlug');
@@ -95,6 +123,14 @@ const createProduction = async () => {
     toast.error('The production could not be created');
   }
 };
+
+onMounted(() => {
+  if (route.params.batch_slug) {
+    batchSlug.value = route.params.batch_slug;
+  } else {
+    console.error('El parámetro batch_slug no está disponible en la ruta');
+  }
+});
 </script>
 
 <style scoped>
