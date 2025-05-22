@@ -23,7 +23,7 @@
         </select>
 
       <router-link :to="{ name: 'expense-create' }" class="btn-link">
-        <button class="btn-create">Create Expense</button>
+        <button class="btn-create">New Expense</button>
       </router-link>
     </section>
 

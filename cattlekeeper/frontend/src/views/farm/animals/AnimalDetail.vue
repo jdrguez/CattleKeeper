@@ -103,3 +103,4 @@ const deleteHealthEvent = async (eventId) => {
   }
 }
 </script>
+

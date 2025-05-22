@@ -122,3 +122,4 @@ const updateAnimal = async () => {
   }
 }
 </script>
+
