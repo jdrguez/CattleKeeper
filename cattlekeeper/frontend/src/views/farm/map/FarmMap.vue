@@ -79,7 +79,7 @@ function getXPosition(index) {
 }
 
 function getYPosition(index) {
-  return 200 + Math.floor(index / 4) * 150;
+  return 100 + Math.floor(index / 4) * 150;
 }
 
 function getZoneImage(species) {
@@ -127,7 +127,7 @@ function getAnimalImage(species) {
 .farm-map {
   position: relative;
   width: 1100px;
-  height: 600px;
+  height: 700px;
   margin: 0 auto;
   background-image: url('/assets/establo-fondo.jpg');
   background-size: cover;
