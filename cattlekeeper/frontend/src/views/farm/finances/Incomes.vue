@@ -2,34 +2,53 @@
 import { onMounted, ref } from 'vue';
 import api from '@/api/axios';
 import { useRouter } from 'vue-router';
+import { useToast } from 'vue-toastification';
 
+const toast = useToast();
 const incomes = ref([]);
 const router = useRouter();
 const summary = ref([]);
+const selectedCategory = ref('');
+const selectedBatch = ref('');
+const batchList = ref([]); 
+
+const fetchBatches = async () => {
+  try {
+    const response = await api.get('api/farm/batch/');
+    batchList.value = response.data; 
+  } catch (error) {
+    console.error('Error fetching batches:', error);
+  }
+};
 
 const fetchIncomes = async () => {
   try {
-    const response = await api.get('api/farm/finances/incomes/');
+    const response = await api.get('api/farm/finances/incomes/', {
+      params: {
+        category: selectedCategory.value,
+        batch: selectedBatch.value,
+      },
+    });
     incomes.value = response.data;
   } catch (error) {
-    if (error.response && error.response.status==402){
-      router.push('/plans')
-    }else{
-      console.error('Error al obtener ingresos:', error);
+    if (error.response && error.response.status === 402) {
+      router.push('/plans');
+    } else {
+      console.error('Error fetching incomes:', error);
     }
   }
 };
 
 const deleteIncome = async (id) => {
-  if (!confirm('¿Estás seguro de que deseas eliminar este ingreso?')) return;
+  if (!confirm('Are you sure you want to delete this income?')) return;
 
   try {
     await api.delete(`api/farm/finances/incomes/${id}/delete/`);
     incomes.value = incomes.value.filter(i => i.id !== id);
-    alert('Ingreso eliminado.');
+    toast.success('Income deleted successfully.');
   } catch (error) {
-    console.error('Error eliminando ingreso:', error);
-    alert('No se pudo eliminar el ingreso.');
+    console.error('Error deleting incomes:', error);
+    toast.error('Error deleting income');
   }
 };
 const getIncomesSummary = async () => {
@@ -37,13 +56,14 @@ const getIncomesSummary = async () => {
     const response = await api.get('api/farm/finances/incomes/summary/');
     summary.value = response.data.summary;
   } catch (error) {
-    console.error('Error al obtener el resumen de ingresos:', error);
+    console.error('Error fetching summary', error);
   }
 };
 
 onMounted(() => {
   fetchIncomes();
   getIncomesSummary();
+  fetchBatches();
 });
 </script>
 
@@ -52,6 +72,23 @@ onMounted(() => {
     <h1 class="page-title">Income List</h1>
 
     <section class="controls">
+    <label for="category" class="label">Category</label>
+  <select id="category" v-model="selectedCategory" @change="fetchIncomes" class="select">
+    <option value="">All</option>
+    <option value="SALE">Sale</option>
+    <option value="SUBSIDY">Subsidy</option>
+    <option value="DONATION">Donation</option>
+    <option value="OTHER">Other</option>
+  </select>
+
+  <label for="batch" class="label"> Batch</label>
+    <select id="batch" v-model="selectedBatch" @change="fetchIncomes" class="select">
+      <option value="">All</option>
+      <option v-for="batch in batchList" :key="batch.slug" :value="batch.slug">
+        {{ batch.name || batch.slug }}
+      </option>
+    </select>
+
       <router-link :to="{ name: 'create-income' }" class="btn-link">
         <button class="btn-create"> New Income</button>
       </router-link>
@@ -113,8 +150,31 @@ onMounted(() => {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem 1rem;
   margin-bottom: 2rem;
+}
+
+.label {
+  flex-shrink: 0;
+  font-weight: 600;
+  color: #555;
+  user-select: none;
+}
+
+.select {
+  flex-grow: 1;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 12px;
+  border: 2px solid #cbd5e1;
+  background: #f9fafb;
+  transition: border-color 0.3s ease;
+}
+
+.select:focus {
+  outline: none;
+  border-color: #28a745;;
+  box-shadow: 0 0 8px #33d459;
 }
 
 .btn-link {

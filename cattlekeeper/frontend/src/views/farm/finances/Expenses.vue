@@ -14,6 +14,14 @@
         <option value="OTHER">Other</option>
       </select>
 
+        <label for="batch" class="label">Batch</label>
+        <select id="batch" v-model="selectedBatch" @change="getExpenses" class="select">
+          <option value="">All</option>
+          <option v-for="batch in batchList" :key="batch.slug" :value="batch.slug">
+            {{ batch.name || batch.slug }}
+          </option>
+        </select>
+
       <router-link :to="{ name: 'expense-create' }" class="btn-link">
         <button class="btn-create">Create Expense</button>
       </router-link>
@@ -53,14 +61,24 @@
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import api from '@/api/axios';
+import { useToast } from 'vue-toastification';
 
+const toast = useToast();
 const route = useRoute();
-const batchSlug = route.params.batch_slug; 
 const expenses = ref([]);
 const summary = ref([]);
 const selectedCategory = ref('');
-const selectedBatch = ref(batchSlug);
+const selectedBatch = ref('');
+const batchList = ref([]); 
 
+const fetchBatches = async () => {
+  try {
+    const response = await api.get('api/farm/batch/');
+    batchList.value = response.data; 
+  } catch (error) {
+    console.error('Error fetching batches:', error);
+  }
+};
 const getExpenses = async () => {
   try {
     const response = await api.get('api/farm/finances/expenses/', {
@@ -71,7 +89,7 @@ const getExpenses = async () => {
     });
     expenses.value = response.data;
   } catch (error) {
-    console.error('Error al obtener los gastos:', error);
+    console.error('Error fetching expenses:', error);
   }
 };
 
@@ -80,7 +98,7 @@ const getExpenseSummary = async () => {
     const response = await api.get('api/farm/finances/expenses/summary/');
     summary.value = response.data.summary;
   } catch (error) {
-    console.error('Error al obtener el resumen de gastos:', error);
+    console.error('Error fetching expenses summary:', error);
   }
 };
 
@@ -88,9 +106,9 @@ const deleteExpense = async (id) => {
   try {
     await api.delete(`api/farm/finances/expenses/${id}/delete/`);
     expenses.value = expenses.value.filter(e => e.id !== id);
-    alert('Gasto eliminado con éxito');
+    toast.success('Expense deleted successfully');
   } catch (error) {
-    alert('Error al eliminar gasto');
+    toast.error('Error deleting expense');
     console.error(error);
   }
 };
@@ -98,6 +116,7 @@ const deleteExpense = async (id) => {
 onMounted(() => {
   getExpenses();
   getExpenseSummary();
+  fetchBatches();
 });
 </script>
 
@@ -126,7 +145,7 @@ onMounted(() => {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem 1rem;
   margin-bottom: 2rem;
 }
 
@@ -134,7 +153,6 @@ onMounted(() => {
   flex-shrink: 0;
   font-weight: 600;
   color: #555;
-  min-width: 100px;
   user-select: none;
 }
 
