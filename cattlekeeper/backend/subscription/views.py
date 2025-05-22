@@ -41,6 +41,8 @@ def get_subscription(request):
         return serializer.json_response()
     except UserSubscription.DoesNotExist:
         return JsonResponse({'error': 'No subscription found'}, status=404)
+    except Exception:
+        return JsonResponse({'error': 'No subscription found'}, status=404)
 
 
 @csrf_exempt

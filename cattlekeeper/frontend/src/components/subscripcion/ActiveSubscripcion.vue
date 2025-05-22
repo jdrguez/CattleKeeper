@@ -9,14 +9,17 @@
         <p><strong>Valid until:</strong> {{ formatDate(subscription.end_date) }}</p>
         <p><strong>Active?:</strong> <span :class="subscription.is_active ? 'text-success' : 'text-danger'">{{ subscription.is_active ? 'Yes' : 'No' }}</span></p>
       </div>
-      
-      <p v-else class="text-muted fst-italic text-center">You don't have any active subscriptions.</p>
+      <div v-else class="text-center">
+        <p  class="text-muted fst-italic text-center">You don't have any active subscriptions.</p>
+        <RouterLink to="/plans" class="btn btn-success mt-2"style="border-radius: 0.5rem; padding: 0.5rem 1.5rem;">Obtén el tú plan ahora</RouterLink>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { RouterLink } from 'vue-router'
 import api from '@/api/axios'
 
 const subscription = ref(null)
@@ -37,7 +40,6 @@ onMounted(async () => {
     if (error.response && error.response.status === 404) {
       subscription.value = null
     } else {
-      console.error('Error getting subscription:', error)
     }
   }
 })

@@ -51,7 +51,7 @@
       </div>
 
       <div class="subscription-card">
-        <ActiveSubscripcion />
+        <ActiveSubscripcion/>
         <CancelSubscripcion v-if="isActive"/>
       </div>
     </div>
@@ -139,7 +139,6 @@
   font-style: italic;
 }
 
-/* Responsive layout */
 @media (max-width: 768px) {
   .profile-grid {
     grid-template-columns: 1fr;
