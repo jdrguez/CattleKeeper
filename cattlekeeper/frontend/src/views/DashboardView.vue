@@ -146,7 +146,7 @@ onMounted(async () => {
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="#">
                 <svg class="bi"><use xlink:href="#house-fill"/></svg>
-                {{t('dashboard')}}
+                Dashboard
               </a>
             </li>
             <li class="nav-item">
@@ -202,19 +202,26 @@ onMounted(async () => {
         </div>
       </div>
       
-      <div style="min-width: 300px; min-height: 300px; border: 1px solid red">
-          <Chart />
-      </div>
-      <div style="display: flex; gap: 16px">
-    <div style="flex: 1; min-width: 300px; min-height: 300px; border: 1px solid red">
-      <production />
-    </div>
-    <div style="flex: 1; min-width: 300px; min-height: 300px; border: 1px solid red">
-      <expenses />
-    </div>
-  </div>
-      <div style="min-width: 300px; min-height: 300px; border: 1px solid red">
-          <incomerBatch />
+      <div style="display: flex; flex-direction: column; gap: 16px">
+  <!-- Chart at top -->
+          <div style="min-width: 300px; min-height: 300px;">
+            <Chart />
+          </div>
+          
+          <!-- Middle row with production and expenses -->
+          <div style="display: flex; flex-wrap: wrap; gap: 16px">
+            <div style="flex: 1 1 300px; min-height: 300px; border: 1px solid green">
+              <production />
+            </div>
+            <div style="flex: 1 1 300px; min-height: 300px; border: 1px solid green">
+              <expenses />
+            </div>
+          </div>
+          
+          <!-- Income at bottom -->
+          <div style="min-width: 300px; min-height: 300px;">
+            <incomerBatch />
+          </div>
       </div>
 
       <div class="card my-4">
