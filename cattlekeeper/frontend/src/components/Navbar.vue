@@ -68,7 +68,7 @@
           <li v-if="isLoggedIn" class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">
               <i class="bi bi-person d-block mx-auto mb-1"></i>
-              {{ t('Profile') }}
+              {{ t('profile') }}
             </a>
             <ul class="dropdown-menu">
               <li>
