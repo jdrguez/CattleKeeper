@@ -39,11 +39,9 @@
         <textarea
           id="description"
           v-model="form.description"
-          required
           class="form-control rounded-3 border-secondary"
           rows="4"
           style="resize: vertical;"
-          aria-required="true"
         ></textarea>
       </div>
 

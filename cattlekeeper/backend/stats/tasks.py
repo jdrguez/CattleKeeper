@@ -71,8 +71,8 @@ def farm_report_pdf(user, year = None, month = None):
     pdf_buffer.seek(0)
 
     email = EmailMessage(
-        subject=f'Reporte mensual de tu granja - {month}/{year}',
-        body='Adjunto encontrarás tu reporte mensaul en PDF',
+        subject=f'Your farms monthly report - {month}/{year}',
+        body='Attached youll find your monthly report in PDF format',
         from_email=None,
         to=[user.email],
     )

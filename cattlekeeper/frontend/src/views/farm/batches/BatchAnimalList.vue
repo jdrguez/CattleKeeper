@@ -30,8 +30,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Botón Añadir animal -->
     <div class="text-center mt-5">
       <button
         class="btn btn-success btn-lg px-4 rounded-pill shadow"
