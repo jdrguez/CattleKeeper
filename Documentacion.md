@@ -56,11 +56,21 @@ La plataforma incluye un sistema financiero integrado que permite a los usuarios
 * **Soporte multilingüe**: Disponible en español e inglés, con selector de idioma accesible
 * **Estadísticas dinámicas**: Gráficos actualizados en tiempo real sobre producción y finanzas
 
+### Visión de componentes
+
+![componentes](img/Componentes.png)
+
+
 ---
 
 ## ⚙️ Arquitectura del Sistema
 
 La arquitectura de **CattleKeeper** está diseñada para garantizar un rendimiento eficiente y una escalabilidad adecuada, dividiendo claramente las responsabilidades entre el frontend y el backend, lo que facilita su mantenimiento y evolución futura.
+
+## Flujo general de la aplicación
+
+![flujo_general](img/Flujo_general.png)
+
 
 ### Frontend (Vue.js 3)
 
@@ -70,6 +80,12 @@ El diseño responsivo se logra gracias a Bootstrap 5, garantizando una experienc
 
 Además, el sistema de internacionalización (i18n) soporta tanto español como inglés, permitiendo que los usuarios puedan cambiar de idioma sin perder contexto, mejorando la accesibilidad y alcance de la aplicación.
 
+#### Flujo del frontend
+
+![frontend](img/Frontend_flujo.png)
+
+
+
 ### Backend (Django)
 
 En el backend, **CattleKeeper** se apoya en Django, utilizando Django REST Framework para construir una API REST robusta y segura. La base de datos PostgreSQL es la encargada de almacenar toda la información persistente, garantizando integridad y rapidez en las consultas.
@@ -77,6 +93,8 @@ En el backend, **CattleKeeper** se apoya en Django, utilizando Django REST Frame
 Para las tareas que requieren procesamiento en segundo plano, como la generación de reportes en PDF o el envío de correos, se utiliza Redis como sistema de colas, gestionado mediante Django-RQ. Esta arquitectura permite que las operaciones que no son inmediatas se ejecuten sin afectar la respuesta del servidor.
 
 La generación de reportes en formato PDF se realiza con WeasyPrint, permitiendo exportar información financiera y de producción en documentos profesionales listos para impresión o envío.
+
+![backend_general](img/Backend_general.png)
 
 ---
 
@@ -107,6 +125,13 @@ El soporte multilenguaje está integrado en toda la aplicación, no solo en la i
 ### Autenticación y Seguridad
 
 Se implementa un sistema robusto de autenticación basado en tokens personalizados que permiten verificar la identidad del usuario y controlar el acceso a recursos según su nivel de suscripción. Las rutas están protegidas mediante guards que evitan accesos no autorizados, y se mantiene un control estricto sobre los perfiles y permisos.
+
+![autenticación](img/Autenticacion_seg.png)
+
+### Flujo de los tokens
+
+![tokens](img/Flujo_token.png)
+
 
 ### Configuración y Entorno de Desarrollo
 
