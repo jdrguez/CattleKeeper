@@ -37,8 +37,6 @@ const loadData = async () => {
   } catch (error) {
     if (error.response && error.response.status== 402){
       router.push('/plans')
-    }else{
-      console.error('Error loading production:', error)
     }
   }
 }

@@ -49,6 +49,7 @@ import PlansView from '@/views/accounts/PlansView.vue'
 
 //Store
 import { useSubscriptionStore } from '@/stores/subscription'
+import ServerError from '@/views/ServerError.vue'
 
 
 
@@ -58,6 +59,7 @@ const router = createRouter({
   routes: [
     { path: '/', name: 'home', component: HomeView, meta: { breadcrumb: [{ label: 'Inicio', to: '/dashboard' }] , hideSidebar: true } },
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound, meta: { breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'No encontrado' }] } },
+    { path: '/errors/server', name:'ServerErros', component: ServerError, meta: {requiresAuth:true}},
 
     // Cuentas
     { path: '/login', name: 'Login', component: LoginView, meta: { breadcrumb: [{ label: 'Inicio', to: '/dashboard' }, { label: 'Iniciar sesión' }], hideSidebar: true } },

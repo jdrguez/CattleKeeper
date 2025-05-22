@@ -76,7 +76,6 @@ const fetchBatches = async () => {
     const response = await api.get('api/farm/batch/');
     batchList.value = response.data; 
   } catch (error) {
-    console.error('Error fetching batches:', error);
   }
 };
 const getExpenses = async () => {
@@ -89,7 +88,6 @@ const getExpenses = async () => {
     });
     expenses.value = response.data;
   } catch (error) {
-    console.error('Error fetching expenses:', error);
   }
 };
 
@@ -98,7 +96,6 @@ const getExpenseSummary = async () => {
     const response = await api.get('api/farm/finances/expenses/summary/');
     summary.value = response.data.summary;
   } catch (error) {
-    console.error('Error fetching expenses summary:', error);
   }
 };
 
@@ -109,7 +106,6 @@ const deleteExpense = async (id) => {
     toast.success('Expense deleted successfully');
   } catch (error) {
     toast.error('Error deleting expense');
-    console.error(error);
   }
 };
 

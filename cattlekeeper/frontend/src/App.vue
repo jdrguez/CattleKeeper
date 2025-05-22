@@ -33,4 +33,26 @@ main {
   padding: 20px;
   width: 100%;
 }
+
+body.theme-dark {
+  background-color: #121212 !important;
+  color: #e0e0e0;
+}
+
+body.theme-light {
+  background-color: #ffffff !important;
+  color: #000000;
+}
+
+body.theme-dark a {
+  color: #90caf9;
+}
+
+body.theme-dark .card {
+  background-color: #1e1e1e;
+  border-color: #333;
+}
+
+
+
 </style>

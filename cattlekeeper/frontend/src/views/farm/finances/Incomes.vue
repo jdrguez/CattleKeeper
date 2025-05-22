@@ -17,7 +17,6 @@ const fetchBatches = async () => {
     const response = await api.get('api/farm/batch/');
     batchList.value = response.data; 
   } catch (error) {
-    console.error('Error fetching batches:', error);
   }
 };
 
@@ -34,7 +33,6 @@ const fetchIncomes = async () => {
     if (error.response && error.response.status === 402) {
       router.push('/plans');
     } else {
-      console.error('Error fetching incomes:', error);
     }
   }
 };
@@ -47,7 +45,6 @@ const deleteIncome = async (id) => {
     incomes.value = incomes.value.filter(i => i.id !== id);
     toast.success('Income deleted successfully.');
   } catch (error) {
-    console.error('Error deleting incomes:', error);
     toast.error('Error deleting income');
   }
 };
@@ -56,7 +53,6 @@ const getIncomesSummary = async () => {
     const response = await api.get('api/farm/finances/incomes/summary/');
     summary.value = response.data.summary;
   } catch (error) {
-    console.error('Error fetching summary', error);
   }
 };
 

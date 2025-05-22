@@ -1,6 +1,7 @@
 import axios from 'axios'
 import router from '@/router'
 
+
 const api = axios.create({
   baseURL: 'http://127.0.0.1:8000',
 })
@@ -26,6 +27,9 @@ api.interceptors.response.use(
     if (error.response) {
       if (error.response.status === 402) {
         router.push('/plans')
+      }
+      if (error.response.status === 500){
+        router.push('/errors/server')
       }
       if (error.respose.status == 404){
         router.push('NotFound')
