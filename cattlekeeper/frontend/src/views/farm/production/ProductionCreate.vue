@@ -68,21 +68,21 @@ const form = ref({
 });
 
 const productionTypes = [
-  { value: 'MEAT', label: 'Carne' },
-  { value: 'MILK', label: 'Leche' },
-  { value: 'EGG', label: 'Huevos' },
-  { value: 'WOOL', label: 'Lana' }
+  { value: 'MEAT', label: 'Meat' },
+  { value: 'MILK', label: 'Milk' },
+  { value: 'EGG', label: 'Egg' },
+  { value: 'WOOL', label: 'Wool' }
 ];
 
 const unitOptions = [
-  { value: 'L', label: 'Litros' },
-  { value: 'KG', label: 'Kilogramos' },
-  { value: 'U', label: 'Unidades' }
+  { value: 'L', label: 'Liters' },
+  { value: 'KG', label: 'Kilograms' },
+  { value: 'U', label: 'Units' }
 ];
 
 const createProduction = async () => {
   if (!batchSlug.value) {
-    console.error('No se ha encontrado el batchSlug');
+    console.error('Not found batchSlug');
     return;
   }
 
