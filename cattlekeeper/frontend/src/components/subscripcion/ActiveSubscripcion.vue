@@ -11,7 +11,7 @@
       </div>
       <div v-else class="text-center">
         <p  class="text-muted fst-italic text-center">You don't have any active subscriptions.</p>
-        <RouterLink to="/plans" class="btn btn-success mt-2"style="border-radius: 0.5rem; padding: 0.5rem 1.5rem;">Obtén el tú plan ahora</RouterLink>
+        <RouterLink to="/plans" class="btn btn-success mt-2"style="border-radius: 0.5rem; padding: 0.5rem 1.5rem;">Get your plan now</RouterLink>
       </div>
     </div>
   </div>
