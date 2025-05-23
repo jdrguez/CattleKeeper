@@ -81,7 +81,8 @@ const createBatch = async () => {
             type="number"
             v-model="form.quantity"
             class="form-control"
-            min="1"
+            min="0"
+            max="5000"
             required
           />
         </div>
